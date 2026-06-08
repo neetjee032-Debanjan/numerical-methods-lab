@@ -821,4 +821,84 @@
     document.getElementById('refreshDataBtn').addEventListener('click', () => {
         let size = parseInt(document.getElementById('sampleSizeSlider').value);
         currentData = generateRandomData(size);
-        updateHist
+        updateHistogram();
+    });
+    
+    // ========== SIMULATION 2 ==========
+    const canvasReg = document.getElementById('regressionCanvas');
+    let regChart = null;
+    
+    function generateRegressionData(slope, noiseLevel, n=45) {
+        let x = Array.from({length: n}, (_,i) => (i / (n-1)) * 10 + 1);
+        let y = [];
+        let intercept = 5.0;
+        for(let xi of x) {
+            let trueVal = intercept + slope * xi;
+            let noise = (Math.random() - 0.5) * noiseLevel * 3;
+            y.push(parseFloat((trueVal + noise).toFixed(2)));
+        }
+        return {x, y};
+    }
+    
+    function computeLinearRegression(xArr, yArr) {
+        let n = xArr.length;
+        let sumX = xArr.reduce((a,b)=>a+b,0);
+        let sumY = yArr.reduce((a,b)=>a+b,0);
+        let sumXY = 0, sumX2 = 0;
+        for(let i=0;i<n;i++) { sumXY += xArr[i]*yArr[i]; sumX2 += xArr[i]*xArr[i]; }
+        let denominator = (n * sumX2 - sumX*sumX);
+        let slope = (n * sumXY - sumX*sumY) / denominator;
+        let intercept = (sumY - slope*sumX) / n;
+        let ssRes = 0, ssTot = 0;
+        let meanY = sumY/n;
+        for(let i=0;i<n;i++) {
+            let pred = intercept + slope*xArr[i];
+            ssRes += (yArr[i]-pred)**2;
+            ssTot += (yArr[i]-meanY)**2;
+        }
+        let r2 = 1 - (ssRes/ssTot);
+        r2 = r2<0?0:r2>1?1:r2;
+        return {slope, intercept, r2};
+    }
+    
+    let regressionData = {x:[], y:[]};
+    
+    function refreshRegression() {
+        let currentSlope = parseFloat(document.getElementById('slopeSlider').value);
+        let currentNoise = parseFloat(document.getElementById('noiseSlider').value);
+        document.getElementById('slopeVal').innerText = currentSlope.toFixed(2);
+        document.getElementById('noiseVal').innerText = currentNoise.toFixed(2);
+        
+        let {x, y} = generateRegressionData(currentSlope, currentNoise, 45);
+        regressionData = {x, y};
+        let {slope, intercept, r2} = computeLinearRegression(x, y);
+        document.getElementById('interceptVal').innerText = intercept.toFixed(2);
+        document.getElementById('slopeDisplay').innerText = slope.toFixed(3);
+        document.getElementById('rsquaredVal').innerText = r2.toFixed(3);
+        
+        if(regChart) regChart.destroy();
+        let scatterPoints = regressionData.x.map((xi, idx) => ({x: xi, y: regressionData.y[idx]}));
+        let lineX = [Math.min(...regressionData.x), Math.max(...regressionData.x)];
+        let lineY = lineX.map(x => intercept + slope * x);
+        regChart = new Chart(canvasReg, {
+            type: 'scatter',
+            data: { datasets: [
+                { label: 'Data', data: scatterPoints, backgroundColor: '#ef4444', pointRadius: 5, type: 'scatter' },
+                { label: 'Regression Line', data: lineX.map((x,i) => ({x: x, y: lineY[i]})), type: 'line', borderColor: '#2563eb', borderWidth: 3, fill: false, pointRadius: 0 }
+            ] },
+            options: { responsive: true, maintainAspectRatio: true }
+        });
+    }
+    
+    document.getElementById('slopeSlider').addEventListener('input', () => refreshRegression());
+    document.getElementById('noiseSlider').addEventListener('input', () => refreshRegression());
+    document.getElementById('refreshRegBtn').addEventListener('click', () => refreshRegression());
+    
+    // Initialize
+    updateHistogram();
+    refreshRegression();
+    
+    console.log("Website loaded successfully!");
+</script>
+</body>
+</html>
