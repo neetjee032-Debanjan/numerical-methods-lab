@@ -1,166 +1,200 @@
-// ---------- SIMULATION 1: HISTOGRAM (mean/median simulation) ----------
-const canvasHist = document.getElementById('histogramCanvas');
-let histChart = null;
-
-function generateRandomData(n) {
-    // generate moderately right-skewed mixture to show interesting mean/median difference
-    let data = [];
-    for(let i = 0; i < n; i++) {
-        // mix of normal + exponential to mimic real data
-        let val = Math.random() < 0.7 ? (Math.random() * 30 + 10) : (Math.random() * 50 + 20);
-        // add some skewness via exponent
-        if(Math.random() > 0.6) val += Math.random() * 25;
-        data.push(parseFloat(val.toFixed(1)));
-    }
-    return data;
-}
-
-let currentData = generateRandomData(50);
-
-function updateHistogram() {
-    const bins = 12;
-    const minVal = Math.min(...currentData);
-    const maxVal = Math.max(...currentData);
-    const binWidth = (maxVal - minVal) / bins;
-    let counts = new Array(bins).fill(0);
-    let binLabels = [];
-    for(let i=0; i<bins; i++) {
-        let lower = minVal + i*binWidth;
-        let upper = lower + binWidth;
-        binLabels.push(`${lower.toFixed(1)}-${upper.toFixed(1)}`);
-    }
-    for(let val of currentData) {
-        let idx = Math.min(bins-1, Math.floor((val - minVal) / binWidth));
-        if(idx>=0 && idx<bins) counts[idx]++;
-    }
-    
-    const meanVal = (currentData.reduce((a,b)=>a+b,0)/currentData.length).toFixed(2);
-    const sorted = [...currentData].sort((a,b)=>a-b);
-    let median;
-    const mid = Math.floor(sorted.length/2);
-    if(sorted.length %2 ===0) median = ((sorted[mid-1]+sorted[mid])/2).toFixed(2);
-    else median = sorted[mid].toFixed(2);
-    
-    const variance = currentData.reduce((acc,val)=> acc + Math.pow(val - parseFloat(meanVal),2),0)/currentData.length;
-    const stdDev = Math.sqrt(variance).toFixed(2);
-    
-    document.getElementById('meanVal').innerText = meanVal;
-    document.getElementById('medianVal').innerText = median;
-    document.getElementById('stdVal').innerText = stdDev;
-    
-    if(histChart) histChart.destroy();
-    histChart = new Chart(canvasHist, {
-        type: 'bar',
-        data: { labels: binLabels, datasets: [{ label: 'Frequency', data: counts, backgroundColor: '#3b82f6', borderRadius: 8 }] },
-        options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: (ctx) => `Count: ${ctx.raw}` } } } }
-    });
-}
-
-document.getElementById('sampleSizeSlider').addEventListener('input', (e) => {
-    let newSize = parseInt(e.target.value);
-    document.getElementById('sampleSizeVal').innerText = newSize;
-    currentData = generateRandomData(newSize);
-    updateHistogram();
-});
-
-document.getElementById('refreshDataBtn').addEventListener('click', () => {
-    let size = parseInt(document.getElementById('sampleSizeSlider').value);
-    currentData = generateRandomData(size);
-    updateHistogram();
-});
-
-// ---------- SIMULATION 2: LINEAR REGRESSION ----------
-const canvasReg = document.getElementById('regressionCanvas');
-let regChart = null;
-let currentX = [], currentY = [];
-
-function generateRegressionData(slope, noiseLevel, n=45) {
-    let x = Array.from({length: n}, (_,i) => (i / (n-1)) * 10 + 1); // 1..11 range
-    let y = [];
-    let intercept = 5.0;
-    for(let xi of x) {
-        let trueVal = intercept + slope * xi;
-        let noise = (Math.random() - 0.5) * noiseLevel * 3;
-        y.push(parseFloat((trueVal + noise).toFixed(2)));
-    }
-    return {x, y};
-}
-
-function computeLinearRegression(xArr, yArr) {
-    let n = xArr.length;
-    let sumX = xArr.reduce((a,b)=>a+b,0);
-    let sumY = yArr.reduce((a,b)=>a+b,0);
-    let sumXY = 0, sumX2 = 0;
-    for(let i=0;i<n;i++) { sumXY += xArr[i]*yArr[i]; sumX2 += xArr[i]*xArr[i]; }
-    let denominator = (n * sumX2 - sumX*sumX);
-    let slope = (n * sumXY - sumX*sumY) / denominator;
-    let intercept = (sumY - slope*sumX) / n;
-    // compute R2
-    let ssRes = 0, ssTot = 0;
-    let meanY = sumY/n;
-    for(let i=0;i<n;i++) {
-        let pred = intercept + slope*xArr[i];
-        ssRes += (yArr[i]-pred)**2;
-        ssTot += (yArr[i]-meanY)**2;
-    }
-    let r2 = 1 - (ssRes/ssTot);
-    r2 = r2<0?0:r2>1?1:r2;
-    return {slope, intercept, r2};
-}
-
-let currentSlope = 2.0, currentNoise = 1.5;
-let regressionData = {x:[], y:[]};
-
-function refreshRegression() {
-    currentSlope = parseFloat(document.getElementById('slopeSlider').value);
-    currentNoise = parseFloat(document.getElementById('noiseSlider').value);
-    document.getElementById('slopeVal').innerText = currentSlope.toFixed(2);
-    document.getElementById('noiseVal').innerText = currentNoise.toFixed(2);
-    
-    let {x, y} = generateRegressionData(currentSlope, currentNoise, 45);
-    regressionData = {x, y};
-    let {slope, intercept, r2} = computeLinearRegression(x, y);
-    document.getElementById('interceptVal').innerText = intercept.toFixed(2);
-    document.getElementById('slopeDisplay').innerText = slope.toFixed(3);
-    document.getElementById('rsquaredVal').innerText = r2.toFixed(3);
-    updateRegPlot(slope, intercept);
-}
-
-function updateRegPlot(fittedSlope, fittedIntercept) {
-    if(regChart) regChart.destroy();
-    let scatterPoints = regressionData.x.map((xi, idx) => ({x: xi, y: regressionData.y[idx]}));
-    let lineX = [Math.min(...regressionData.x), Math.max(...regressionData.x)];
-    let lineY = lineX.map(x => fittedIntercept + fittedSlope * x);
-    regChart = new Chart(canvasReg, {
-        type: 'scatter',
-        data: { datasets: [
-            { label: 'Observed Data', data: scatterPoints, backgroundColor: '#ef4444', borderColor: '#ef4444', pointRadius: 5, type: 'scatter' },
-            { label: 'Regression Line', data: lineX.map((x,i) => ({x: x, y: lineY[i]})), type: 'line', borderColor: '#2563eb', borderWidth: 3, fill: false, pointRadius: 0 }
-        ] },
-        options: { responsive: true, maintainAspectRatio: true, scales: { x: { title: { display: true, text: 'Ad Spend (X)' } }, y: { title: { display: true, text: 'Sales (Y)' } } }, plugins: { tooltip: { callbacks: { label: (ctx) => `(${ctx.parsed.x.toFixed(2)}, ${ctx.parsed.y.toFixed(2)})` } } } }
-    });
-}
-
-document.getElementById('slopeSlider').addEventListener('input', () => refreshRegression());
-document.getElementById('noiseSlider').addEventListener('input', () => refreshRegression());
-document.getElementById('refreshRegBtn').addEventListener('click', () => refreshRegression());
-
-// initialise everything
-function initAll() {
-    updateHistogram();
-    // initial regression
-    let initSlope = 2.0, initNoise=1.5;
-    let initGen = generateRegressionData(initSlope, initNoise, 45);
-    regressionData = {x: initGen.x, y: initGen.y};
-    let {slope, intercept, r2} = computeLinearRegression(regressionData.x, regressionData.y);
-    document.getElementById('interceptVal').innerText = intercept.toFixed(2);
-    document.getElementById('slopeDisplay').innerText = slope.toFixed(3);
-    document.getElementById('rsquaredVal').innerText = r2.toFixed(3);
-    document.getElementById('slopeSlider').value = 2.0;
-    document.getElementById('noiseSlider').value = 1.5;
-    document.getElementById('slopeVal').innerText = "2.0";
-    document.getElementById('noiseVal').innerText = "1.5";
-    updateRegPlot(slope, intercept);
-}
-
-initAll();
+// Topic database with detailed content
+const topicContent = {
+    'eda': {
+        title: '📈 Exploratory Data Analysis (EDA)',
+        icon: '📈',
+        content: `
+            <div class="topic-section">
+                <h4>What is EDA?</h4>
+                <p>Exploratory Data Analysis is an approach to analyzing data sets to summarize their main characteristics, often using visual methods. EDA is critical for understanding the structure of your data before applying formal modeling techniques.</p>
+            </div>
+            <div class="topic-section">
+                <h4>Key Components of EDA:</h4>
+                <ul style="margin-left: 1.5rem; color: #334155;">
+                    <li><strong>Distribution Analysis:</strong> Understanding how data points are spread across different values</li>
+                    <li><strong>Outlier Detection:</strong> Identifying unusual observations that deviate from other observations</li>
+                    <li><strong>Missing Value Analysis:</strong> Finding gaps in your data and deciding how to handle them</li>
+                    <li><strong>Pattern Recognition:</strong> Spotting trends, cycles, or relationships between variables</li>
+                </ul>
+            </div>
+            <div class="topic-section">
+                <h4>Common EDA Techniques:</h4>
+                <ul style="margin-left: 1.5rem; color: #334155;">
+                    <li>Histograms and Box plots for distribution</li>
+                    <li>Scatter plots for relationships</li>
+                    <li>Correlation matrices</li>
+                    <li>Summary statistics (mean, median, standard deviation)</li>
+                </ul>
+            </div>
+            <div class="example-box">
+                <strong>💡 Real-world Example:</strong> A retail company analyzing sales data might use EDA to discover that most sales occur on weekends, helping them optimize staffing and promotions.
+            </div>
+            <div class="code-block">
+                <strong>Python Code Example:</strong><br>
+                import pandas as pd<br>
+                import matplotlib.pyplot as plt<br><br>
+                # Load data<br>
+                df = pd.read_csv('sales.csv')<br><br>
+                # Quick summary<br>
+                print(df.describe())<br><br>
+                # Visualize distribution<br>
+                df['sales'].hist(bins=30)<br>
+                plt.show()
+            </div>
+        `
+    },
+    'correlation': {
+        title: '🧩 Correlation vs Causation',
+        icon: '🧩',
+        content: `
+            <div class="topic-section">
+                <h4>Understanding the Difference</h4>
+                <p><strong>Correlation</strong> measures the strength and direction of a relationship between two variables. <strong>Causation</strong> means that one event directly causes another to occur.</p>
+            </div>
+            <div class="topic-section">
+                <h4>Key Insight:</h4>
+                <p><em>"Correlation does not imply causation"</em> - This is one of the most important principles in statistics. Two variables can be correlated without one causing the other.</p>
+            </div>
+            <div class="topic-section">
+                <h4>Correlation Types:</h4>
+                <ul style="margin-left: 1.5rem; color: #334155;">
+                    <li><strong>Positive Correlation:</strong> As one variable increases, the other increases (e.g., height and weight)</li>
+                    <li><strong>Negative Correlation:</strong> As one variable increases, the other decreases (e.g., speed and travel time)</li>
+                    <li><strong>Zero Correlation:</strong> No relationship between variables</li>
+                </ul>
+            </div>
+            <div class="example-box">
+                <strong>📊 Classic Example:</strong> Ice cream sales and drowning incidents are positively correlated, but eating ice cream doesn't cause drowning. The hidden variable is hot weather, which causes both!
+            </div>
+            <div class="code-block">
+                <strong>Python Code (Correlation Calculation):</strong><br>
+                import numpy as np<br><br>
+                # Calculate Pearson correlation<br>
+                correlation = np.corrcoef(x, y)[0, 1]<br>
+                print(f"Correlation coefficient: {correlation}")<br><br>
+                # Range: -1 (perfect negative) to +1 (perfect positive)
+            </div>
+        `
+    },
+    'regression': {
+        title: '📉 Linear Regression',
+        icon: '📉',
+        content: `
+            <div class="topic-section">
+                <h4>What is Linear Regression?</h4>
+                <p>Linear regression is a statistical method used to model the relationship between a dependent variable (Y) and one or more independent variables (X). The goal is to find the best-fitting straight line through the data points.</p>
+            </div>
+            <div class="topic-section">
+                <h4>The Equation:</h4>
+                <p><strong>Y = mX + b</strong> where:<br>
+                - Y is the predicted value (dependent variable)<br>
+                - X is the input feature (independent variable)<br>
+                - m is the slope (coefficient)<br>
+                - b is the y-intercept</p>
+            </div>
+            <div class="topic-section">
+                <h4>Key Metrics:</h4>
+                <ul style="margin-left: 1.5rem; color: #334155;">
+                    <li><strong>R-squared (R²):</strong> Measures how well the model fits the data (0 to 1, higher is better)</li>
+                    <li><strong>P-value:</strong> Tests if the relationship is statistically significant</li>
+                    <li><strong>Coefficients:</strong> Show the strength and direction of relationships</li>
+                </ul>
+            </div>
+            <div class="example-box">
+                <strong>🏠 Real-world Application:</strong> Predicting house prices based on square footage. The regression model might find that each additional square foot increases the price by $150.
+            </div>
+            <div class="code-block">
+                <strong>Python Code (Linear Regression with scikit-learn):</strong><br>
+                from sklearn.linear_model import LinearRegression<br>
+                import numpy as np<br><br>
+                model = LinearRegression()<br>
+                model.fit(X, y)<br>
+                predictions = model.predict(X_new)<br>
+                print(f"Coefficient: {model.coef_[0]}")<br>
+                print(f"R-squared: {model.score(X, y)}")
+            </div>
+        `
+    },
+    'hypothesis': {
+        title: '🎲 Hypothesis Testing',
+        icon: '🎲',
+        content: `
+            <div class="topic-section">
+                <h4>What is Hypothesis Testing?</h4>
+                <p>Hypothesis testing is a statistical method used to make decisions using data. It helps determine whether there is enough evidence to reject a null hypothesis.</p>
+            </div>
+            <div class="topic-section">
+                <h4>Key Concepts:</h4>
+                <ul style="margin-left: 1.5rem; color: #334155;">
+                    <li><strong>Null Hypothesis (H₀):</strong> The default assumption (e.g., "no effect" or "no difference")</li>
+                    <li><strong>Alternative Hypothesis (H₁):</strong> What you want to prove</li>
+                    <li><strong>P-value:</strong> Probability of observing results as extreme as what you found, assuming H₀ is true</li>
+                    <li><strong>Significance Level (α):</strong> Usually 0.05 (5%), the threshold for rejecting H₀</li>
+                    <li><strong>Confidence Interval:</strong> Range that likely contains the true population parameter</li>
+                </ul>
+            </div>
+            <div class="topic-section">
+                <h4>Decision Rule:</h4>
+                <p>If p-value < α (0.05), reject H₀ → Results are statistically significant.<br>
+                If p-value ≥ α, fail to reject H₀ → Not enough evidence.</p>
+            </div>
+            <div class="example-box">
+                <strong>🧪 A/B Testing Example:</strong> An e-commerce site tests two button colors. Null hypothesis: both colors have same conversion rate. If p-value < 0.05, the new color significantly improves conversions.
+            </div>
+            <div class="code-block">
+                <strong>Python Code (t-test example):</strong><br>
+                from scipy import stats<br><br>
+                # Two-sample t-test<br>
+                t_stat, p_value = stats.ttest_ind(group_a, group_b)<br>
+                print(f"P-value: {p_value}")<br>
+                if p_value < 0.05:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;print("Statistically significant difference!")
+            </div>
+        `
+    },
+    'data-types': {
+        title: '🔢 Data Types in Analytics',
+        icon: '🔢',
+        content: `
+            <div class="topic-section">
+                <h4>The Four Scales of Measurement</h4>
+                <ul style="margin-left: 1.5rem; color: #334155;">
+                    <li><strong>Nominal:</strong> Categories with no order (e.g., colors, genders, countries)</li>
+                    <li><strong>Ordinal:</strong> Categories with order but unequal intervals (e.g., movie ratings, education levels)</li>
+                    <li><strong>Interval:</strong> Numeric with equal intervals but no true zero (e.g., temperature in Celsius)</li>
+                    <li><strong>Ratio:</strong> Numeric with equal intervals and true zero (e.g., height, weight, age)</li>
+                </ul>
+            </div>
+            <div class="example-box">
+                <strong>💡 Why it matters:</strong> The data type determines which statistical tests and visualizations are appropriate. You can't calculate the mean of nominal data!
+            </div>
+            <div class="code-block">
+                <strong>Pandas Data Type Handling:</strong><br>
+                import pandas as pd<br><br>
+                # Convert to categorical<br>
+                df['category'] = df['category'].astype('category')<br>
+                # Check data types<br>
+                print(df.dtypes)
+            </div>
+        `
+    },
+    'descriptive-stats': {
+        title: '📏 Descriptive Statistics',
+        icon: '📏',
+        content: `
+            <div class="topic-section">
+                <h4>Measures of Central Tendency</h4>
+                <ul style="margin-left: 1.5rem; color: #334155;">
+                    <li><strong>Mean:</strong> Average of all values</li>
+                    <li><strong>Median:</strong> Middle value when sorted (resistant to outliers)</li>
+                    <li><strong>Mode:</strong> Most frequent value</li>
+                </ul>
+            </div>
+            <div class="topic-section">
+                <h4>Measures of Dispersion</h4>
+                <ul style="margin-left: 1.5rem; color: #334155;">
+                    <li><strong>Range:</strong> Max - Min</li>
+                    <li><strong>Variance:</strong> Average squared deviation from mean</li>
+                    <li><strong>Standard Deviation:</strong> Square root of variance (in original units)</li>
+                    <li><strong>IQR:</strong> Interquartile range (Q3 - Q1)</li>
+               
