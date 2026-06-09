@@ -1,4 +1,3 @@
-import { course } from "../data/course.js";
 import { markPageComplete, getProgress } from "../progress.js";
 
 export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0) {
@@ -16,10 +15,9 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
   }
 
   const page = lesson.pages[pageIndex];
-  const progress = getProgress();
 
-  const completedPages =
-    progress?.[moduleId]?.[lessonId] || [];
+  const progress = getProgress();
+  const completedPages = progress?.[moduleId]?.[lessonId] || [];
 
   const isCompleted = completedPages.includes(pageIndex);
 
@@ -32,16 +30,14 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
 
       <!-- SIDEBAR -->
       <div class="sidebar">
-
-        <h3>📄 Lesson Pages</h3>
+        <h3>📄 Pages</h3>
 
         ${lesson.pages.map((p, i) => `
           <div class="card" style="
-            opacity: ${i === pageIndex ? 1 : 0.6};
-            border-left: ${i === pageIndex ? "4px solid #3b82f6" : "none"};
+            opacity:${i === pageIndex ? 1 : 0.65};
+            border-left:${i === pageIndex ? "4px solid #3b82f6" : "none"};
           ">
-            <a href="#lesson-${moduleId}-${lessonId}-${i}" 
-               style="color:white; text-decoration:none;">
+            <a href="#lesson-${moduleId}-${lessonId}-${i}" style="color:white;text-decoration:none;">
               ${i + 1}. ${p.title}
             </a>
 
@@ -50,7 +46,6 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
             </span>
           </div>
         `).join("")}
-
       </div>
 
       <!-- CONTENT -->
@@ -75,47 +70,35 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
         <div style="margin-top:30px; display:flex; gap:10px;">
 
           ${pageIndex > 0 ? `
-            <button onclick="goPage(${pageIndex - 1})">
-              ⬅ Previous
-            </button>
+            <button onclick="goPage(${pageIndex - 1})">⬅ Previous</button>
           ` : ""}
 
           ${pageIndex < lesson.pages.length - 1 ? `
-            <button onclick="goPage(${pageIndex + 1})">
-              Next ➡
-            </button>
+            <button onclick="goPage(${pageIndex + 1})">Next ➡</button>
           ` : `
-            <button disabled>
-              🎉 Lesson Completed
-            </button>
+            <button disabled>🎉 Completed</button>
           `}
 
         </div>
 
         <div style="margin-top:10px; opacity:0.7;">
-          Page ${pageIndex + 1} of ${lesson.pages.length}
+          Page ${pageIndex + 1} / ${lesson.pages.length}
         </div>
 
         <!-- SIMULATION AREA -->
         <div id="sim" style="margin-top:30px;"></div>
 
       </div>
-
     </div>
   `;
 
-  // -------------------------
-  // NAVIGATION FUNCTION
-  // -------------------------
+  // Navigation handler
   window.goPage = (i) => {
     window.location.hash = `lesson-${moduleId}-${lessonId}-${i}`;
   };
 
-  // -------------------------
-  // MARK COMPLETE FUNCTION
-  // -------------------------
+  // Mark complete
   const btn = document.getElementById("completeBtn");
-
   if (btn) {
     btn.onclick = () => {
       markPageComplete(moduleId, lessonId, pageIndex);
@@ -124,21 +107,43 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
   }
 
   // -------------------------
-  // SIMULATION LOADER
+  // SIMULATION LOADER (FULL)
   // -------------------------
   if (lesson.simulation) {
 
     const simContainer = document.getElementById("sim");
 
-    if (lesson.simulation === "newton") {
-      import("../sims/newton-raphson.js").then(m => {
-        m.runNewton(simContainer);
-      });
-    }
+    import(`../sims/${lesson.simulation}.js`)
+      .then(module => {
 
-    // Future expansions (already ready)
-    // else if (lesson.simulation === "bisection") {}
-    // else if (lesson.simulation === "lagrange") {}
-    // else if (lesson.simulation === "trapezoid") {}
+        switch (lesson.simulation) {
+
+          case "newton":
+            module.runNewton(simContainer);
+            break;
+
+          case "bisection":
+            module.runBisection(simContainer);
+            break;
+
+          case "lagrange":
+            module.runLagrange(simContainer);
+            break;
+
+          case "trapezoid":
+            module.runTrapezoid(simContainer);
+            break;
+
+          case "euler":
+            module.runEuler(simContainer);
+            break;
+
+          default:
+            simContainer.innerHTML = "<p>No simulation available.</p>";
+        }
+      })
+      .catch(() => {
+        simContainer.innerHTML = "<p>Simulation failed to load.</p>";
+      });
   }
 }
