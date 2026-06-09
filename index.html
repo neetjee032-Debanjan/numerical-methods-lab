@@ -9,386 +9,74 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #1a1a2e;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
-        }
-
-        .navbar {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .logo i {
-            color: #667eea;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            font-weight: 600;
-            color: #1a1a2e;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .nav-links a:hover {
-            color: #667eea;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 80px 0 60px;
-            color: white;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-        }
-
-        .section-card {
-            background: white;
-            border-radius: 2rem;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .section-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: #1a1a2e;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 0.5rem;
-        }
-
-        .section-title i {
-            font-size: 2rem;
-            color: #667eea;
-        }
-
-        .topics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .topic-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 1px solid rgba(102,126,234,0.3);
-        }
-
-        .topic-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            border-color: #667eea;
-        }
-
-        .topic-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .topic-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: #1a1a2e;
-        }
-
-        .topic-card p {
-            color: #4a5568;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .topic-badge {
-            display: inline-block;
-            padding: 0.2rem 0.8rem;
-            background: #667eea;
-            color: white;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .simulation-3d {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            border-radius: 1rem;
-            padding: 2rem;
-            margin: 2rem 0;
-            color: white;
-            text-align: center;
-        }
-
-        #threeCanvas {
-            width: 100%;
-            height: 500px;
-            border-radius: 1rem;
-            background: rgba(0,0,0,0.3);
-            margin-top: 1rem;
-        }
-
-        .sim-button {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            margin: 0.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .sim-button:hover {
-            transform: scale(1.05);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            background: white;
-            margin: 2% auto;
-            width: 90%;
-            max-width: 1000px;
-            border-radius: 1.5rem;
-            max-height: 90%;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            position: sticky;
-            top: 0;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 1.5rem 1.5rem 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-        }
-
-        .close-modal {
-            font-size: 2rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .close-modal:hover {
-            transform: scale(1.1);
-        }
-
-        .modal-body {
-            padding: 2rem;
-        }
-
-        .modal-section {
-            margin-bottom: 2rem;
-        }
-
-        .modal-section h3 {
-            color: #667eea;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .modal-section p {
-            line-height: 1.6;
-            color: #4a5568;
-        }
-
-        .modal-section ul, .modal-section ol {
-            margin-left: 1.5rem;
-            line-height: 1.8;
-            color: #4a5568;
-        }
-
-        .code-example {
-            background: #1e293b;
-            color: #e2e8f0;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            overflow-x: auto;
-            font-family: monospace;
-            font-size: 0.85rem;
-            margin: 1rem 0;
-        }
-
-        .info-box {
-            background: #e0f2fe;
-            border-left: 4px solid #0284c7;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .resource-item {
-            background: #f0fdf4;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            color: #166534;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: 0.3s;
-        }
-
-        .resource-item:hover {
-            background: #dcfce7;
-            transform: translateX(5px);
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: white;
-            margin-top: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .section-title { font-size: 1.5rem; }
-            .topics-grid { grid-template-columns: 1fr; }
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 2px;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: white;
-            width: 0%;
-            transition: width 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #1a1a2e; scroll-behavior: smooth; overflow-x: hidden; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 30px; }
+        .navbar { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 30px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; flex-wrap: wrap; }
+        .logo { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .logo i { color: #667eea; }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; font-weight: 600; color: #1a1a2e; transition: 0.3s; cursor: pointer; }
+        .nav-links a:hover { color: #667eea; }
+        .hero { text-align: center; padding: 80px 0 60px; color: white; }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; }
+        .hero p { font-size: 1.3rem; max-width: 800px; margin: 0 auto; }
+        .hero-stats { display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 2rem; font-weight: 800; }
+        .section-card { background: white; border-radius: 2rem; padding: 2rem; margin: 2rem 0; box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .section-card:hover { transform: translateY(-5px); }
+        .section-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 15px; color: #1a1a2e; border-bottom: 3px solid #667eea; padding-bottom: 0.5rem; }
+        .section-title i { font-size: 2rem; color: #667eea; }
+        .topics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .topic-card { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 1rem; padding: 1.5rem; cursor: pointer; transition: all 0.3s; border: 1px solid rgba(102,126,234,0.3); }
+        .topic-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.2); border-color: #667eea; }
+        .topic-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .topic-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #1a1a2e; }
+        .topic-card p { color: #4a5568; font-size: 0.9rem; margin-bottom: 1rem; }
+        .topic-badge { display: inline-block; padding: 0.2rem 0.8rem; background: #667eea; color: white; border-radius: 20px; font-size: 0.7rem; font-weight: 600; }
+        .simulation-3d { background: linear-gradient(135deg, #1e3c72, #2a5298); border-radius: 1rem; padding: 2rem; margin: 2rem 0; color: white; text-align: center; }
+        #threeCanvas { width: 100%; height: 500px; border-radius: 1rem; background: rgba(0,0,0,0.3); margin-top: 1rem; }
+        .sim-button { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 12px 24px; margin: 0.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; transition: transform 0.3s; }
+        .sim-button:hover { transform: scale(1.05); }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); animation: fadeIn 0.3s; }
+        .modal-content { background: white; margin: 2% auto; width: 90%; max-width: 1000px; border-radius: 1.5rem; max-height: 90%; overflow-y: auto; }
+        .modal-header { position: sticky; top: 0; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 1.5rem; border-radius: 1.5rem 1.5rem 0 0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h2 { margin: 0; }
+        .close-modal { font-size: 2rem; cursor: pointer; transition: 0.3s; }
+        .close-modal:hover { transform: scale(1.1); }
+        .modal-body { padding: 2rem; }
+        .modal-section { margin-bottom: 2rem; }
+        .modal-section h3 { color: #667eea; margin-bottom: 1rem; font-size: 1.3rem; }
+        .modal-section p { line-height: 1.6; color: #4a5568; margin-bottom: 0.5rem; }
+        .modal-section ul, .modal-section ol { margin-left: 1.5rem; line-height: 1.8; color: #4a5568; }
+        .code-example { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; font-family: monospace; font-size: 0.85rem; margin: 1rem 0; white-space: pre-wrap; }
+        .info-box { background: #e0f2fe; border-left: 4px solid #0284c7; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .resource-item { background: #f0fdf4; padding: 1rem; border-radius: 0.5rem; text-decoration: none; color: #166534; display: flex; align-items: center; gap: 0.5rem; transition: 0.3s; }
+        .resource-item:hover { background: #dcfce7; transform: translateX(5px); }
+        footer { text-align: center; padding: 2rem; color: white; margin-top: 2rem; }
+        @media (max-width: 768px) { .hero h1 { font-size: 2rem; } .section-title { font-size: 1.5rem; } .topics-grid { grid-template-columns: 1fr; } }
+        .progress-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; margin-top: 1rem; }
+        .progress-fill { height: 100%; background: white; width: 0%; transition: width 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { border: 1px solid #cbd5e1; padding: 0.75rem; text-align: left; }
+        th { background: #f1f5f9; }
     </style>
 </head>
 <body>
 
 <nav class="navbar">
     <div class="container nav-flex">
-        <div class="logo">
-            <i class="fas fa-chart-line"></i> DataAnalytics<span style="color:#764ba2;">Mastery</span>
-        </div>
+        <div class="logo"><i class="fas fa-chart-line"></i> DataAnalytics<span style="color:#764ba2;">Mastery</span></div>
         <ul class="nav-links">
-            <li><a onclick="scrollToSection('basics')">Basics</a></li>
-            <li><a onclick="scrollToSection('statistics')">Statistics</a></li>
-            <li><a onclick="scrollToSection('advanced')">Advanced</a></li>
-            <li><a onclick="scrollToSection('simulations')">3D Simulations</a></li>
-            <li><a onclick="scrollToSection('resources')">Resources</a></li>
+            <li><a onclick="document.getElementById('basics').scrollIntoView({behavior:'smooth'})">Basics</a></li>
+            <li><a onclick="document.getElementById('statistics').scrollIntoView({behavior:'smooth'})">Statistics</a></li>
+            <li><a onclick="document.getElementById('advanced').scrollIntoView({behavior:'smooth'})">Advanced</a></li>
+            <li><a onclick="document.getElementById('simulations').scrollIntoView({behavior:'smooth'})">3D Simulations</a></li>
+            <li><a onclick="document.getElementById('resources').scrollIntoView({behavior:'smooth'})">Resources</a></li>
         </ul>
     </div>
 </nav>
@@ -409,127 +97,38 @@
 
         <!-- Basics Section -->
         <div id="basics" class="section-card">
-            <div class="section-title">
-                <i class="fas fa-seedling"></i>
-                <span>📖 Foundations of Data Analytics</span>
-            </div>
+            <div class="section-title"><i class="fas fa-seedling"></i><span>📖 Foundations of Data Analytics</span></div>
             <div class="topics-grid">
-                <div class="topic-card" onclick="openTopic('intro')">
-                    <div class="topic-icon">🎯</div>
-                    <h3>Intro to Data Analytics</h3>
-                    <p>What is data analytics? Why it matters? The analytics lifecycle and career paths.</p>
-                    <span class="topic-badge">Beginner</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('data-types')">
-                    <div class="topic-icon">🔢</div>
-                    <h3>Types of Data</h3>
-                    <p>Qualitative vs Quantitative, Structured vs Unstructured, Cross-sectional vs Time Series</p>
-                    <span class="topic-badge">Beginner</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('data-collection')">
-                    <div class="topic-icon">📋</div>
-                    <h3>Data Collection</h3>
-                    <p>Primary vs Secondary data, Sampling methods, Surveys, APIs, Web scraping</p>
-                    <span class="topic-badge">Intermediate</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('data-cleaning')">
-                    <div class="topic-icon">🧹</div>
-                    <h3>Data Cleaning & Preparation</h3>
-                    <p>Handling missing values, outlier detection, normalization, feature engineering</p>
-                    <span class="topic-badge">Essential</span>
-                </div>
+                <div class="topic-card" onclick="openTopic('intro')"><div class="topic-icon">🎯</div><h3>Intro to Data Analytics</h3><p>What is data analytics? Why it matters? The analytics lifecycle and career paths.</p><span class="topic-badge">Beginner</span></div>
+                <div class="topic-card" onclick="openTopic('data-types')"><div class="topic-icon">🔢</div><h3>Types of Data</h3><p>Qualitative vs Quantitative, Structured vs Unstructured, Cross-sectional vs Time Series</p><span class="topic-badge">Beginner</span></div>
+                <div class="topic-card" onclick="openTopic('data-collection')"><div class="topic-icon">📋</div><h3>Data Collection</h3><p>Primary vs Secondary data, Sampling methods, Surveys, APIs, Web scraping</p><span class="topic-badge">Intermediate</span></div>
+                <div class="topic-card" onclick="openTopic('data-cleaning')"><div class="topic-icon">🧹</div><h3>Data Cleaning & Preparation</h3><p>Handling missing values, outlier detection, normalization, feature engineering</p><span class="topic-badge">Essential</span></div>
             </div>
         </div>
 
         <!-- Statistics Section -->
         <div id="statistics" class="section-card">
-            <div class="section-title">
-                <i class="fas fa-chart-bar"></i>
-                <span>📊 Statistics & Probability</span>
-            </div>
+            <div class="section-title"><i class="fas fa-chart-bar"></i><span>📊 Statistics & Probability</span></div>
             <div class="topics-grid">
-                <div class="topic-card" onclick="openTopic('descriptive')">
-                    <div class="topic-icon">📏</div>
-                    <h3>Descriptive Statistics</h3>
-                    <p>Mean, median, mode, variance, standard deviation, quartiles, IQR</p>
-                    <span class="topic-badge">Core</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('probability')">
-                    <div class="topic-icon">🎲</div>
-                    <h3>Probability & Distributions</h3>
-                    <p>Normal, Binomial, Poisson distributions, Bayes theorem, Central Limit Theorem</p>
-                    <span class="topic-badge">Core</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('inferential')">
-                    <div class="topic-icon">🔬</div>
-                    <h3>Inferential Statistics</h3>
-                    <p>Hypothesis testing, confidence intervals, p-values, t-tests, chi-square</p>
-                    <span class="topic-badge">Advanced</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('correlation')">
-                    <div class="topic-icon">🔗</div>
-                    <h3>Correlation Analysis</h3>
-                    <p>Pearson, Spearman correlation, correlation matrices, causation vs correlation</p>
-                    <span class="topic-badge">Core</span>
-                </div>
+                <div class="topic-card" onclick="openTopic('descriptive')"><div class="topic-icon">📏</div><h3>Descriptive Statistics</h3><p>Mean, median, mode, variance, standard deviation, quartiles, IQR</p><span class="topic-badge">Core</span></div>
+                <div class="topic-card" onclick="openTopic('probability')"><div class="topic-icon">🎲</div><h3>Probability & Distributions</h3><p>Normal, Binomial, Poisson distributions, Bayes theorem, Central Limit Theorem</p><span class="topic-badge">Core</span></div>
+                <div class="topic-card" onclick="openTopic('inferential')"><div class="topic-icon">🔬</div><h3>Inferential Statistics</h3><p>Hypothesis testing, confidence intervals, p-values, t-tests, chi-square</p><span class="topic-badge">Advanced</span></div>
+                <div class="topic-card" onclick="openTopic('correlation')"><div class="topic-icon">🔗</div><h3>Correlation Analysis</h3><p>Pearson, Spearman correlation, correlation matrices, causation vs correlation</p><span class="topic-badge">Core</span></div>
             </div>
         </div>
 
         <!-- Advanced Analytics -->
         <div id="advanced" class="section-card">
-            <div class="section-title">
-                <i class="fas fa-robot"></i>
-                <span>🚀 Advanced Analytics & Machine Learning</span>
-            </div>
+            <div class="section-title"><i class="fas fa-robot"></i><span>🚀 Advanced Analytics & Machine Learning</span></div>
             <div class="topics-grid">
-                <div class="topic-card" onclick="openTopic('regression')">
-                    <div class="topic-icon">📈</div>
-                    <h3>Regression Analysis</h3>
-                    <p>Linear, multiple, logistic regression, R-squared, assumptions, interpretation</p>
-                    <span class="topic-badge">Advanced</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('eda')">
-                    <div class="topic-icon">🔍</div>
-                    <h3>Exploratory Data Analysis</h3>
-                    <p>EDA techniques, visualization, pattern discovery, outlier detection</p>
-                    <span class="topic-badge">Essential</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('visualization')">
-                    <div class="topic-icon">📊</div>
-                    <h3>Data Visualization</h3>
-                    <p>Chart types, best practices, tools (Tableau, Power BI, matplotlib, ggplot)</p>
-                    <span class="topic-badge">Essential</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('timeseries')">
-                    <div class="topic-icon">⏰</div>
-                    <h3>Time Series Analysis</h3>
-                    <p>Trend, seasonality, forecasting, ARIMA, exponential smoothing</p>
-                    <span class="topic-badge">Advanced</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('ml-basics')">
-                    <div class="topic-icon">🤖</div>
-                    <h3>Machine Learning Basics</h3>
-                    <p>Supervised vs unsupervised, classification, clustering, model evaluation</p>
-                    <span class="topic-badge">Advanced</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('tools')">
-                    <div class="topic-icon">🛠️</div>
-                    <h3>Statistical Software & Tools</h3>
-                    <p>Python (pandas, numpy, scipy), R, SQL, Excel, SPSS, SAS</p>
-                    <span class="topic-badge">Practical</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('ethics')">
-                    <div class="topic-icon">🛡️</div>
-                    <h3>Ethics in Data Analytics</h3>
-                    <p>Data privacy, bias, fairness, GDPR, responsible AI, ethical frameworks</p>
-                    <span class="topic-badge">Crucial</span>
-                </div>
-                <div class="topic-card" onclick="openTopic('casestudies')">
-                    <div class="topic-icon">📁</div>
-                    <h3>Case Studies</h3>
-                    <p>Real-world analytics projects: Netflix, Amazon, Healthcare, Finance, Sports</p>
-                    <span class="topic-badge">Practical</span>
-                </div>
+                <div class="topic-card" onclick="openTopic('regression')"><div class="topic-icon">📈</div><h3>Regression Analysis</h3><p>Linear, multiple, logistic regression, R-squared, assumptions, interpretation</p><span class="topic-badge">Advanced</span></div>
+                <div class="topic-card" onclick="openTopic('eda')"><div class="topic-icon">🔍</div><h3>Exploratory Data Analysis</h3><p>EDA techniques, visualization, pattern discovery, outlier detection</p><span class="topic-badge">Essential</span></div>
+                <div class="topic-card" onclick="openTopic('visualization')"><div class="topic-icon">📊</div><h3>Data Visualization</h3><p>Chart types, best practices, tools (Tableau, Power BI, matplotlib, ggplot)</p><span class="topic-badge">Essential</span></div>
+                <div class="topic-card" onclick="openTopic('timeseries')"><div class="topic-icon">⏰</div><h3>Time Series Analysis</h3><p>Trend, seasonality, forecasting, ARIMA, exponential smoothing</p><span class="topic-badge">Advanced</span></div>
+                <div class="topic-card" onclick="openTopic('ml-basics')"><div class="topic-icon">🤖</div><h3>Machine Learning Basics</h3><p>Supervised vs unsupervised, classification, clustering, model evaluation</p><span class="topic-badge">Advanced</span></div>
+                <div class="topic-card" onclick="openTopic('tools')"><div class="topic-icon">🛠️</div><h3>Statistical Software & Tools</h3><p>Python (pandas, numpy, scipy), R, SQL, Excel, SPSS, SAS</p><span class="topic-badge">Practical</span></div>
+                <div class="topic-card" onclick="openTopic('ethics')"><div class="topic-icon">🛡️</div><h3>Ethics in Data Analytics</h3><p>Data privacy, bias, fairness, GDPR, responsible AI, ethical frameworks</p><span class="topic-badge">Crucial</span></div>
+                <div class="topic-card" onclick="openTopic('casestudies')"><div class="topic-icon">📁</div><h3>Case Studies</h3><p>Real-world analytics projects: Netflix, Amazon, Healthcare, Finance, Sports</p><span class="topic-badge">Practical</span></div>
             </div>
         </div>
 
@@ -538,304 +137,57 @@
             <h2><i class="fas fa-cube"></i> Interactive 3D Simulations</h2>
             <p>Visualize statistical concepts in 3D - Normal Distribution & Regression Surface</p>
             <canvas id="threeCanvas"></canvas>
-            <div>
-                <button class="sim-button" onclick="showNormalDistribution()">📊 Normal Distribution (3D)</button>
-                <button class="sim-button" onclick="showRegressionSurface()">📈 Regression Surface (3D)</button>
-                <button class="sim-button" onclick="showCorrelationSphere()">🔮 Correlation Sphere (3D)</button>
-            </div>
+            <div><button class="sim-button" id="btnNormal">📊 Normal Distribution (3D)</button><button class="sim-button" id="btnRegression">📈 Regression Surface (3D)</button><button class="sim-button" id="btnSphere">🔮 Correlation Sphere (3D)</button></div>
         </div>
 
         <!-- Resources -->
         <div id="resources" class="section-card">
-            <div class="section-title">
-                <i class="fas fa-book-open"></i>
-                <span>📚 Learning Resources</span>
-            </div>
+            <div class="section-title"><i class="fas fa-book-open"></i><span>📚 Learning Resources</span></div>
             <div class="resources-grid">
-                <a href="https://www.kaggle.com/learn" target="_blank" class="resource-item"><i class="fab fa-kaggle"></i> Kaggle Learn - Free Courses</a>
-                <a href="https://www.coursera.org/browse/data-science" target="_blank" class="resource-item"><i class="fas fa-graduation-cap"></i> Coursera Data Science</a>
+                <a href="https://www.kaggle.com/learn" target="_blank" class="resource-item"><i class="fab fa-kaggle"></i> Kaggle Learn</a>
+                <a href="https://www.coursera.org/browse/data-science" target="_blank" class="resource-item"><i class="fas fa-graduation-cap"></i> Coursera</a>
                 <a href="https://towardsdatascience.com/" target="_blank" class="resource-item"><i class="fas fa-newspaper"></i> Towards Data Science</a>
-                <a href="https://www.dataquest.io/" target="_blank" class="resource-item"><i class="fas fa-chart-line"></i> DataQuest Interactive</a>
-                <a href="https://www.youtube.com/c/StatQuest" target="_blank" class="resource-item"><i class="fab fa-youtube"></i> StatQuest YouTube</a>
+                <a href="https://www.dataquest.io/" target="_blank" class="resource-item"><i class="fas fa-chart-line"></i> DataQuest</a>
+                <a href="https://www.youtube.com/c/StatQuest" target="_blank" class="resource-item"><i class="fab fa-youtube"></i> StatQuest</a>
                 <a href="https://github.com/ossu/data-science" target="_blank" class="resource-item"><i class="fab fa-github"></i> OSSU Data Science</a>
-                <a href="https://www.tableau.com/learn/training" target="_blank" class="resource-item"><i class="fas fa-chart-pie"></i> Tableau Training</a>
-                <a href="https://www.python.org/" target="_blank" class="resource-item"><i class="fab fa-python"></i> Python for Data Science</a>
             </div>
         </div>
     </div>
 </main>
 
-<footer>
-    <p>© 2024 Data Analytics Mastery | Empowering everyone with data skills | Interactive 3D Learning Platform</p>
-    <p style="margin-top: 0.5rem;">⭐ Click on any topic card for detailed explanations!</p>
-</footer>
+<footer><p>© 2024 Data Analytics Mastery | Click on any topic card for detailed explanations!</p></footer>
 
-<!-- Modal -->
-<div id="topicModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2 id="modalTitle"></h2>
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-        </div>
-        <div class="modal-body" id="modalBody"></div>
-    </div>
-</div>
+<div id="topicModal" class="modal"><div class="modal-content"><div class="modal-header"><h2 id="modalTitle"></h2><span class="close-modal" onclick="closeModal()">&times;</span></div><div class="modal-body" id="modalBody"></div></div></div>
 
 <script>
     let viewedTopics = new Set();
+    function updateProgress() { let progress = (viewedTopics.size / 16) * 100; document.getElementById('progressFill').style.width = progress + '%'; }
+    
+    function closeModal() { document.getElementById('topicModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
+    window.onclick = function(event) { if (event.target == document.getElementById('topicModal')) closeModal(); }
+    
+    function openTopic(topicId) {
+        viewedTopics.add(topicId); updateProgress();
+        const contents = {
+            'intro': { title: '🎯 Introduction to Data Analytics', html: `<div class="modal-section"><h3>What is Data Analytics?</h3><p>Data analytics is the science of examining raw data to draw conclusions and uncover patterns. It involves applying statistical and logical techniques to transform, organize, and model data for better decision-making.</p></div><div class="modal-section"><h3>The Analytics Lifecycle (7 Stages)</h3><ul><li><strong>Problem Definition:</strong> Understand business objectives and define KPIs</li><li><strong>Data Collection:</strong> Gather relevant data from various sources</li><li><strong>Data Preparation:</strong> Clean, transform, and organize data (80% of the work!)</li><li><strong>Exploratory Analysis:</strong> Visualize and understand patterns</li><li><strong>Modeling:</strong> Apply statistical or ML algorithms</li><li><strong>Interpretation:</strong> Draw insights and actionable recommendations</li><li><strong>Deployment:</strong> Implement solutions and monitor results</li></ul></div><div class="modal-section"><h3>4 Types of Analytics</h3><ul><li><strong>Descriptive:</strong> "What happened?" - Dashboards, reports, KPIs</li><li><strong>Diagnostic:</strong> "Why did it happen?" - Drill-down, correlation analysis</li><li><strong>Predictive:</strong> "What will happen?" - Forecasting, machine learning</li><li><strong>Prescriptive:</strong> "What should we do?" - Optimization, simulation</li></ul></div><div class="info-box"><strong>💡 Industry Impact:</strong> Companies using data analytics are 23x more likely to acquire customers, 6x more likely to retain customers, and 19x more likely to be profitable.</div><div class="code-example"><strong>Python Example:</strong>\nimport pandas as pd\nimport matplotlib.pyplot as plt\ndf = pd.read_csv('sales_data.csv')\nprint(df.head())\nprint(df.describe())\ndf['sales'].hist(bins=30)\nplt.show()</div>` },
+            'data-types': { title: '🔢 Types of Data - Complete Guide', html: `<div class="modal-section"><h3>Data Classification Framework</h3><h4>1. By Nature:</h4><ul><li><strong>Qualitative (Categorical):</strong> Non-numeric data<ul><li>Nominal: No order (Gender, Blood Type, Colors)</li><li>Ordinal: Has order (Movie Ratings 1-5, Education Level)</li></ul></li><li><strong>Quantitative (Numerical):</strong> Numeric values<ul><li>Discrete: Countable (Number of children, cars sold)</li><li>Continuous: Measurable (Height, Weight, Temperature)</li></ul></li></ul><h4>2. By Structure:</h4><ul><li><strong>Structured:</strong> Organized in rows/columns (SQL databases, Excel)</li><li><strong>Unstructured:</strong> No predefined format (Text, images, videos)</li><li><strong>Semi-structured:</strong> Some organization (JSON, XML)</li></ul><h4>3. By Time:</h4><ul><li><strong>Cross-sectional:</strong> Data at one point in time</li><li><strong>Time Series:</strong> Data collected over time intervals</li><li><strong>Panel Data:</strong> Combination of both</li></ul></div><div class="info-box"><strong>📊 Why Data Types Matter!</strong> Your analysis methods depend entirely on data types. You cannot calculate the mean of categorical data, and bar charts don't work well for continuous data.</div><div class="code-example"><strong>Python - Check Data Types:</strong>\nimport pandas as pd\ndf = pd.DataFrame({'name': ['A','B'], 'age': [25,30], 'score': [85.5,92.3]})\nprint(df.dtypes)\n# Output: name -> object, age -> int64, score -> float64</div>` },
+            'descriptive': { title: '📏 Descriptive Statistics - Complete Tutorial', html: `<div class="modal-section"><h3>Measures of Central Tendency</h3><ul><li><strong>Mean (Average):</strong> Sum of all values / number of values. Best for normally distributed data.</li><li><strong>Median:</strong> Middle value when sorted. Best for skewed data (house prices, income).</li><li><strong>Mode:</strong> Most frequent value. Best for categorical data.</li></ul><h3>Measures of Dispersion (Spread)</h3><ul><li><strong>Range:</strong> Maximum - Minimum (simple but sensitive to outliers)</li><li><strong>Variance:</strong> Average squared deviation from mean</li><li><strong>Standard Deviation:</strong> Square root of variance (in original units)</li><li><strong>Interquartile Range (IQR):</strong> Q3 - Q1 (robust to outliers)</li></ul><h3>Shape of Distribution</h3><ul><li><strong>Skewness:</strong> Asymmetry (positive/negative skew)</li><li><strong>Kurtosis:</strong> Tailedness (peaked or flat)</li></ul></div><div class="info-box"><strong>📌 Example Interpretation:</strong> If mean > median, the distribution is right-skewed (positive skew). This often occurs with income data where a few high earners pull the mean up.</div><div class="code-example"><strong>Python - Descriptive Statistics:</strong>\nimport pandas as pd\nimport numpy as np\ndata = [12, 15, 14, 10, 13, 15, 18, 20, 14, 13]\nmean = np.mean(data)  # 14.4\nmedian = np.median(data)  # 14.0\nstd = np.std(data)  # 2.87\nprint(pd.DataFrame(data).describe())</div>` },
+            'correlation': { title: '🔗 Correlation Analysis - Comprehensive Guide', html: `<div class="modal-section"><h3>Understanding Correlation</h3><p>Correlation measures the strength and direction of a relationship between two variables. Values range from -1 to +1.</p><h3>Correlation Types:</h3><ul><li><strong>Positive Correlation (r > 0):</strong> As one variable increases, the other increases (e.g., height and weight)</li><li><strong>Negative Correlation (r < 0):</strong> As one variable increases, the other decreases (e.g., speed and travel time)</li><li><strong>Zero Correlation (r ≈ 0):</strong> No relationship between variables</li></ul><h3>Correlation vs Causation - CRITICAL!</h3><p><em>"Correlation does not imply causation"</em> is the most important principle in statistics. Two variables can be correlated without one causing the other.</p></div><div class="info-box"><strong>📊 Classic Example:</strong> Ice cream sales and drowning incidents are positively correlated, but eating ice cream doesn't cause drowning. The hidden variable is hot weather, which causes both!</div><div class="code-example"><strong>Python - Correlation Calculation:</strong>\nimport numpy as np\nimport pandas as pd\n# Create sample data\nx = [1,2,3,4,5]\ny = [2,4,6,8,10]\ncorrelation = np.corrcoef(x, y)[0, 1]\nprint(f"Pearson correlation: {correlation}")  # Output: 1.0 (perfect positive)\n# Using pandas\ndf = pd.DataFrame({'x': x, 'y': y})\nprint(df.corr())</div>` },
+            'regression': { title: '📈 Regression Analysis - Complete Masterclass', html: `<div class="modal-section"><h3>What is Linear Regression?</h3><p>Linear regression models the relationship between a dependent variable (Y) and one or more independent variables (X). The goal is to find the best-fitting straight line through the data points.</p><h3>The Equation:</h3><p><strong>Y = mX + b</strong> or <strong>Y = β₀ + β₁X</strong><br>- Y = predicted value (dependent variable)<br>- X = input feature (independent variable)<br>- m/β₁ = slope (coefficient)<br>- b/β₀ = y-intercept</p><h3>Key Metrics:</h3><ul><li><strong>R-squared (R²):</strong> Measures how well the model fits (0 to 1, higher is better)</li><li><strong>P-value:</strong> Tests if the relationship is statistically significant (p < 0.05)</li><li><strong>Coefficients:</strong> Show the strength and direction of relationships</li></ul><h3>Assumptions of Linear Regression:</h3><ul><li>Linearity: Relationship between X and Y is linear</li><li>Independence: Observations are independent</li><li>Homoscedasticity: Constant variance of residuals</li><li>Normality: Residuals are normally distributed</li></ul></div><div class="info-box"><strong>🏠 Real-world Application:</strong> Predicting house prices based on square footage. The regression model might find that each additional square foot increases the price by $150.</div><div class="code-example"><strong>Python - Linear Regression with scikit-learn:</strong>\nfrom sklearn.linear_model import LinearRegression\nimport numpy as np\nX = np.array([1,2,3,4,5]).reshape(-1,1)\ny = np.array([2,4,6,8,10])\nmodel = LinearRegression()\nmodel.fit(X, y)\nprint(f"Coefficient: {model.coef_[0]}")  # 2.0\nprint(f"Intercept: {model.intercept_}")  # 0.0\nprint(f"R-squared: {model.score(X, y)}")  # 1.0</div>` },
+            'probability': { title: '🎲 Probability & Distributions - Deep Dive', html: `<div class="modal-section"><h3>Fundamental Probability Concepts</h3><ul><li><strong>Probability Space:</strong> Sample space, events, outcomes</li><li><strong>Conditional Probability:</strong> P(A|B) = P(A∩B)/P(B)</li><li><strong>Bayes' Theorem:</strong> P(A|B) = P(B|A)×P(A)/P(B)</li><li><strong>Independent Events:</strong> P(A∩B) = P(A)×P(B)</li></ul><h3>Important Probability Distributions</h3><ul><li><strong>Normal (Gaussian):</strong> Bell-shaped curve. 68-95-99.7 rule: 68% within 1σ, 95% within 2σ, 99.7% within 3σ</li><li><strong>Binomial:</strong> Number of successes in n trials (coin flips)</li><li><strong>Poisson:</strong> Number of events in fixed interval (customer arrivals)</li><li><strong>Uniform:</strong> All outcomes equally likely (dice roll)</li></ul><h3>Central Limit Theorem (CLT)</h3><p>The distribution of sample means approaches a normal distribution as sample size increases, regardless of the population distribution. This is why normal distribution is so important in statistics!</p></div><div class="code-example"><strong>Python - Normal Distribution:</strong>\nimport numpy as np\nimport matplotlib.pyplot as plt\n# Generate normal distribution\nmean, std = 0, 1\ndata = np.random.normal(mean, std, 1000)\nplt.hist(data, bins=30, density=True)\nplt.show()</div>` },
+            'inferential': { title: '🔬 Inferential Statistics - Advanced Guide', html: `<div class="modal-section"><h3>What is Inferential Statistics?</h3><p>Inferential statistics allows us to draw conclusions about a population based on a sample. It's used when we cannot measure every member of a population.</p><h3>Key Concepts:</h3><ul><li><strong>Null Hypothesis (H₀):</strong> Default assumption ("no effect" or "no difference")</li><li><strong>Alternative Hypothesis (H₁):</strong> What we want to prove</li><li><strong>P-value:</strong> Probability of observing results as extreme as what we found, assuming H₀ is true</li><li><strong>Significance Level (α):</strong> Usually 0.05 (5%). If p-value < α, reject H₀</li><li><strong>Confidence Interval:</strong> Range that likely contains the true population parameter (usually 95% CI)</li></ul><h3>Common Statistical Tests:</h3><ul><li><strong>T-test:</strong> Compare means of two groups</li><li><strong>ANOVA:</strong> Compare means of three or more groups</li><li><strong>Chi-square test:</strong> Test independence between categorical variables</li></ul></div><div class="info-box"><strong>🧪 A/B Testing Example:</strong> An e-commerce site tests two button colors. If p-value < 0.05, the new color significantly improves conversions.</div><div class="code-example"><strong>Python - T-test:</strong>\nfrom scipy import stats\ngroup_a = [12, 15, 14, 13, 16]\ngroup_b = [10, 11, 12, 9, 11]\nt_stat, p_value = stats.ttest_ind(group_a, group_b)\nprint(f"P-value: {p_value}")\nif p_value < 0.05:\n    print("Statistically significant difference!")</div>` }
+        };
+        if (contents[topicId]) { document.getElementById('modalTitle').innerHTML = contents[topicId].title; document.getElementById('modalBody').innerHTML = contents[topicId].html; document.getElementById('topicModal').style.display = 'block'; document.body.style.overflow = 'hidden'; }
+        else { alert('Content for this topic is being prepared! Stay tuned.'); }
+    }
+    
+    // 3D SIMULATIONS
     let scene, camera, renderer, currentMesh;
-    
-    function updateProgress() {
-        const total = 16;
-        const progress = (viewedTopics.size / total) * 100;
-        const fill = document.getElementById('progressFill');
-        if (fill) fill.style.width = progress + '%';
-    }
-    
-    function scrollToSection(sectionId) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-    
-    // ============ 3D SIMULATIONS ============
     function init3D() {
         const canvas = document.getElementById('threeCanvas');
         if (!canvas) return;
-        
-        const width = canvas.clientWidth;
-        const height = canvas.clientHeight;
-        
-        scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x1a1a2e);
-        scene.fog = new THREE.FogExp2(0x1a1a2e, 0.008);
-        
-        camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-        camera.position.set(6, 5, 8);
-        camera.lookAt(0, 1, 0);
-        
-        renderer = new THREE.WebGLRenderer({ canvas, alpha: false });
-        renderer.setSize(width, height);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        
-        // Lights
-        const ambientLight = new THREE.AmbientLight(0x404060);
-        scene.add(ambientLight);
-        
-        const mainLight = new THREE.DirectionalLight(0xffffff, 1);
-        mainLight.position.set(5, 10, 7);
-        scene.add(mainLight);
-        
-        const fillLight = new THREE.PointLight(0x4466cc, 0.5);
-        fillLight.position.set(-2, 3, 4);
-        scene.add(fillLight);
-        
-        const backLight = new THREE.PointLight(0xffaa66, 0.3);
-        backLight.position.set(0, 2, -5);
-        scene.add(backLight);
-        
-        // Helper grid
-        const gridHelper = new THREE.GridHelper(15, 20, 0x8888ff, 0x444466);
-        scene.add(gridHelper);
-        
-        const axesHelper = new THREE.AxesHelper(5);
-        scene.add(axesHelper);
-    }
-    
-    function showNormalDistribution() {
-        if (!scene) init3D();
-        if (currentMesh) scene.remove(currentMesh);
-        
-        const geometry = new THREE.BufferGeometry();
-        const vertices = [];
-        const indices = [];
-        const colors = [];
-        
-        const segments = 60;
-        const size = 5;
-        
-        for (let i = 0; i <= segments; i++) {
-            const x = -size + (i / segments) * size * 2;
-            for (let j = 0; j <= segments; j++) {
-                const z = -size + (j / segments) * size * 2;
-                const y = Math.exp(-(x*x + z*z) / 8) * 2.5;
-                vertices.push(x, y, z);
-                const hue = 0.55 + y * 0.1;
-                const color = new THREE.Color().setHSL(hue, 1, 0.5);
-                colors.push(color.r, color.g, color.b);
-            }
-        }
-        
-        for (let i = 0; i < segments; i++) {
-            for (let j = 0; j < segments; j++) {
-                const a = i * (segments + 1) + j;
-                const b = i * (segments + 1) + j + 1;
-                const c = (i + 1) * (segments + 1) + j;
-                const d = (i + 1) * (segments + 1) + j + 1;
-                indices.push(a, b, c);
-                indices.push(b, d, c);
-            }
-        }
-        
-        geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(vertices), 3));
-        geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3));
-        geometry.setIndex(indices);
-        
-        const material = new THREE.MeshPhongMaterial({ vertexColors: true, side: THREE.DoubleSide, transparent: true, opacity: 0.85, shininess: 60 });
-        const surface = new THREE.Mesh(geometry, material);
-        scene.add(surface);
-        currentMesh = surface;
-        
-        camera.position.set(7, 5, 9);
-        camera.lookAt(0, 1.2, 0);
-        animate();
-    }
-    
-    function showRegressionSurface() {
-        if (!scene) init3D();
-        if (currentMesh) scene.remove(currentMesh);
-        
-        const geometry = new THREE.BufferGeometry();
-        const vertices = [];
-        const indices = [];
-        const colors = [];
-        
-        const segments = 60;
-        const size = 5;
-        
-        for (let i = 0; i <= segments; i++) {
-            const x = -size + (i / segments) * size * 2;
-            for (let j = 0; j <= segments; j++) {
-                const z = -size + (j / segments) * size * 2;
-                const y = 1.2 + 0.4 * x + 0.2 * z + Math.sin(x * 1.5) * 0.2;
-                vertices.push(x, y, z);
-                const hue = 0.1 + y * 0.1;
-                const color = new THREE.Color().setHSL(hue, 1, 0.55);
-                colors.push(color.r, color.g, color.b);
-            }
-        }
-        
-        for (let i = 0; i < segments; i++) {
-            for (let j = 0; j < segments; j++) {
-                const a = i * (segments + 1) + j;
-                const b = i * (segments + 1) + j + 1;
-                const c = (i + 1) * (segments + 1) + j;
-                const d = (i + 1) * (segments + 1) + j + 1;
-                indices.push(a, b, c);
-                indices.push(b, d, c);
-            }
-        }
-        
-        geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(vertices), 3));
-        geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3));
-        geometry.setIndex(indices);
-        
-        const material = new THREE.MeshPhongMaterial({ vertexColors: true, side: THREE.DoubleSide, transparent: true, opacity: 0.85 });
-        const surface = new THREE.Mesh(geometry, material);
-        scene.add(surface);
-        currentMesh = surface;
-        
-        camera.position.set(8, 6, 10);
-        camera.lookAt(0, 1.5, 0);
-        animate();
-    }
-    
-    function showCorrelationSphere() {
-        if (!scene) init3D();
-        if (currentMesh) scene.remove(currentMesh);
-        
-        const geometry = new THREE.SphereGeometry(2.2, 64, 64);
-        const positions = geometry.attributes.position.array;
-        const colors = [];
-        
-        for (let i = 0; i < positions.length; i += 3) {
-            const x = positions[i];
-            const y = positions[i+1];
-            const z = positions[i+2];
-            const hue = 0.55 + (x + y + z) * 0.08;
-            const color = new THREE.Color().setHSL(hue, 1, 0.55);
-            colors.push(color.r, color.g, color.b);
-        }
-        geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3));
-        
-        const material = new THREE.MeshPhongMaterial({ vertexColors: true, transparent: true, opacity: 0.8, shininess: 70 });
-        const sphere = new THREE.Mesh(geometry, material);
-        scene.add(sphere);
-        currentMesh = sphere;
-        
-        camera.position.set(5, 3, 7);
-        camera.lookAt(0, 0, 0);
-        animate();
-    }
-    
-    function animate() {
-        if (!renderer || !scene || !camera) return;
-        requestAnimationFrame(animate);
-        if (currentMesh) {
-            currentMesh.rotation.y += 0.005;
-            currentMesh.rotation.x += 0.002;
-        }
-        renderer.render(scene, camera);
-    }
-    
-    window.addEventListener('resize', () => {
-        const canvas = document.getElementById('threeCanvas');
-        if (renderer && canvas) {
-            const width = canvas.clientWidth;
-            const height = canvas.clientHeight;
-            renderer.setSize(width, height);
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-        }
-    });
-    
-    // Initialize on load
-    setTimeout(() => {
-        init3D();
-        showNormalDistribution();
-    }, 100);
-    
-    // ============ MODAL FUNCTIONS ============
-    function openTopic(topicId) {
-        viewedTopics.add(topicId);
-        updateProgress();
-        
-        const content = getTopicContent(topicId);
-        if (content) {
-            document.getElementById('modalTitle').innerHTML = content.title;
-            document.getElementById('modalBody').innerHTML = content.html;
-            document.getElementById('topicModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-    }
-    
-    function closeModal() {
-        document.getElementById('topicModal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-    
-    window.onclick = function(event) {
-        const modal = document.getElementById('topicModal');
-        if (event.target == modal) {
-            closeModal();
-        }
-    }
-    
-    function getTopicContent(topicId) {
-        const contents = {
-            'intro': {
-                title: '🎯 Introduction to Data Analytics',
-                html: `
-                    <div class="modal-section"><h3>What is Data Analytics?</h3><p>Data analytics is the science of examining raw data to draw conclusions and uncover patterns. It involves applying statistical and logical techniques to transform, organize, and model data for better decision-making.</p></div>
-                    <div class="modal-section"><h3>The Analytics Lifecycle (7 Stages)</h3><ul><li><strong>Problem Definition:</strong> Understand business objectives and define KPIs</li><li><strong>Data Collection:</strong> Gather relevant data from various sources</li><li><strong>Data Preparation:</strong> Clean, transform, and organize data (80% of the work!)</li><li><strong>Exploratory Analysis:</strong> Visualize and understand patterns</li><li><strong>Modeling:</strong> Apply statistical or ML algorithms</li><li><strong>Interpretation:</strong> Draw insights and actionable recommendations</li><li><strong>Deployment:</strong> Implement solutions and monitor results</li></ul></div>
-                    <div class="modal-section"><h3>4 Types of Analytics</h3><ul><li><strong>Descriptive:</strong> "What happened?" - Dashboards, reports, KPIs</li><li><strong>Diagnostic:</strong> "Why did it happen?" - Drill-down, correlation analysis</li><li><strong>Predictive:</strong> "What will happen?" - Forecasting, machine learning</li><li><strong>Prescriptive:</strong> "What should we do?" - Optimization, simulation</li></ul></div>
-                    <div class="info-box"><strong>💡 Industry Impact:</strong> Companies using data analytics are 23x more likely to acquire customers, 6x more likely to retain customers, and 19x more likely to be profitable according to McKinsey.</div>
-                    <div class="modal-section"><h3>Career Paths in Data Analytics</h3><ul><li>Data Analyst: $65k-$95k</li><li>Business Analyst: $70k-$100k</li><li>Data Scientist: $100k-$150k</li><li>Analytics Manager: $120k-$180k</li></ul></div>
-                    <div class="code-example"><strong>Python Example - First Analytics Script:</strong><br>import pandas as pd<br>import matplotlib.pyplot as plt<br><br>df = pd.read_csv('sales_data.csv')<br>print(df.head())<br>print(df.describe())<br>df['sales'].hist(bins=30)<br>plt.show()</div>
-                `
-            },
-            'data-types': {
-                title: '🔢 Types of Data - Complete Guide',
-                html: `
-                    <div class="modal-section"><h3>1. By Nature (Qualitative vs Quantitative)</h3><p><strong>Qualitative (Categorical):</strong> Non-numeric data describing qualities</p><ul><li><strong>Nominal:</strong> Categories with no order (Gender, Blood Type, Colors) → Mode only</li><li><strong>Ordinal:</strong> Ordered categories (Movie Ratings 1-5, Education Level) → Median, Mode</li></ul><p><strong>Quantitative (Numerical):</strong> Numeric values that can be measured</p><ul><li><strong>Discrete:</strong> Countable whole numbers (Number of children, cars sold)</li><li><strong>Continuous:</strong> Measurable any value (Height, Weight, Temperature
+        const width = canvas.clientWidth, height = canvas.clientHeight;
+        scene = new THREE.Scene(); scene.background = new THREE.Color(0x1a1a2e); scene.fog = new THREE.FogExp2(0x1a1a2e, 0.008);
+        camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000); camera.position.set(6, 5, 8);
+        renderer = new THREE.WebGLRenderer({ canvas }); renderer.setSize(width, height);
+        const ambientLight = new THREE.AmbientLight(0
