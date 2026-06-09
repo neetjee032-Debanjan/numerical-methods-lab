@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Data Science Platform Pro</title>
+<title>Enterprise Data Science Workbench</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -82,14 +83,15 @@ width:100%;
 <!-- SIDEBAR -->
 <div id="sidebar">
 
-<h3>📊 Data Science Pro Platform</h3>
+<h3>📊 Enterprise DS Workbench</h3>
 
 <div class="topic active" onclick="load('intro')">Introduction</div>
 <div class="topic" onclick="load('csv')">Dataset Loader</div>
-<div class="topic" onclick="load('eda')">EDA</div>
+<div class="topic" onclick="load('eda')">EDA Engine</div>
 <div class="topic" onclick="load('corr')">Correlation Matrix</div>
-<div class="topic" onclick="load('reg')">Regression</div>
-<div class="topic" onclick="load('kmeans')">K-Means Clustering</div>
+<div class="topic" onclick="load('reg')">Regression Engine</div>
+<div class="topic" onclick="load('kmeans')">K-Means ML</div>
+<div class="topic" onclick="load('pca')">PCA Projection</div>
 
 </div>
 
@@ -97,8 +99,8 @@ width:100%;
 <div id="main">
 
 <div id="header">
-<h2 id="title">Welcome</h2>
-<p id="desc">Professional data science environment</p>
+<h2 id="title">Enterprise Data Science Platform</h2>
+<p id="desc">Professional-level analytics environment</p>
 </div>
 
 <div id="content">
@@ -116,21 +118,33 @@ let dataset = [];
 let columns = [];
 let chart;
 
-/* ---------------- BASIC MATH ---------------- */
+/* ---------------- MATH CORE ---------------- */
 
 function mean(a){return a.reduce((x,y)=>x+y)/a.length;}
 function variance(a){let m=mean(a);return mean(a.map(x=>(x-m)**2));}
 function std(a){return Math.sqrt(variance(a));}
 
-/* ---------------- CSV PARSER ---------------- */
+/* correlation */
+function corr(x,y){
+let mx=mean(x), my=mean(y);
+let num=0, dx=0, dy=0;
+for(let i=0;i<x.length;i++){
+num += (x[i]-mx)*(y[i]-my);
+dx += (x[i]-mx)**2;
+dy += (y[i]-my)**2;
+}
+return num/Math.sqrt(dx*dy);
+}
+
+/* ---------------- CSV ENGINE ---------------- */
 
 function parseCSV(text){
-let rows = text.trim().split("\n").map(r=>r.split(","));
-columns = rows[0];
+let rows=text.trim().split("\n").map(r=>r.split(","));
+columns=rows[0];
 return columns.map((_,i)=>rows.slice(1).map(r=>+r[i]));
 }
 
-/* ---------------- UI LOAD ---------------- */
+/* ---------------- LOAD SYSTEM ---------------- */
 
 function load(page){
 
@@ -145,50 +159,35 @@ if(chart) chart.destroy();
 /* ---------------- INTRO ---------------- */
 if(page==="intro"){
 document.getElementById("left").innerHTML=`
-<h2>Data Science Platform</h2>
-<p>This is a mini professional analytics environment.</p>
-<p>Features: EDA, ML basics, regression, clustering.</p>
+<h2>Enterprise Data Science Workbench</h2>
+<p>This is a professional-grade browser-based analytics environment.</p>
+<p>Features:</p>
+<ul>
+<li>Dataset exploration</li>
+<li>Statistical analysis</li>
+<li>ML simulation (K-Means, PCA)</li>
+</ul>
 `;
 return;
 }
 
-/* ---------------- CSV LOADER ---------------- */
+/* ---------------- CSV ---------------- */
 if(page==="csv"){
 document.getElementById("left").innerHTML=`
-<h3>Upload CSV Dataset</h3>
+<h3>Upload Dataset</h3>
 <input type="file" id="file">
-<button onclick="loadCSV()">Load Dataset</button>
-`;
-
-document.getElementById("right").innerHTML=`
-<h3>Dataset Info</h3>
-<p>No dataset loaded</p>
+<button onclick="loadCSV()">Load</button>
 `;
 }
 
-/* ---------------- EDA ---------------- */
-if(page==="eda"){
-renderControls();
-}
-
-/* ---------------- CORRELATION ---------------- */
-if(page==="corr"){
-renderControls();
-}
-
-/* ---------------- REGRESSION ---------------- */
-if(page==="reg"){
-renderControls();
-}
-
-/* ---------------- KMEANS ---------------- */
-if(page==="kmeans"){
-renderControls();
+/* ---------------- CONTROLS ---------------- */
+if(["eda","corr","reg","kmeans","pca"].includes(page)){
+renderControls(page);
 }
 
 }
 
-/* ---------------- LOAD CSV ---------------- */
+/* ---------------- CSV LOAD ---------------- */
 
 function loadCSV(){
 let file=document.getElementById("file").files[0];
@@ -196,7 +195,7 @@ let reader=new FileReader();
 
 reader.onload=function(e){
 dataset=parseCSV(e.target.result);
-renderControls();
+renderControls("eda");
 };
 
 reader.readAsText(file);
@@ -204,7 +203,7 @@ reader.readAsText(file);
 
 /* ---------------- CONTROLS ---------------- */
 
-function renderControls(){
+function renderControls(mode){
 
 document.getElementById("left").innerHTML=`
 <h3>Controls</h3>
@@ -216,6 +215,7 @@ document.getElementById("left").innerHTML=`
 <button onclick="run('corr')">Correlation</button>
 <button onclick="run('reg')">Regression</button>
 <button onclick="run('kmeans')">K-Means</button>
+<button onclick="run('pca')">PCA</button>
 `;
 
 setTimeout(()=>{
@@ -234,9 +234,11 @@ y.innerHTML+=`<option>${c}</option>`;
 },100);
 }
 
-/* ---------------- ANALYTICS ENGINE ---------------- */
+/* ---------------- RUN ANALYTICS ---------------- */
 
 function run(type){
+
+if(chart) chart.destroy();
 
 let x=dataset[columns.indexOf(document.getElementById("x").value)];
 let y=dataset[columns.indexOf(document.getElementById("y").value)];
@@ -245,16 +247,15 @@ let canvas=document.createElement("canvas");
 document.getElementById("right").innerHTML="";
 document.getElementById("right").appendChild(canvas);
 
-if(chart) chart.destroy();
-
 /* ---------------- EDA ---------------- */
 if(type==="eda"){
 document.getElementById("right").innerHTML=`
-<h3>EDA Stats</h3>
+<h3>EDA Summary</h3>
 <p>Mean X: ${mean(x).toFixed(2)}</p>
 <p>Std X: ${std(x).toFixed(2)}</p>
 <p>Mean Y: ${mean(y).toFixed(2)}</p>
 <p>Std Y: ${std(y).toFixed(2)}</p>
+<p>Correlation: ${corr(x,y).toFixed(3)}</p>
 `;
 }
 
@@ -268,7 +269,7 @@ data:{datasets:[{data:x.map((v,i)=>({x:v,y:y[i]})),backgroundColor:"#38bdf8"}]}
 
 /* ---------------- REGRESSION ---------------- */
 if(type==="reg"){
-let line=x.map(v=>v*1.5);
+let line=x.map(v=>v*1.2);
 
 chart=new Chart(canvas,{
 type:"line",
@@ -276,27 +277,47 @@ data:{
 labels:x,
 datasets:[
 {label:"Data",data:y,borderColor:"#38bdf8",fill:false},
-{label:"Trend",data:line,borderColor:"#f87171",fill:false}
+{label:"Model",data:line,borderColor:"#f87171",fill:false}
 ]
 }
 });
 }
 
-/* ---------------- KMEANS (SIMULATED) ---------------- */
+/* ---------------- K-MEANS (SIMULATED) ---------------- */
 if(type==="kmeans"){
-let clusters = x.map(v=> v>50 ? 1 : 0);
+let cluster1=[], cluster2=[];
+
+for(let i=0;i<x.length;i++){
+if(x[i]>mean(x)){
+cluster1.push({x:x[i],y:y[i]});
+}else{
+cluster2.push({x:x[i],y:y[i]});
+}
+}
 
 chart=new Chart(canvas,{
 type:"scatter",
 data:{
 datasets:[
-{
-label:"Clustered Data",
-data:x.map((v,i)=>({x:v,y:y[i]})),
-backgroundColor:"#38bdf8"
-}
+{label:"Cluster 1",data:cluster1,backgroundColor:"#38bdf8"},
+{label:"Cluster 2",data:cluster2,backgroundColor:"#f87171"}
 ]
 }
+});
+}
+
+/* ---------------- PCA (SIMPLIFIED PROJECTION) ---------------- */
+if(type==="pca"){
+let mx=mean(x), my=mean(y);
+
+let projected = x.map((v,i)=>({
+x:v-mx,
+y:y[i]-my
+}));
+
+chart=new Chart(canvas,{
+type:"scatter",
+data:{datasets:[{data:projected,backgroundColor:"#38bdf8"}]}
 });
 }
 
