@@ -1,17 +1,29 @@
 export function renderHome(app, course) {
   app.innerHTML = `
-    <div class="navbar">${course.title}</div>
-    <div class="content">
-      <h1>Welcome to Numerical Methods</h1>
-      <p>Master computational mathematics with simulations.</p>
+    <div class="navbar">📘 Numerical Methods Platform</div>
 
-      ${course.modules.map(m => `
-        <div class="card">
-          <a href="#module-${m.id}" style="color:white;text-decoration:none;">
-            ${m.title}
-          </a>
-        </div>
-      `).join("")}
+    <div class="content">
+
+      <h1>Welcome to Numerical Methods</h1>
+      <p>Interactive learning with simulations, graphs, and step-by-step explanations.</p>
+
+      <div style="margin-top:20px; display:grid; gap:15px;">
+
+        ${course.modules.map(m => `
+          <div class="card" style="padding:20px;">
+            
+            <h2>${m.title}</h2>
+            <p>${m.lessons.length} lessons</p>
+
+            <a href="#module-${m.id}">
+              <button>Start Learning →</button>
+            </a>
+
+          </div>
+        `).join("")}
+
+      </div>
+
     </div>
   `;
 }
