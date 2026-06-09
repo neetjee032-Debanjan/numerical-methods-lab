@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Advanced Data Analytics Lab</title>
+<title>Data Analytics Learning Platform</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -17,10 +17,10 @@ color:white;
 }
 
 #sidebar{
-width:280px;
+width:300px;
 background:#111827;
-padding:10px;
 overflow:auto;
+padding:10px;
 }
 
 .topic{
@@ -40,29 +40,28 @@ display:flex;
 flex-direction:column;
 }
 
-#top{
-padding:15px;
-border-bottom:1px solid #1f2937;
-}
-
 #content{
 flex:1;
 display:flex;
-gap:10px;
-padding:10px;
 }
 
-.panel{
+#theory{
 flex:1;
-background:#111827;
-padding:10px;
-border-radius:10px;
+padding:20px;
+overflow:auto;
+border-right:1px solid #1f2937;
+}
+
+#lab{
+flex:1;
+padding:20px;
 overflow:auto;
 }
 
 canvas{
 background:white;
 border-radius:10px;
+margin-top:10px;
 }
 
 button{
@@ -76,29 +75,33 @@ cursor:pointer;
 <body>
 
 <div id="sidebar">
-<h3>📊 Data Science Lab</h3>
 
-<div class="topic active" onclick="load('stats')">EDA Stats</div>
+<h3>📊 Data Analytics Syllabus</h3>
+
+<div class="topic active" onclick="load('intro')">Introduction</div>
+<div class="topic" onclick="load('types')">Types of Data</div>
+<div class="topic" onclick="load('collection')">Data Collection</div>
+<div class="topic" onclick="load('cleaning')">Data Cleaning</div>
+<div class="topic" onclick="load('stats')">Descriptive Stats</div>
 <div class="topic" onclick="load('prob')">Probability</div>
 <div class="topic" onclick="load('corr')">Correlation</div>
 <div class="topic" onclick="load('reg')">Regression</div>
+<div class="topic" onclick="load('eda')">EDA</div>
+
 </div>
 
 <div id="main">
 
-<div id="top">
-<h2 id="title">Data Analytics Engine</h2>
-<p id="desc">Select a module</p>
-</div>
-
 <div id="content">
 
-<div class="panel">
-<canvas id="chart"></canvas>
+<div id="theory">
+<h2>Welcome</h2>
+<p>Select a topic to start learning</p>
 </div>
 
-<div class="panel" id="info">
-Analysis will appear here
+<div id="lab">
+<h3>🧪 Lab Area</h3>
+<p>Visualizations will appear here</p>
 </div>
 
 </div>
@@ -108,171 +111,172 @@ Analysis will appear here
 <script>
 
 let chart;
-let dataSet=[];
 
-/* ---------------- DATA ENGINE ---------------- */
+/* ---------------- THEORY CONTENT ---------------- */
 
-function generateData(n){
-dataSet=[];
-for(let i=0;i<n;i++){
-dataSet.push(Math.floor(Math.random()*100));
-}
-}
+const theory = {
 
-/* ---------------- MATH ENGINE ---------------- */
+intro: `
+<h2>Introduction to Data Analytics</h2>
+<p>Data Analytics is the process of extracting insights from raw data using statistics and computation.</p>
+<p>It is used in business, healthcare, AI, finance, and science.</p>
+<p><b>Goal:</b> Turn raw data → useful decisions</p>
+`,
 
-function mean(arr){
-return arr.reduce((a,b)=>a+b)/arr.length;
-}
+types: `
+<h2>Types of Data</h2>
+<p><b>Qualitative:</b> Categories (color, gender)</p>
+<p><b>Quantitative:</b> Numbers (height, salary)</p>
+<p><b>Discrete:</b> Countable values</p>
+<p><b>Continuous:</b> Measurable values</p>
+`,
 
-function variance(arr){
-let m=mean(arr);
-return mean(arr.map(x=>(x-m)**2));
-}
+collection: `
+<h2>Data Collection</h2>
+<p>Data is collected using surveys, sensors, APIs, and web scraping.</p>
+<p>High-quality data collection ensures accurate analysis.</p>
+`,
 
-function std(arr){
-return Math.sqrt(variance(arr));
-}
+cleaning: `
+<h2>Data Cleaning</h2>
+<p>Fix missing values, remove duplicates, and correct errors.</p>
+<p>Dirty data leads to wrong conclusions.</p>
+`,
 
-/* ---------------- MAIN SYSTEM ---------------- */
+stats: `
+<h2>Descriptive Statistics</h2>
+<p>Mean, median, mode, variance describe data distribution.</p>
+<p>Used for summarizing datasets.</p>
+`,
 
-function load(type){
+prob: `
+<h2>Probability</h2>
+<p>Probability measures uncertainty.</p>
+<p>Used in prediction and AI systems.</p>
+`,
 
-document.querySelectorAll(".topic").forEach(t=>t.classList.remove("active"));
-event.target.classList.add("active");
+corr: `
+<h2>Correlation</h2>
+<p>Measures relationship between variables.</p>
+<p>Does NOT imply causation.</p>
+`,
+
+reg: `
+<h2>Regression</h2>
+<p>Used to predict values using relationships between variables.</p>
+<p>Example: house price prediction.</p>
+`,
+
+eda: `
+<h2>Exploratory Data Analysis</h2>
+<p>Understanding dataset before modeling.</p>
+<p>Includes visualization and statistics.</p>
+`
+};
+
+/* ---------------- LAB SYSTEM ---------------- */
+
+function runLab(topic){
 
 if(chart) chart.destroy();
 
-let canvas=document.getElementById("chart");
-let info=document.getElementById("info");
+const lab = document.getElementById("lab");
 
-canvas.style.display="block";
+if(topic==="stats"){
 
-/* ================= EDA ================= */
-if(type==="stats"){
+let data=[];
+for(let i=0;i<20;i++) data.push(Math.random()*100);
 
-generateData(30);
-
-chart=new Chart(canvas,{
+chart=new Chart(lab.appendChild(document.createElement("canvas")),{
 type:"bar",
 data:{
-labels:dataSet.map((_,i)=>i),
+labels:data.map((_,i)=>i),
 datasets:[{
-label:"Values",
-data:dataSet,
-backgroundColor:"#38bdf8"
-}]
-}
-});
-
-info.innerHTML=`
-<h3>📊 EDA Statistics</h3>
-<p>Mean: ${mean(dataSet).toFixed(2)}</p>
-<p>Median: ${dataSet.sort((a,b)=>a-b)[Math.floor(dataSet.length/2)]}</p>
-<p>Variance: ${variance(dataSet).toFixed(2)}</p>
-<p>Std Dev: ${std(dataSet).toFixed(2)}</p>
-`;
-}
-
-/* ================= PROBABILITY ================= */
-if(type==="prob"){
-
-let n=2000;
-let heads=0;
-
-for(let i=0;i<n;i++){
-if(Math.random()>0.5) heads++;
-}
-
-chart=new Chart(canvas,{
-type:"pie",
-data:{
-labels:["Heads","Tails"],
-datasets:[{
-data:[heads,n-heads],
-backgroundColor:["#38bdf8","#f87171"]
-}]
-}
-});
-
-info.innerHTML=`
-<h3>🎲 Probability Engine</h3>
-<p>Trials: ${n}</p>
-<p>Heads: ${heads}</p>
-<p>Tails: ${n-heads}</p>
-<p>Law of Large Numbers demonstration</p>
-`;
-}
-
-/* ================= CORRELATION ================= */
-if(type==="corr"){
-
-let x=[], y=[], data=[];
-
-for(let i=0;i<30;i++){
-let xi=i;
-let yi=2*i + (Math.random()*15);
-x.push(xi);
-y.push(yi);
-data.push({x:xi,y:yi});
-}
-
-chart=new Chart(canvas,{
-type:"scatter",
-data:{
-datasets:[{
-label:"X vs Y",
+label:"Data",
 data:data,
 backgroundColor:"#38bdf8"
 }]
 }
 });
 
-info.innerHTML=`
-<h3>📈 Correlation</h3>
-<p>Relationship: Positive Linear Trend</p>
-<p>Noise added to simulate real-world data</p>
-`;
 }
 
-/* ================= REGRESSION ================= */
-if(type==="reg"){
+if(topic==="prob"){
 
-let x=[], y=[], line=[];
+let n=1000, h=0;
+for(let i=0;i<n;i++) if(Math.random()>0.5) h++;
 
-for(let i=0;i<30;i++){
+chart=new Chart(lab.appendChild(document.createElement("canvas")),{
+type:"pie",
+data:{
+labels:["Heads","Tails"],
+datasets:[{
+data:[h,n-h],
+backgroundColor:["#38bdf8","#f87171"]
+}]
+}
+});
+
+}
+
+if(topic==="corr"){
+
+let data=[];
+for(let i=0;i<25;i++){
+data.push({x:i,y:i*2+Math.random()*10});
+}
+
+chart=new Chart(lab.appendChild(document.createElement("canvas")),{
+type:"scatter",
+data:{
+datasets:[{
+data:data,
+backgroundColor:"#38bdf8"
+}]
+}
+});
+
+}
+
+if(topic==="reg"){
+
+let x=[],y=[],line=[];
+
+for(let i=0;i<25;i++){
 x.push(i);
-y.push(3*i + (Math.random()*10));
-line.push(3*i);
+y.push(i*3+Math.random()*10);
+line.push(i*3);
 }
 
-chart=new Chart(canvas,{
+chart=new Chart(lab.appendChild(document.createElement("canvas")),{
 type:"line",
 data:{
 labels:x,
 datasets:[
-{
-label:"Data",
-data:y,
-borderColor:"#38bdf8",
-fill:false
-},
-{
-label:"Trend",
-data:line,
-borderColor:"#f87171",
-fill:false
-}
+{label:"Data",data:y,borderColor:"#38bdf8",fill:false},
+{label:"Trend",data:line,borderColor:"#f87171",fill:false}
 ]
 }
 });
 
-info.innerHTML=`
-<h3>📉 Regression Engine</h3>
-<p>Model: y = 3x + noise</p>
-<p>Red line = ideal regression trend</p>
-`;
 }
+
+}
+
+/* ---------------- MAIN LOAD ---------------- */
+
+function load(topic){
+
+document.querySelectorAll(".topic").forEach(t=>t.classList.remove("active"));
+event.target.classList.add("active");
+
+document.getElementById("theory").innerHTML =
+theory[topic] || "<h2>Coming soon</h2>";
+
+document.getElementById("lab").innerHTML =
+"<h3>🧪 Lab</h3>";
+
+runLab(topic);
 
 }
 
