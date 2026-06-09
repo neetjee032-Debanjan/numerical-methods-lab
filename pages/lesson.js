@@ -33,10 +33,7 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
         <h3>📄 Pages</h3>
 
         ${lesson.pages.map((p, i) => `
-          <div class="card" style="
-            opacity:${i === pageIndex ? 1 : 0.65};
-            border-left:${i === pageIndex ? "4px solid #3b82f6" : "none"};
-          ">
+          <div class="card ${i === pageIndex ? "active" : ""}">
             <a href="#lesson-${moduleId}-${lessonId}-${i}" style="color:white;text-decoration:none;">
               ${i + 1}. ${p.title}
             </a>
@@ -53,11 +50,11 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
 
         <h1>${page.title}</h1>
 
-        <div style="margin-top:15px; line-height:1.7; white-space:pre-line;">
+        <div style="margin-top:15px; line-height:1.8; white-space:pre-line;">
           ${page.content}
         </div>
 
-        <!-- MARK COMPLETE -->
+        <!-- COMPLETE -->
         <div style="margin-top:25px;">
           ${
             !isCompleted
@@ -66,38 +63,29 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
           }
         </div>
 
-        <!-- NAVIGATION -->
-        <div style="margin-top:30px; display:flex; gap:10px;">
-
-          ${pageIndex > 0 ? `
-            <button onclick="goPage(${pageIndex - 1})">⬅ Previous</button>
-          ` : ""}
-
-          ${pageIndex < lesson.pages.length - 1 ? `
-            <button onclick="goPage(${pageIndex + 1})">Next ➡</button>
-          ` : `
-            <button disabled>🎉 Completed</button>
-          `}
-
+        <!-- NAV -->
+        <div style="margin-top:25px; display:flex; gap:10px;">
+          ${pageIndex > 0 ? `<button onclick="goPage(${pageIndex - 1})">⬅ Prev</button>` : ""}
+          ${pageIndex < lesson.pages.length - 1 ? `<button onclick="goPage(${pageIndex + 1})">Next ➡</button>` : ""}
         </div>
 
         <div style="margin-top:10px; opacity:0.7;">
           Page ${pageIndex + 1} / ${lesson.pages.length}
         </div>
 
-        <!-- SIMULATION AREA -->
+        <!-- SIMULATION -->
         <div id="sim" style="margin-top:30px;"></div>
 
       </div>
     </div>
   `;
 
-  // Navigation handler
+  // navigation
   window.goPage = (i) => {
     window.location.hash = `lesson-${moduleId}-${lessonId}-${i}`;
   };
 
-  // Mark complete
+  // mark complete
   const btn = document.getElementById("completeBtn");
   if (btn) {
     btn.onclick = () => {
@@ -106,43 +94,44 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
     };
   }
 
-  // -------------------------
-  // SIMULATION LOADER (FULL)
-  // -------------------------
+  // -----------------------------
+  // FIXED SIMULATION LOADER (ROBUST)
+  // -----------------------------
   if (lesson.simulation) {
 
     const simContainer = document.getElementById("sim");
 
-    import(`../sims/${lesson.simulation}.js`)
+    const map = {
+      newton: "newton-raphson",
+      bisection: "bisection",
+      lagrange: "lagrange",
+      trapezoid: "trapezoid",
+      euler: "euler"
+    };
+
+    const fileName = map[lesson.simulation] || lesson.simulation;
+
+    import(`../sims/${fileName}.js`)
       .then(module => {
 
-        switch (lesson.simulation) {
+        const fnMap = {
+          newton: "runNewton",
+          bisection: "runBisection",
+          lagrange: "runLagrange",
+          trapezoid: "runTrapezoid",
+          euler: "runEuler"
+        };
 
-          case "newton":
-            module.runNewton(simContainer);
-            break;
+        const fn = fnMap[lesson.simulation];
 
-          case "bisection":
-            module.runBisection(simContainer);
-            break;
-
-          case "lagrange":
-            module.runLagrange(simContainer);
-            break;
-
-          case "trapezoid":
-            module.runTrapezoid(simContainer);
-            break;
-
-          case "euler":
-            module.runEuler(simContainer);
-            break;
-
-          default:
-            simContainer.innerHTML = "<p>No simulation available.</p>";
+        if (module[fn]) {
+          module[fn](simContainer);
+        } else {
+          simContainer.innerHTML = "<p>Simulation function missing.</p>";
         }
       })
-      .catch(() => {
+      .catch(err => {
+        console.error("Simulation load error:", err);
         simContainer.innerHTML = "<p>Simulation failed to load.</p>";
       });
   }
