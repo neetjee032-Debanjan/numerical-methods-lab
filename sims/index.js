@@ -4,54 +4,38 @@ import { runIntegration } from "./integration.js";
 import { runLagrange } from "./lagrange.js";
 import { runDE } from "./differential.js";
 
-/**
- * ONLY TOP-LEVEL SIMULATIONS
- * NEVER methods like euler, rk4, simpson here
- */
-
-export const Simulations = {
-
-  // Root Finding
+const Simulations = {
   "newton-raphson": runNewton,
   bisection: runBisection,
-
-  // Integration
   integration: runIntegration,
-
-  // Interpolation
   lagrange: runLagrange,
-
-  // Differential Equations
   differential: runDE
 };
 
 export function loadSimulation(key, container) {
 
-  try {
+  console.log("Loading simulation:", key);
 
-    const sim = Simulations[key];
+  const sim = Simulations[key];
 
-    if (!sim) {
-
-      container.innerHTML = `
-        <div style="color:white;padding:20px;font-family:Arial;">
-          <h2>⚠ Simulation not found</h2>
-          <p>Key: <b>${key}</b></p>
-          <p>This key is NOT a simulation. It may be a METHOD inside a simulation.</p>
-        </div>
-      `;
-
-      return;
-    }
-
-    sim(container);
-
-  } catch (err) {
-
+  if (!sim) {
     container.innerHTML = `
-      <div style="color:red;padding:20px;">
+      <div style="color:white;padding:20px">
+        <h2>Simulation not found</h2>
+        <p>Key: ${key}</p>
+      </div>
+    `;
+    return;
+  }
+
+  try {
+    sim(container);
+  } catch (e) {
+    console.error(e);
+    container.innerHTML = `
+      <div style="color:red;padding:20px">
         <h2>Simulation crashed</h2>
-        <pre>${err.message}</pre>
+        <pre>${e.message}</pre>
       </div>
     `;
   }
