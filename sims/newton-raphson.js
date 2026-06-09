@@ -1,73 +1,73 @@
 export function runNewton(container) {
 
   container.innerHTML = `
-    <div style="padding:15px; border-radius:12px; background:rgba(255,255,255,0.04);">
+    <div style="padding:16px; border-radius:12px; background:rgba(255,255,255,0.04);">
 
-      <h2>Newton-Raphson Advanced Visual Lab</h2>
+      <h2>Newton-Raphson Interactive Visual Lab</h2>
 
-      <!-- INPUTS -->
+      <!-- INPUT PANEL -->
       <div style="display:flex; gap:15px; flex-wrap:wrap; margin-top:10px;">
 
         <div>
-          <label>f(x):</label><br/>
-          <input id="fnInput" value="x*x - 4"
+          <label><b>Function f(x)</b></label><br/>
+          <input id="fn" value="x*x - 4"
             style="padding:8px; width:220px;" />
         </div>
 
         <div>
-          <label>Initial Guess (x₀):</label><br/>
-          <input id="guessInput" type="number" value="2"
-            style="padding:8px; width:100px;" />
+          <label><b>Initial Guess (x₀)</b></label><br/>
+          <input id="x0" value="2" type="number"
+            style="padding:8px; width:120px;" />
         </div>
 
-        <button id="runBtn">▶ Run</button>
-        <button id="pauseBtn">⏸ Pause</button>
-        <button id="stepBtn">⏭ Step</button>
+        <button id="run">▶ Run</button>
+        <button id="reset">🔄 Reset</button>
 
       </div>
 
-      <!-- CANVAS -->
-      <canvas id="graph" width="700" height="360"
+      <!-- GRAPH -->
+      <canvas id="canvas" width="750" height="380"
         style="margin-top:15px; background:#0b1220; border-radius:10px;"></canvas>
 
       <!-- LEGEND -->
       <div style="margin-top:10px; font-size:13px;">
         <span style="color:#60a5fa;">■ Function</span>
         <span style="color:#f59e0b;">■ Tangent</span>
-        <span style="color:#22c55e;">■ Current Point</span>
+        <span style="color:#22c55e;">■ Current xₙ</span>
         <span style="color:#ef4444;">■ Root estimate</span>
       </div>
 
-      <!-- OUTPUT -->
-      <div id="output" style="margin-top:10px;"></div>
+      <!-- INFO -->
+      <div id="info" style="margin-top:10px;"></div>
 
-      <!-- TABLE -->
-      <div id="table" style="margin-top:15px; max-height:200px; overflow:auto;"></div>
-
-      <!-- ERROR PLOT -->
-      <canvas id="errorGraph" width="700" height="180"
-        style="margin-top:15px; background:#0b1220; border-radius:10px;"></canvas>
+      <!-- ITERATION TABLE -->
+      <div style="margin-top:15px; max-height:220px; overflow:auto;">
+        <table border="1" style="border-collapse:collapse; width:100%; font-size:13px;">
+          <thead>
+            <tr>
+              <th>Step</th>
+              <th>xₙ</th>
+              <th>f(xₙ)</th>
+              <th>f'(xₙ)</th>
+              <th>xₙ₊₁</th>
+              <th>Error</th>
+            </tr>
+          </thead>
+          <tbody id="table"></tbody>
+        </table>
+      </div>
 
     </div>
   `;
 
-  const canvas = container.querySelector("#graph");
+  const canvas = container.querySelector("#canvas");
   const ctx = canvas.getContext("2d");
-
-  const errorCanvas = container.querySelector("#errorGraph");
-  const ectx = errorCanvas.getContext("2d");
-
-  const output = container.querySelector("#output");
-  const tableDiv = container.querySelector("#table");
-
-  let running = false;
-  let stepMode = false;
 
   const W = canvas.width;
   const H = canvas.height;
 
-  const EW = errorCanvas.width;
-  const EH = errorCanvas.height;
+  const info = container.querySelector("#info");
+  const table = container.querySelector("#table");
 
   // --------------------------
   // FUNCTION PARSER
@@ -88,98 +88,87 @@ export function runNewton(container) {
   const scaleY = y => H/2 - y * 40;
 
   // --------------------------
-  // GRID
+  // DRAW GRID
   // --------------------------
-  function drawGrid() {
-
-    ctx.clearRect(0,0,W,H);
+  function grid() {
+    ctx.clearRect(0, 0, W, H);
 
     ctx.strokeStyle = "rgba(255,255,255,0.05)";
-    for (let i=0;i<W;i+=50){
+    for (let i = 0; i < W; i += 50) {
       ctx.beginPath();
-      ctx.moveTo(i,0);
-      ctx.lineTo(i,H);
+      ctx.moveTo(i, 0);
+      ctx.lineTo(i, H);
       ctx.stroke();
     }
 
-    for (let i=0;i<H;i+=50){
+    for (let i = 0; i < H; i += 50) {
       ctx.beginPath();
-      ctx.moveTo(0,i);
-      ctx.lineTo(W,i);
+      ctx.moveTo(0, i);
+      ctx.lineTo(W, i);
       ctx.stroke();
     }
 
+    // x-axis
     ctx.strokeStyle = "rgba(255,255,255,0.2)";
     ctx.beginPath();
-    ctx.moveTo(0,H/2);
-    ctx.lineTo(W,H/2);
+    ctx.moveTo(0, H / 2);
+    ctx.lineTo(W, H / 2);
     ctx.stroke();
   }
 
   // --------------------------
-  // FUNCTION DRAW
+  // DRAW FUNCTION
   // --------------------------
   function drawFunction(expr) {
-
     ctx.strokeStyle = "#60a5fa";
     ctx.beginPath();
 
-    for (let x=-5;x<=5;x+=0.05){
-      ctx.lineTo(scaleX(x), scaleY(f(expr,x)));
+    for (let x = -5; x <= 5; x += 0.05) {
+      ctx.lineTo(scaleX(x), scaleY(f(expr, x)));
     }
 
     ctx.stroke();
-  }
-
-  // --------------------------
-  // ERROR GRAPH
-  // --------------------------
-  function drawError(errors){
-
-    ectx.clearRect(0,0,EW,EH);
-
-    ectx.strokeStyle = "#22c55e";
-    ectx.beginPath();
-
-    let max = Math.max(...errors, 1);
-
-    errors.forEach((e,i)=>{
-      let x = (i/(errors.length-1))*EW;
-      let y = EH - (e/max)*EH;
-
-      ectx.lineTo(x,y);
-    });
-
-    ectx.stroke();
   }
 
   // --------------------------
   // STATE
   // --------------------------
-  let exprGlobal = "";
+  let expr = "";
   let x = 2;
   let step = 0;
-  let errors = [];
   let rows = [];
+  let running = false;
 
-  function renderAll() {
+  // --------------------------
+  // RENDER
+  // --------------------------
+  function render() {
 
-    drawGrid();
-    drawFunction(exprGlobal);
+    grid();
+    drawFunction(expr);
 
-    let fx = f(exprGlobal, x);
-    let dfx = derivative(exprGlobal, x);
+    let fx = f(expr, x);
+    let dfx = derivative(expr, x);
+    let next = x - fx / dfx;
 
-    // point
+    // CURRENT POINT
     ctx.fillStyle = "#22c55e";
     ctx.beginPath();
-    ctx.arc(scaleX(x), scaleY(fx), 6, 0, Math.PI*2);
+    ctx.arc(scaleX(x), scaleY(fx), 6, 0, Math.PI * 2);
     ctx.fill();
 
-    // tangent
-    let x1 = x-1, x2 = x+1;
-    let y1 = fx + dfx*(x1-x);
-    let y2 = fx + dfx*(x2-x);
+    // ROOT APPROX
+    ctx.fillStyle = "#ef4444";
+    ctx.beginPath();
+    ctx.arc(scaleX(next), scaleY(0), 6, 0, Math.PI * 2);
+    ctx.fill();
+
+    // TANGENT LINE
+    let x1 = x - 1;
+    let x2 = x + 1;
+
+    let y1 = fx + dfx * (x1 - x);
+    let y2 = fx + dfx * (x2 - x);
 
     ctx.strokeStyle = "#f59e0b";
     ctx.beginPath();
@@ -187,78 +176,75 @@ export function runNewton(container) {
     ctx.lineTo(scaleX(x2), scaleY(y2));
     ctx.stroke();
 
-    output.innerHTML = `
-      <b>Step:</b> ${step}<br/>
-      x = ${x.toFixed(6)}<br/>
-      f(x) = ${fx.toFixed(6)}
+    info.innerHTML = `
+      <b>Current xₙ:</b> ${x.toFixed(6)}<br/>
+      <b>f(xₙ):</b> ${fx.toFixed(6)}<br/>
+      <b>Next xₙ₊₁:</b> ${next.toFixed(6)}
     `;
 
-    tableDiv.innerHTML = `
-      <table border="1" cellpadding="5" style="border-collapse:collapse;">
-        <tr><th>Step</th><th>x</th><th>f(x)</th></tr>
-        ${rows.map(r=>`
-          <tr>
-            <td>${r.step}</td>
-            <td>${r.x}</td>
-            <td>${r.fx}</td>
-          </tr>
-        `).join("")}
-      </table>
-    `;
-
-    drawError(errors);
+    table.innerHTML = rows.map(r => `
+      <tr>
+        <td>${r.step}</td>
+        <td>${r.x}</td>
+        <td>${r.fx}</td>
+        <td>${r.dfx}</td>
+        <td>${r.next}</td>
+        <td>${r.error}</td>
+      </tr>
+    `).join("");
   }
 
+  // --------------------------
+  // ITERATION
+  // --------------------------
   function iterate() {
 
-    let fx = f(exprGlobal,x);
-    let dfx = derivative(exprGlobal,x);
+    let fx = f(expr, x);
+    let dfx = derivative(expr, x);
+    let next = x - fx / dfx;
+    let error = Math.abs(next - x);
 
-    let next = x - fx/dfx;
-
-    rows.push({step, x:x.toFixed(6), fx:fx.toFixed(6)});
-    errors.push(Math.abs(fx));
+    rows.push({
+      step,
+      x: x.toFixed(6),
+      fx: fx.toFixed(6),
+      dfx: dfx.toFixed(6),
+      next: next.toFixed(6),
+      error: error.toFixed(6)
+    });
 
     x = next;
     step++;
 
-    renderAll();
-  }
+    render();
 
-  function loop(){
-
-    if(!running) return;
-
-    iterate();
-
-    if(step<10 && Math.abs(f(exprGlobal,x))>0.0001){
-      setTimeout(loop, 600);
+    if (step < 10 && error > 0.0001 && running) {
+      setTimeout(iterate, 600);
     }
   }
 
   // --------------------------
   // EVENTS
   // --------------------------
-  container.querySelector("#runBtn").onclick = ()=>{
-    exprGlobal = container.querySelector("#fnInput").value;
-    x = parseFloat(container.querySelector("#guessInput").value);
+  container.querySelector("#run").onclick = () => {
+    expr = container.querySelector("#fn").value;
+    x = parseFloat(container.querySelector("#x0").value);
+
     step = 0;
     rows = [];
-    errors = [];
     running = true;
-    loop();
-  };
 
-  container.querySelector("#pauseBtn").onclick = ()=>{
-    running = false;
-  };
-
-  container.querySelector("#stepBtn").onclick = ()=>{
-    if(!exprGlobal){
-      exprGlobal = container.querySelector("#fnInput").value;
-    }
     iterate();
   };
 
-  renderAll();
+  container.querySelector("#reset").onclick = () => {
+    running = false;
+    step = 0;
+    rows = [];
+    x = 2;
+    expr = "x*x - 4";
+    render();
+  };
+
+  render();
 }
