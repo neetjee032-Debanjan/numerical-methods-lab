@@ -14,81 +14,63 @@ export const course = {
           title: "Floating Point Representation",
 
           pages: [
-
             {
-              title: "1. Why Floating Point Exists (Deep Foundation)",
-
+              title: "1. Why Computers Need Floating Point (Deep Intuition)",
               content: `
-In computational mathematics, real numbers are infinite in nature.  
-Numbers such as π, e, and √2 contain infinite decimal expansions that cannot be fully stored in digital systems.  
+In real-world mathematics, numbers are infinite in precision.
+For example, numbers like π or √2 have infinite decimal expansions.
 
-Computers, however, operate using finite memory and binary representation.  
-This creates a fundamental limitation in representing real-world numbers exactly.  
+However, computers have limited memory, which means they cannot store infinite precision values.
 
-To solve this, floating point representation is introduced as a standardized system for approximating real numbers.  
-It allows computers to store extremely large and extremely small values using a structured encoding system.  
+To solve this, computers use floating point representation.
 
-The idea is similar to scientific notation used in physics and chemistry, where numbers are written in compact exponential form.  
+This system allows representation of very large and very small numbers using a standardized format.
 
-For example, instead of storing 0.00000045 directly, computers store it as 4.5 × 10⁻⁷.  
+👉 Example:
+Instead of storing 0.000000000123 directly,
+computer stores it as 1.23 × 10⁻¹⁰.
 
-This system ensures efficiency in storage while maintaining acceptable precision for computation.  
-
-Floating point representation is the backbone of scientific computing, simulations, graphics engines, and machine learning systems.  
-
-Without it, modern computing systems would not be able to perform large-scale numerical calculations effectively.  
+This is similar to scientific notation used in physics and chemistry.
               `
             },
 
             {
               title: "2. Internal Structure of Floating Point Numbers",
-
               content: `
-A floating point number is composed of three essential components that define its structure and behavior.  
+A floating point number is divided into three components:
 
-The first component is the sign bit, which determines whether the number is positive or negative.  
+1. Sign bit → determines positive or negative
+2. Mantissa → stores significant digits
+3. Exponent → defines scale or magnitude
 
-The second component is the mantissa (or significand), which stores the significant digits of the number.  
+👉 General form:
 
-The third component is the exponent, which defines the scale or magnitude of the number.  
+Number = (-1)^sign × mantissa × base^exponent
 
-Mathematically, a floating point number is represented as:
+This structure allows a wide range of values to be represented efficiently.
 
-Number = (-1)^sign × mantissa × base^exponent  
+However, since mantissa has limited bits, precision is always limited.
 
-This structure allows a very wide range of values to be represented in a compact format.  
-
-However, since the mantissa has limited storage bits, precision is always finite.  
-
-This leads to rounding errors during arithmetic operations.  
-
-Even simple decimal values such as 0.1 cannot be represented exactly in binary form.  
-
-This introduces small approximation errors that accumulate during computation.  
+👉 Example:
+0.1 in binary becomes an infinite repeating fraction,
+so it must be approximated, introducing small errors.
               `
             },
 
             {
-              title: "3. Practical Limitations and Error Accumulation",
-
+              title: "3. Errors, Limitations and Real Impact",
               content: `
-Floating point arithmetic introduces unavoidable rounding errors in computation.  
+Floating point arithmetic introduces rounding errors.
 
-While each individual error may be extremely small, repeated operations cause error accumulation.  
+These errors may seem tiny but accumulate during repeated calculations.
 
-This phenomenon is known as error propagation in numerical systems.  
+👉 Example:
+In physics simulations or financial models,
+millions of operations can amplify small errors into significant deviations.
 
-In large-scale simulations such as weather prediction or physics engines, millions of operations are performed sequentially.  
+This is why numerical stability is extremely important in scientific computing.
 
-Even tiny inaccuracies can grow into significant deviations over time.  
-
-This is why numerical stability is a critical concept in computational mathematics.  
-
-Stable algorithms are designed to minimize error amplification during iterative calculations.  
-
-Modern GPUs and AI training systems also rely heavily on controlled floating point precision formats such as FP32 and FP16.  
-
-Understanding floating point limitations is essential for building reliable scientific and engineering applications.  
+Even AI training processes rely heavily on controlled floating point precision.
               `
             }
           ]
@@ -99,76 +81,335 @@ Understanding floating point limitations is essential for building reliable scie
           title: "Types of Numerical Errors",
 
           pages: [
-
             {
-              title: "1. Meaning of Numerical Error (Deep Concept)",
-
+              title: "1. What is Numerical Error (Deep Meaning)",
               content: `
-Numerical error is defined as the difference between the exact mathematical value and the computed approximate value.  
+Numerical error is the difference between the exact mathematical value
+and the computed approximate value.
 
-In most real-world computational problems, exact solutions are either impossible or impractical to obtain.  
+Since most real-world problems cannot be solved exactly,
+approximation is unavoidable.
 
-Therefore, approximation becomes a necessary part of numerical computation.  
-
-Error analysis helps us understand how far computed results deviate from true values.  
-
-This is essential in ensuring the reliability of numerical methods used in engineering and science.  
-
-Without error analysis, computational results cannot be trusted for real-world applications.  
-
-Numerical error forms the foundation of accuracy assessment in all numerical algorithms.  
-
-It allows comparison between different methods based on their precision and stability.  
-
-Understanding error behavior is as important as understanding the algorithm itself.  
+Thus, understanding error behavior is essential in numerical methods.
               `
             },
 
             {
-              title: "2. Types of Errors with Explanation and Meaning",
-
+              title: "2. Types of Errors with Meaning",
               content: `
-There are three primary types of numerical errors encountered in computation.  
+There are three main types:
 
-The first type is absolute error, which measures the direct difference between true value and approximation.  
+✔ Absolute Error:
+Difference between true and computed value.
 
-The second type is relative error, which measures error in proportional terms relative to true value.  
+✔ Relative Error:
+Absolute error divided by true value.
 
-The third type is truncation error, which arises when infinite mathematical processes are approximated using finite steps.  
+✔ Truncation Error:
+Error introduced when infinite processes are cut short.
 
-For example, Taylor series expansions are often truncated after a few terms for computation.  
-
-This truncation introduces an inherent approximation error.  
-
-Each type of error plays a different role in numerical analysis.  
-
-Absolute error gives magnitude of deviation, while relative error provides scale-independent comparison.  
-
-Truncation error helps evaluate approximation quality in iterative methods.  
+👉 Example:
+Using only first 3 terms of a Taylor series creates truncation error.
               `
             },
 
             {
-              title: "3. Error Propagation and Stability in Computation",
-
+              title: "3. Error Propagation (Very Important Concept)",
               content: `
-In numerical systems, errors do not remain isolated to a single step.  
+Errors do not stay isolated.
 
-Instead, they propagate through successive calculations and can either grow or diminish.  
+When multiple computations are performed,
+errors accumulate and propagate.
 
-This behavior depends on the stability of the numerical method used.  
+👉 Example:
+In iterative methods like Newton-Raphson,
+each step depends on previous value,
+so errors can either shrink or grow.
 
-In iterative algorithms such as Newton-Raphson or Euler methods, each step depends on previous results.  
+This is why stable algorithms are preferred in numerical analysis.
+              `
+            }
+          ]
+        }
+      ]
+    },
 
-Therefore, even small initial errors can influence final outcomes significantly.  
+    {
+      id: "m2",
+      title: "Root Finding Methods",
 
-Stable numerical methods are designed to control and reduce error amplification.  
+      lessons: [
 
-Unstable methods, on the other hand, may produce completely incorrect results even with small input perturbations.  
+        {
+          id: "l3",
+          title: "Bisection Method",
 
-This makes stability analysis a critical part of numerical method design.  
+          simulation: "bisection",
 
-Understanding error propagation is essential for building reliable computational models in science and engineering.  
+          pages: [
+            {
+              title: "1. Core Idea and Mathematical Foundation",
+              content: `
+The Bisection Method is based on the Intermediate Value Theorem.
+
+If a continuous function changes sign between two points,
+it must cross zero in between.
+
+This guarantees the existence of a root in that interval.
+
+👉 Example:
+If f(a) = -2 and f(b) = +3,
+then a root exists between a and b.
+              `
+            },
+
+            {
+              title: "2. Step-by-Step Working Process",
+              content: `
+We start with interval [a, b].
+
+Then we compute midpoint:
+
+c = (a + b) / 2
+
+We evaluate function at c:
+
+- If f(c) is positive → replace b
+- If f(c) is negative → replace a
+
+This process is repeated until convergence.
+              `
+            },
+
+            {
+              title: "3. Accuracy, Strengths and Weaknesses",
+              content: `
+Bisection method always converges if conditions are satisfied.
+
+However, it converges slowly because it reduces interval linearly.
+
+👉 Strength:
+Guaranteed convergence
+
+👉 Weakness:
+Slower compared to Newton-Raphson method
+
+👉 Real Use:
+Used in systems where stability is more important than speed.
+              `
+            }
+          ]
+        },
+
+        {
+          id: "l4",
+          title: "Newton-Raphson Method",
+
+          simulation: "newton",
+
+          pages: [
+            {
+              title: "1. Deep Intuition Behind the Method",
+              content: `
+Newton-Raphson method is based on the idea of using tangent lines
+to approximate the root of a function.
+
+Instead of searching blindly, we “follow the slope” toward zero.
+
+This makes it extremely fast and powerful.
+              `
+            },
+
+            {
+              title: "2. Mathematical Derivation (Step-by-Step)",
+              content: `
+We use Taylor expansion:
+
+f(x) ≈ f(xn) + f'(xn)(x - xn)
+
+At root, f(x) = 0:
+
+0 = f(xn) + f'(xn)(x - xn)
+
+Solving:
+
+xn+1 = xn - f(xn)/f'(xn)
+
+This is one of the most important formulas in numerical analysis.
+              `
+            },
+
+            {
+              title: "3. Algorithm + Practical Behavior",
+              content: `
+Step 1: Choose initial guess
+Step 2: Compute function and derivative
+Step 3: Apply update formula
+Step 4: Repeat
+
+👉 Example:
+For f(x) = x² - 4,
+starting at x=2.5:
+
+2.5 → 2.05 → 2.0006 → 2
+
+Converges extremely fast.
+
+However, poor initial guess can cause divergence.
+              `
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      id: "m3",
+      title: "Interpolation",
+
+      lessons: [
+
+        {
+          id: "l5",
+          title: "Lagrange Interpolation",
+
+          simulation: "lagrange",
+
+          pages: [
+            {
+              title: "1. Concept of Interpolation",
+              content: `
+Interpolation is the process of estimating values between known data points.
+
+Instead of guessing values randomly,
+we construct a polynomial that fits all points exactly.
+              `
+            },
+
+            {
+              title: "2. Mathematical Construction",
+              content: `
+Lagrange interpolation builds basis polynomials.
+
+Each basis polynomial contributes to one point
+and becomes zero at all others.
+
+This ensures exact curve fitting.
+              `
+            },
+
+            {
+              title: "3. Applications and Example",
+              content: `
+Used in physics simulations, curve fitting, and data modeling.
+
+👉 Example:
+Points (1,1), (2,4), (3,9)
+produce a quadratic curve y = x²
+
+However, high-degree polynomials can oscillate unpredictably.
+              `
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      id: "m4",
+      title: "Numerical Integration",
+
+      lessons: [
+
+        {
+          id: "l6",
+          title: "Trapezoidal Rule",
+
+          simulation: "trapezoid",
+
+          pages: [
+            {
+              title: "1. Idea of Numerical Integration",
+              content: `
+When functions are difficult to integrate analytically,
+we approximate area under curve.
+
+Trapezoidal rule divides region into trapezoids.
+              `
+            },
+
+            {
+              title: "2. Mathematical Structure",
+              content: `
+Each segment contributes area:
+
+Area ≈ sum of trapezoids
+
+This improves accuracy compared to rectangle methods.
+              `
+            },
+
+            {
+              title: "3. Example and Applications",
+              content: `
+Used in physics, engineering, and numerical modeling.
+
+👉 Example:
+Estimating area under y = x² from 0 to 5.
+
+More segments → higher accuracy.
+              `
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      id: "m5",
+      title: "Differential Equations",
+
+      lessons: [
+
+        {
+          id: "l7",
+          title: "Euler Method",
+
+          simulation: "euler",
+
+          pages: [
+            {
+              title: "1. Concept of Differential Equations",
+              content: `
+Differential equations describe how systems change over time.
+
+Exact solutions are often impossible,
+so numerical methods are required.
+              `
+            },
+
+            {
+              title: "2. Euler Method Logic",
+              content: `
+We approximate next value using slope:
+
+y(n+1) = y(n) + h * f(xn, yn)
+
+This converts continuous systems into stepwise computation.
+              `
+            },
+
+            {
+              title: "3. Example and Limitations",
+              content: `
+Used in motion simulation and growth models.
+
+👉 Example:
+dy/dx = y
+y(0)=1 gives exponential growth approximation.
+
+Limitation:
+Accuracy decreases with large step size.
               `
             }
           ]
