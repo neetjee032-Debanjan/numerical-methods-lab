@@ -1,20 +1,18 @@
-import { course } from "../data/course.js";
 import { runNewton } from "../sims/newton-raphson.js";
 
-export function renderLesson(app) {
-  const parts = window.location.hash.split("-");
-  const moduleId = parts[1];
-  const lessonId = parts[2];
+export function renderLesson(app, course, moduleId, lessonId) {
 
   const module = course.modules.find(m => m.id === moduleId);
+  if (!module) return;
+
   const lesson = module.lessons.find(l => l.id === lessonId);
+  if (!lesson) return;
 
   app.innerHTML = `
     <div class="navbar">${lesson.title}</div>
 
     <div class="content">
       <p>${lesson.content}</p>
-
       <div id="sim"></div>
     </div>
   `;
