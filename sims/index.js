@@ -5,44 +5,26 @@ import { runLagrange } from "./lagrange.js";
 import { runDE } from "./differential.js";
 
 /**
- * CENTRAL SIMULATION REGISTRY
- * This is the ONLY place where simulations are mapped.
- * If a simulation is not listed here → it will NOT run.
+ * ONLY TOP-LEVEL SIMULATIONS
+ * NEVER methods like euler, rk4, simpson here
  */
 
 export const Simulations = {
 
-  // ======================
-  // ROOT FINDING METHODS
-  // ======================
+  // Root Finding
   "newton-raphson": runNewton,
-  newton: runNewton,
-
   bisection: runBisection,
 
-  // ======================
-  // NUMERICAL INTEGRATION
-  // ======================
+  // Integration
   integration: runIntegration,
-  "numerical-integration": runIntegration,
 
-  // ======================
-  // INTERPOLATION
-  // ======================
+  // Interpolation
   lagrange: runLagrange,
-  "lagrange-interpolation": runLagrange,
 
-  // ======================
-  // DIFFERENTIAL EQUATIONS
-  // ======================
-  differential: runDE,
-  "differential-equations": runDE
+  // Differential Equations
+  differential: runDE
 };
 
-/**
- * SAFE LOADER
- * Prevents blank screen crashes if key is missing
- */
 export function loadSimulation(key, container) {
 
   try {
@@ -50,20 +32,21 @@ export function loadSimulation(key, container) {
     const sim = Simulations[key];
 
     if (!sim) {
+
       container.innerHTML = `
         <div style="color:white;padding:20px;font-family:Arial;">
           <h2>⚠ Simulation not found</h2>
           <p>Key: <b>${key}</b></p>
-          <p>Check simulation registry mapping in sims/index.js</p>
+          <p>This key is NOT a simulation. It may be a METHOD inside a simulation.</p>
         </div>
       `;
+
       return;
     }
 
     sim(container);
 
   } catch (err) {
-    console.error(err);
 
     container.innerHTML = `
       <div style="color:red;padding:20px;">
