@@ -6,43 +6,14 @@ export const course = {
     {
       id: "m1",
       title: "Numbers, Precision & Errors",
-
       lessons: [
         {
           id: "l1",
           title: "Floating Point Representation",
           pages: [
-            {
-              title: "Concept",
-              content: "Floating point numbers represent real numbers using sign, exponent and mantissa."
-            },
-            {
-              title: "Why needed",
-              content: "Computers cannot store infinite real numbers, so approximation is required."
-            },
-            {
-              title: "Error introduction",
-              content: "This leads to rounding and truncation errors in computation."
-            }
-          ]
-        },
-
-        {
-          id: "l2",
-          title: "Types of Errors",
-          pages: [
-            {
-              title: "Absolute Error",
-              content: "Absolute error = |true value - approximate value|"
-            },
-            {
-              title: "Relative Error",
-              content: "Relative error = absolute error / true value"
-            },
-            {
-              title: "Truncation Error",
-              content: "Error due to cutting off infinite processes."
-            }
+            { title: "Concept", content: "Floating point numbers use sign, exponent, mantissa." },
+            { title: "Why needed", content: "Computers approximate real numbers." },
+            { title: "Error", content: "Leads to rounding errors." }
           ]
         }
       ]
@@ -51,37 +22,22 @@ export const course = {
     {
       id: "m2",
       title: "Root Finding Methods",
-
       lessons: [
         {
-          id: "l3",
+          id: "l2",
           title: "Bisection Method",
           simulation: "bisection",
           pages: [
-            {
-              title: "Idea",
-              content: "Repeatedly divide interval to find root."
-            },
-            {
-              title: "Algorithm",
-              content: "Choose a,b such that f(a)*f(b)<0"
-            }
+            { title: "Idea", content: "Divide interval repeatedly to find root." }
           ]
         },
 
         {
-          id: "l4",
+          id: "l3",
           title: "Newton-Raphson Method",
           simulation: "newton",
           pages: [
-            {
-              title: "Formula",
-              content: "x_{n+1} = x_n - f(x)/f'(x)"
-            },
-            {
-              title: "Concept",
-              content: "Uses tangent line to approximate root."
-            }
+            { title: "Formula", content: "x(n+1)=x - f(x)/f'(x)" }
           ]
         }
       ]
@@ -90,17 +46,13 @@ export const course = {
     {
       id: "m3",
       title: "Interpolation",
-
       lessons: [
         {
-          id: "l5",
+          id: "l4",
           title: "Lagrange Interpolation",
           simulation: "lagrange",
           pages: [
-            {
-              title: "Concept",
-              content: "Construct polynomial passing through given points."
-            }
+            { title: "Concept", content: "Polynomial through points." }
           ]
         }
       ]
@@ -109,29 +61,13 @@ export const course = {
     {
       id: "m4",
       title: "Numerical Integration",
-
       lessons: [
         {
-          id: "l6",
+          id: "l5",
           title: "Trapezoidal Rule",
           simulation: "trapezoid",
           pages: [
-            {
-              title: "Formula",
-              content: "Area approximated using trapezoids."
-            }
-          ]
-        },
-
-        {
-          id: "l7",
-          title: "Simpson’s Rule",
-          simulation: "simpson",
-          pages: [
-            {
-              title: "Concept",
-              content: "Uses parabolic approximation for better accuracy."
-            }
+            { title: "Concept", content: "Area approximation using trapezoids." }
           ]
         }
       ]
@@ -140,29 +76,13 @@ export const course = {
     {
       id: "m5",
       title: "Differential Equations",
-
       lessons: [
         {
-          id: "l8",
+          id: "l6",
           title: "Euler Method",
           simulation: "euler",
           pages: [
-            {
-              title: "Concept",
-              content: "Stepwise approximation of ODE solution."
-            }
-          ]
-        },
-
-        {
-          id: "l9",
-          title: "Runge-Kutta Method",
-          simulation: "rk",
-          pages: [
-            {
-              title: "Concept",
-              content: "Improved accuracy using weighted slopes."
-            }
+            { title: "Concept", content: "Stepwise ODE approximation." }
           ]
         }
       ]
