@@ -1,12 +1,11 @@
 export function runTrapezoid(container) {
 
   container.innerHTML = `
-    <h3>Trapezoidal Rule</h3>
+    <h3>Trapezoidal Rule (Area Visualizer)</h3>
 
-    <p>Function: f(x) = x²</p>
+    <button id="run">Compute Area</button>
 
-    <button id="run">Calculate Area</button>
-
+    <div id="result"></div>
     <canvas id="chart"></canvas>
   `;
 
@@ -16,37 +15,34 @@ export function runTrapezoid(container) {
       return x*x;
     }
 
-    let a = 0;
-    let b = 5;
-    let n = 10;
+    let a = 0, b = 5, n = 10;
     let h = (b - a) / n;
 
     let sum = 0;
-
-    const points = [];
+    let values = [];
 
     for (let i = 0; i <= n; i++) {
       let x = a + i * h;
       let y = f(x);
 
-      points.push(y);
+      values.push(y);
 
-      if (i === 0 || i === n) {
-        sum += y;
-      } else {
-        sum += 2 * y;
-      }
+      sum += (i === 0 || i === n) ? y : 2*y;
     }
 
     let area = (h / 2) * sum;
 
+    document.getElementById("result").innerHTML =
+      `<h4>Approx Area = ${area.toFixed(4)}</h4>`;
+
     new Chart(document.getElementById("chart"), {
       type: "line",
       data: {
-        labels: points.map((_, i) => i),
+        labels: values.map((_, i) => i),
         datasets: [{
-          label: "Function Curve (Area ≈ " + area.toFixed(2) + ")",
-          data: points
+          label: "Function Curve",
+          data: values,
+          borderColor: "#ef4444"
         }]
       }
     });
