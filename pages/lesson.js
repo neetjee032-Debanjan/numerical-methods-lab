@@ -3,12 +3,14 @@ import { markPageComplete, getProgress } from "../progress.js";
 export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0) {
 
   const module = courseData.modules.find(m => m.id === moduleId);
+
   if (!module) {
     app.innerHTML = "<h2>Module not found</h2>";
     return;
   }
 
   const lesson = module.lessons.find(l => l.id === lessonId);
+
   if (!lesson) {
     app.innerHTML = "<h2>Lesson not found</h2>";
     return;
@@ -21,6 +23,9 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
 
   const isCompleted = completedPages.includes(pageIndex);
 
+  // -----------------------------
+  // RENDER UI
+  // -----------------------------
   app.innerHTML = `
     <div class="navbar">
       📘 ${lesson.title}
@@ -30,11 +35,12 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
 
       <!-- SIDEBAR -->
       <div class="sidebar">
-        <h3>📄 Pages</h3>
+        <h3>Pages</h3>
 
         ${lesson.pages.map((p, i) => `
           <div class="card ${i === pageIndex ? "active" : ""}">
-            <a href="#lesson-${moduleId}-${lessonId}-${i}" style="color:white;text-decoration:none;">
+            <a href="#lesson-${moduleId}-${lessonId}-${i}"
+               style="color:white;text-decoration:none;display:block;">
               ${i + 1}. ${p.title}
             </a>
 
@@ -43,6 +49,7 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
             </span>
           </div>
         `).join("")}
+
       </div>
 
       <!-- CONTENT -->
@@ -54,7 +61,7 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
           ${page.content}
         </div>
 
-        <!-- COMPLETE -->
+        <!-- COMPLETE BUTTON -->
         <div style="margin-top:25px;">
           ${
             !isCompleted
@@ -63,7 +70,7 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
           }
         </div>
 
-        <!-- NAV -->
+        <!-- NAVIGATION -->
         <div style="margin-top:25px; display:flex; gap:10px;">
           ${pageIndex > 0 ? `<button onclick="goPage(${pageIndex - 1})">⬅ Prev</button>` : ""}
           ${pageIndex < lesson.pages.length - 1 ? `<button onclick="goPage(${pageIndex + 1})">Next ➡</button>` : ""}
@@ -80,12 +87,16 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
     </div>
   `;
 
-  // navigation
+  // -----------------------------
+  // PAGE NAVIGATION
+  // -----------------------------
   window.goPage = (i) => {
     window.location.hash = `lesson-${moduleId}-${lessonId}-${i}`;
   };
 
-  // mark complete
+  // -----------------------------
+  // COMPLETE SYSTEM
+  // -----------------------------
   const btn = document.getElementById("completeBtn");
   if (btn) {
     btn.onclick = () => {
@@ -95,13 +106,14 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
   }
 
   // -----------------------------
-  // FIXED SIMULATION LOADER (ROBUST)
+  // SIMULATION SYSTEM (ROBUST + FIXED)
   // -----------------------------
   if (lesson.simulation) {
 
     const simContainer = document.getElementById("sim");
 
-    const map = {
+    // CLEAN FILE MAPPING (ONLY ONE SOURCE OF TRUTH)
+    const fileMap = {
       newton: "newton-raphson",
       bisection: "bisection",
       lagrange: "lagrange",
@@ -109,30 +121,44 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
       euler: "euler"
     };
 
-    const fileName = map[lesson.simulation] || lesson.simulation;
+    const fnMap = {
+      newton: "runNewton",
+      bisection: "runBisection",
+      lagrange: "runLagrange",
+      trapezoid: "runTrapezoid",
+      euler: "runEuler"
+    };
+
+    const key = lesson.simulation;
+
+    const fileName = fileMap[key];
+
+    if (!fileName) {
+      simContainer.innerHTML = "<p>Simulation not registered.</p>";
+      return;
+    }
 
     import(`../sims/${fileName}.js`)
       .then(module => {
 
-        const fnMap = {
-          newton: "runNewton",
-          bisection: "runBisection",
-          lagrange: "runLagrange",
-          trapezoid: "runTrapezoid",
-          euler: "runEuler"
-        };
+        const fnName = fnMap[key];
 
-        const fn = fnMap[lesson.simulation];
-
-        if (module[fn]) {
-          module[fn](simContainer);
+        if (module[fnName]) {
+          module[fnName](simContainer);
         } else {
-          simContainer.innerHTML = "<p>Simulation function missing.</p>";
+          simContainer.innerHTML = "<p>Simulation function missing in module.</p>";
         }
       })
       .catch(err => {
         console.error("Simulation load error:", err);
-        simContainer.innerHTML = "<p>Simulation failed to load.</p>";
+
+        simContainer.innerHTML = `
+          <div style="color:red;">
+            <b>Simulation failed to load</b><br/>
+            File: /sims/${fileName}.js<br/>
+            Check filename and GitHub deployment.
+          </div>
+        `;
       });
   }
 }
