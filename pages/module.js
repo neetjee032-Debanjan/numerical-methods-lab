@@ -1,18 +1,20 @@
-import { course } from "../data/course.js";
+export function renderModule(app, course, moduleId) {
 
-export function renderModule(app) {
-  const id = window.location.hash.split("-")[1];
+  const module = course.modules.find(m => m.id === moduleId);
 
-  const module = course.modules.find(m => m.id === id);
+  if (!module) {
+    app.innerHTML = "<h2>Module not found</h2>";
+    return;
+  }
 
   app.innerHTML = `
     <div class="navbar">${module.title}</div>
-    <div class="container">
 
+    <div class="container">
       <div class="sidebar">
         ${module.lessons.map(l => `
           <div class="card">
-            <a href="#lesson-${module.id}-${l.id}" style="color:white;">
+            <a href="#lesson-${module.id}-${l.id}" style="color:white;text-decoration:none;">
               ${l.title}
             </a>
           </div>
@@ -22,7 +24,6 @@ export function renderModule(app) {
       <div class="content">
         <h2>Select a lesson</h2>
       </div>
-
     </div>
   `;
 }
