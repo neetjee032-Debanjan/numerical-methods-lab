@@ -17,7 +17,6 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
   const completedPages = progress?.[moduleId]?.[lessonId] || [];
   const isCompleted = completedPages.includes(pageIndex);
 
-  // ---------------- UI ----------------
   app.innerHTML = `
     <div class="navbar">
       📘 ${lesson.title}
@@ -25,14 +24,16 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
 
     <div class="container">
 
-      <!-- SIDEBAR -->
       <div class="sidebar">
+
         <h3>Pages</h3>
 
         ${lesson.pages.map((p, i) => `
           <div class="card ${i === pageIndex ? "active" : ""}">
-            <a href="#lesson-${moduleId}-${lessonId}-${i}"
-               style="color:white;text-decoration:none;">
+            <a
+              href="#lesson-${moduleId}-${lessonId}-${i}"
+              style="color:white;text-decoration:none;"
+            >
               ${i + 1}. ${p.title}
             </a>
           </div>
@@ -40,7 +41,6 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
 
       </div>
 
-      <!-- CONTENT -->
       <div class="content">
 
         <h1>${page.title}</h1>
@@ -57,20 +57,19 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
           }
         </div>
 
-        <!-- SIMULATION AREA -->
         <div id="sim" style="margin-top:25px;"></div>
 
       </div>
+
     </div>
   `;
 
-  // ---------------- NAV ----------------
   window.goPage = (i) => {
     window.location.hash = `lesson-${moduleId}-${lessonId}-${i}`;
   };
 
-  // ---------------- COMPLETE ----------------
   const btn = document.getElementById("completeBtn");
+
   if (btn) {
     btn.onclick = () => {
       markPageComplete(moduleId, lessonId, pageIndex);
@@ -78,36 +77,62 @@ export function renderLesson(app, courseData, moduleId, lessonId, pageIndex = 0)
     };
   }
 
-  // ---------------- SIMULATION ENGINE ----------------
   try {
 
     const simContainer = document.getElementById("sim");
 
     if (!simContainer) return;
 
-    const key = (lesson.simulation || "").trim().toLowerCase();
+    const key = (lesson.simulation || "")
+      .trim()
+      .toLowerCase();
 
     const sim = Simulations?.[key];
 
     if (typeof sim === "function") {
+
       sim(simContainer);
+
     } else {
+
+      if (!key) {
+        simContainer.innerHTML = "";
+        return;
+      }
+
       simContainer.innerHTML = `
-        <div style="color:#ff4d4d; padding:10px;">
-          <b>Simulation not found</b><br/>
-          Key: ${key}
+        <div
+          style="
+            margin-top:20px;
+            padding:14px;
+            border-radius:12px;
+            background:#1e293b;
+            color:#cbd5e1;
+          "
+        >
+          🚧 Interactive simulation coming soon.
         </div>
       `;
     }
 
   } catch (err) {
+
     console.error("Simulation crash:", err);
 
     const simContainer = document.getElementById("sim");
+
     if (simContainer) {
       simContainer.innerHTML = `
-        <div style="color:red;">
-          <b>Simulation runtime error</b>
+        <div
+          style="
+            margin-top:20px;
+            padding:14px;
+            border-radius:12px;
+            background:#7f1d1d;
+            color:white;
+          "
+        >
+          Simulation runtime error.
         </div>
       `;
     }
