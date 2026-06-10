@@ -1,17 +1,8 @@
 import { course } from "./data/course.js";
 import { renderLesson } from "./pages/lesson.js";
-
-import {
-  getProgress,
-  calculateOverallProgress,
-  calculateModuleProgress
-} from "./progress.js";
+import { getProgress } from "./progress.js";
 
 const app = document.getElementById("app");
-
-let currentModule = null;
-let currentLesson = null;
-let currentPage = 0;
 
 /* -----------------------
    ROUTER
@@ -33,10 +24,6 @@ function router() {
     const lessonId = parts[2];
     const pageIndex = parseInt(parts[3] || 0);
 
-    currentModule = moduleId;
-    currentLesson = lessonId;
-    currentPage = pageIndex;
-
     renderLesson(
       app,
       course,
@@ -48,7 +35,7 @@ function router() {
 }
 
 /* -----------------------
-   TOTAL PAGE COUNT
+   COUNTERS
 ------------------------ */
 function getTotalPages() {
 
@@ -63,9 +50,6 @@ function getTotalPages() {
   return total;
 }
 
-/* -----------------------
-   COMPLETED PAGE COUNT
------------------------- */
 function getCompletedPages() {
 
   const progress = getProgress();
@@ -73,12 +57,85 @@ function getCompletedPages() {
   let count = 0;
 
   Object.values(progress).forEach(module => {
+
     Object.values(module).forEach(lesson => {
       count += lesson.length;
     });
+
   });
 
   return count;
+}
+
+function getTotalLessons() {
+
+  let total = 0;
+
+  course.modules.forEach(module => {
+    total += module.lessons.length;
+  });
+
+  return total;
+}
+
+function getCompletedLessons() {
+
+  const progress = getProgress();
+
+  let completed = 0;
+
+  course.modules.forEach(module => {
+
+    module.lessons.forEach(lesson => {
+
+      const pagesDone =
+        progress?.[module.id]?.[lesson.id] || [];
+
+      if (
+        pagesDone.length === lesson.pages.length
+      ) {
+        completed++;
+      }
+
+    });
+
+  });
+
+  return completed;
+}
+
+/* -----------------------
+   MODULE STATS
+------------------------ */
+function getModuleProgress(module) {
+
+  const progress = getProgress();
+
+  let totalPages = 0;
+  let completedPages = 0;
+
+  module.lessons.forEach(lesson => {
+
+    totalPages += lesson.pages.length;
+
+    completedPages += (
+      progress?.[module.id]?.[lesson.id] || []
+    ).length;
+
+  });
+
+  return {
+    totalPages,
+    completedPages,
+    percent:
+      totalPages === 0
+        ? 0
+        : Math.round(
+            completedPages /
+            totalPages *
+            100
+          )
+  };
 }
 
 /* -----------------------
@@ -89,8 +146,17 @@ function renderHome() {
   const totalPages = getTotalPages();
   const completedPages = getCompletedPages();
 
+  const totalLessons = getTotalLessons();
+  const completedLessons = getCompletedLessons();
+
   const percentage =
-    calculateOverallProgress(course);
+    totalPages === 0
+      ? 0
+      : Math.round(
+          completedPages /
+          totalPages *
+          100
+        );
 
   app.innerHTML = `
     <div class="navbar">
@@ -102,37 +168,38 @@ function renderHome() {
       <h1>Welcome to Your Learning Lab</h1>
 
       <p>
-        Explore structured modules,
-        simulations,
-        worked examples,
-        and numerical computing concepts.
+        Learn Numerical Methods
+        from fundamentals to advanced
+        computational techniques.
       </p>
 
-      <h3>
-        Progress:
-        ${completedPages}/${totalPages}
-        pages completed
-      </h3>
+      <div class="card">
 
-      <div class="progress">
-        <div
-          class="progress-bar"
-          id="progressBar"
-          style="
-            width:${percentage}%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-          "
-        >
-          ${percentage}%
+        <h2>Learning Statistics</h2>
+
+        <p>
+          📄 Pages:
+          ${completedPages}/${totalPages}
+        </p>
+
+        <p>
+          📚 Lessons:
+          ${completedLessons}/${totalLessons}
+        </p>
+
+        <div class="progress">
+          <div
+            class="progress-bar"
+            style="width:${percentage}%">
+          </div>
         </div>
-      </div>
 
-      <p>
-        Overall Course Completion:
-        <strong>${percentage}%</strong>
-      </p>
+        <p>
+          Overall Completion:
+          ${percentage}%
+        </p>
+
+      </div>
 
       <h2>Modules</h2>
 
@@ -140,48 +207,50 @@ function renderHome() {
         style="
           display:grid;
           grid-template-columns:
-          repeat(auto-fit,minmax(250px,1fr));
+          repeat(auto-fit,minmax(280px,1fr));
           gap:15px;
         "
       >
 
-        ${course.modules.map(m => {
+        ${course.modules.map(module => {
 
-          const pagesInModule =
-            m.lessons.reduce(
-              (sum,l) => sum + l.pages.length,
-              0
-            );
-
-          const moduleProgress =
-            calculateModuleProgress(
-              course,
-              m.id
-            );
+          const stats =
+            getModuleProgress(module);
 
           return `
             <div
               class="card"
-              onclick="openModule('${m.id}')"
+              onclick="openModule('${module.id}')"
             >
-              <h3>${m.title}</h3>
+
+              <h3>
+                ${module.title}
+              </h3>
 
               <p>
-                ${m.lessons.length}
-                lessons
-              </p>
-
-              <p>
-                ${pagesInModule}
-                pages
+                Lessons:
+                ${module.lessons.length}
               </p>
 
               <p>
                 Progress:
-                <strong>
-                  ${moduleProgress}%
-                </strong>
+                ${stats.completedPages}
+                /
+                ${stats.totalPages}
+                pages
               </p>
+
+              <div class="progress">
+                <div
+                  class="progress-bar"
+                  style="width:${stats.percent}%">
+                </div>
+              </div>
+
+              <p>
+                ${stats.percent}% Complete
+              </p>
+
             </div>
           `;
         }).join("")}
@@ -193,7 +262,7 @@ function renderHome() {
 }
 
 /* -----------------------
-   OPEN MODULE VIEW
+   MODULE VIEW
 ------------------------ */
 window.openModule = function(moduleId) {
 
@@ -204,20 +273,13 @@ window.openModule = function(moduleId) {
 
   if (!module) return;
 
-  const moduleProgress =
-    calculateModuleProgress(
-      course,
-      moduleId
-    );
-
   app.innerHTML = `
     <div class="navbar">
       📘 ${module.title}
 
       <button
         style="float:right;"
-        onclick="goHome()"
-      >
+        onclick="goHome()">
         Home
       </button>
     </div>
@@ -250,13 +312,6 @@ window.openModule = function(moduleId) {
         <h1>${module.title}</h1>
 
         <p>
-          Module Progress:
-          <strong>
-            ${moduleProgress}%
-          </strong>
-        </p>
-
-        <p>
           Select a lesson from the sidebar.
         </p>
 
@@ -287,7 +342,7 @@ window.goHome = function() {
 };
 
 /* -----------------------
-   LISTENERS
+   START
 ------------------------ */
 window.addEventListener(
   "hashchange",
