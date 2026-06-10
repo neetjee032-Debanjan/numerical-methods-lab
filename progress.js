@@ -42,6 +42,43 @@ export function markPageComplete(
   }
 
   saveProgress(data);
+
+  saveLastVisited(
+    moduleId,
+    lessonId,
+    pageIndex
+  );
+}
+
+/* -----------------------
+   LAST VISITED PAGE
+----------------------- */
+const LAST_PAGE_KEY =
+  "numerical_methods_last_page";
+
+export function saveLastVisited(
+  moduleId,
+  lessonId,
+  pageIndex
+) {
+  localStorage.setItem(
+    LAST_PAGE_KEY,
+    JSON.stringify({
+      moduleId,
+      lessonId,
+      pageIndex
+    })
+  );
+}
+
+export function getLastVisited() {
+
+  const data =
+    localStorage.getItem(LAST_PAGE_KEY);
+
+  if (!data) return null;
+
+  return JSON.parse(data);
 }
 
 /* -----------------------
@@ -64,7 +101,9 @@ export function calculateOverallProgress(course) {
         progress?.[module.id]?.[lesson.id] || [];
 
       completedPages += done.length;
+
     });
+
   });
 
   if (totalPages === 0) return 0;
@@ -101,11 +140,14 @@ export function calculateModuleProgress(
     done += (
       progress?.[moduleId]?.[lesson.id] || []
     ).length;
+
   });
 
   if (total === 0) return 0;
 
-  return Math.round((done / total) * 100);
+  return Math.round(
+    (done / total) * 100
+  );
 }
 
 /* -----------------------
