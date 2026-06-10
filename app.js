@@ -1,5 +1,6 @@
 import { course } from "./data/course.js";
 import { renderLesson } from "./pages/lesson.js";
+import { getProgress } from "./progress.js";
 
 const app = document.getElementById("app");
 
@@ -22,6 +23,7 @@ function router() {
   const parts = hash.split("-");
 
   if (parts[0] === "lesson") {
+
     const moduleId = parts[1];
     const lessonId = parts[2];
     const pageIndex = parseInt(parts[3] || 0);
@@ -30,14 +32,62 @@ function router() {
     currentLesson = lessonId;
     currentPage = pageIndex;
 
-    renderLesson(app, course, moduleId, lessonId, pageIndex);
+    renderLesson(
+      app,
+      course,
+      moduleId,
+      lessonId,
+      pageIndex
+    );
   }
 }
 
 /* -----------------------
-   HOME PAGE (NEW PREMIUM DASHBOARD)
+   TOTAL PAGE COUNT
+------------------------ */
+function getTotalPages() {
+
+  let total = 0;
+
+  course.modules.forEach(module => {
+    module.lessons.forEach(lesson => {
+      total += lesson.pages.length;
+    });
+  });
+
+  return total;
+}
+
+/* -----------------------
+   COMPLETED PAGE COUNT
+------------------------ */
+function getCompletedPages() {
+
+  const progress = getProgress();
+
+  let count = 0;
+
+  Object.values(progress).forEach(module => {
+    Object.values(module).forEach(lesson => {
+      count += lesson.length;
+    });
+  });
+
+  return count;
+}
+
+/* -----------------------
+   HOME PAGE
 ------------------------ */
 function renderHome() {
+
+  const totalPages = getTotalPages();
+  const completedPages = getCompletedPages();
+
+  const percentage =
+    totalPages === 0
+      ? 0
+      : Math.round((completedPages / totalPages) * 100);
 
   app.innerHTML = `
     <div class="navbar">
@@ -48,29 +98,72 @@ function renderHome() {
 
       <h1>Welcome to Your Learning Lab</h1>
 
-      <p>Explore structured modules with simulations and deep theory.</p>
+      <p>
+        Explore structured modules,
+        simulations,
+        worked examples,
+        and numerical computing concepts.
+      </p>
+
+      <h3>
+        Progress:
+        ${completedPages}/${totalPages}
+        pages completed
+      </h3>
 
       <div class="progress">
-        <div class="progress-bar" id="progressBar"></div>
+        <div
+          class="progress-bar"
+          id="progressBar"
+          style="width:${percentage}%">
+        </div>
       </div>
+
+      <p>${percentage}% Complete</p>
 
       <h2>Modules</h2>
 
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:15px;">
+      <div
+        style="
+          display:grid;
+          grid-template-columns:
+          repeat(auto-fit,minmax(250px,1fr));
+          gap:15px;
+        "
+      >
 
-        ${course.modules.map(m => `
-          <div class="card" onclick="openModule('${m.id}')">
-            <h3>${m.title}</h3>
-            <p>${m.lessons.length} lessons</p>
-          </div>
-        `).join("")}
+        ${course.modules.map(m => {
+
+          const pagesInModule =
+            m.lessons.reduce(
+              (sum,l) => sum + l.pages.length,
+              0
+            );
+
+          return `
+            <div
+              class="card"
+              onclick="openModule('${m.id}')"
+            >
+              <h3>${m.title}</h3>
+
+              <p>
+                ${m.lessons.length}
+                lessons
+              </p>
+
+              <p>
+                ${pagesInModule}
+                pages
+              </p>
+            </div>
+          `;
+        }).join("")}
 
       </div>
 
     </div>
   `;
-
-  updateProgressBar();
 }
 
 /* -----------------------
@@ -78,21 +171,42 @@ function renderHome() {
 ------------------------ */
 window.openModule = function(moduleId) {
 
-  const module = course.modules.find(m => m.id === moduleId);
+  const module =
+    course.modules.find(
+      m => m.id === moduleId
+    );
+
+  if (!module) return;
 
   app.innerHTML = `
     <div class="navbar">
       📘 ${module.title}
-      <button style="float:right;" onclick="goHome()">Home</button>
+
+      <button
+        style="float:right;"
+        onclick="goHome()"
+      >
+        Home
+      </button>
     </div>
 
     <div class="container">
 
       <div class="sidebar">
+
         <h3>Lessons</h3>
 
         ${module.lessons.map(l => `
-          <div class="card" onclick="openLesson('${moduleId}','${l.id}',0)">
+          <div
+            class="card"
+            onclick="
+              openLesson(
+                '${moduleId}',
+                '${l.id}',
+                0
+              )
+            "
+          >
             ${l.title}
           </div>
         `).join("")}
@@ -100,8 +214,13 @@ window.openModule = function(moduleId) {
       </div>
 
       <div class="content">
+
         <h1>${module.title}</h1>
-        <p>Select a lesson from sidebar</p>
+
+        <p>
+          Select a lesson from the sidebar.
+        </p>
+
       </div>
 
     </div>
@@ -111,33 +230,32 @@ window.openModule = function(moduleId) {
 /* -----------------------
    OPEN LESSON
 ------------------------ */
-window.openLesson = function(moduleId, lessonId, pageIndex = 0) {
-  window.location.hash = `lesson-${moduleId}-${lessonId}-${pageIndex}`;
+window.openLesson = function(
+  moduleId,
+  lessonId,
+  pageIndex = 0
+) {
+
+  window.location.hash =
+    `lesson-${moduleId}-${lessonId}-${pageIndex}`;
 };
 
 /* -----------------------
-   HOME BUTTON
+   HOME
 ------------------------ */
 window.goHome = function() {
   window.location.hash = "";
 };
 
 /* -----------------------
-   PROGRESS BAR (BASIC LOGIC HOOK)
+   LISTENERS
 ------------------------ */
-function updateProgressBar() {
+window.addEventListener(
+  "hashchange",
+  router
+);
 
-  const bar = document.getElementById("progressBar");
-  if (!bar) return;
-
-  // simple placeholder progress (can be upgraded later)
-  let progress = Math.random() * 60 + 20;
-
-  bar.style.width = progress + "%";
-}
-
-/* -----------------------
-   ROUTE LISTENER
------------------------- */
-window.addEventListener("hashchange", router);
-window.addEventListener("load", router);
+window.addEventListener(
+  "load",
+  router
+);
