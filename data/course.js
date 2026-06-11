@@ -11,6 +11,7 @@ import { lagrangeLesson } from "./lessons/lagrange.js";
 
 import { forwardDifferenceLesson } from "./lessons/forwardDifference.js";
 import { backwardDifferenceLesson } from "./lessons/backwardDifference.js";
+import { centralDifferenceLesson } from "./lessons/centralDifference.js";
 
 import { trapezoidalLesson } from "./lessons/trapezoidal.js";
 import { simpson13Lesson } from "./lessons/simpson13.js";
@@ -62,7 +63,8 @@ export const course = {
 
       lessons: [
         forwardDifferenceLesson,
-        backwardDifferenceLesson
+        backwardDifferenceLesson,
+        centralDifferenceLesson
       ]
     },
 
