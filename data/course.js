@@ -9,6 +9,7 @@ import { fixedPointLesson } from "./lessons/fixedPoint.js";
 
 import { lagrangeLesson } from "./lessons/lagrange.js";
 import { newtonForwardInterpolationLesson } from "./lessons/newtonForwardInterpolation.js";
+import { newtonBackwardInterpolationLesson } from "./lessons/newtonBackwardInterpolation.js";
 
 import { forwardDifferenceLesson } from "./lessons/forwardDifference.js";
 import { backwardDifferenceLesson } from "./lessons/backwardDifference.js";
@@ -29,7 +30,6 @@ export const course = {
     {
       id: "m1",
       title: "Numbers, Precision & Errors",
-
       lessons: [
         floatingPointLesson,
         numericalErrorsLesson
@@ -39,7 +39,6 @@ export const course = {
     {
       id: "m2",
       title: "Root Finding Methods",
-
       lessons: [
         bisectionLesson,
         newtonLesson,
@@ -52,17 +51,16 @@ export const course = {
     {
       id: "m3",
       title: "Interpolation",
-
       lessons: [
         lagrangeLesson,
-        newtonForwardInterpolationLesson
+        newtonForwardInterpolationLesson,
+        newtonBackwardInterpolationLesson
       ]
     },
 
     {
       id: "m4",
       title: "Numerical Differentiation",
-
       lessons: [
         forwardDifferenceLesson,
         backwardDifferenceLesson,
@@ -73,7 +71,6 @@ export const course = {
     {
       id: "m5",
       title: "Numerical Integration",
-
       lessons: [
         trapezoidalLesson,
         simpson13Lesson
@@ -83,7 +80,6 @@ export const course = {
     {
       id: "m6",
       title: "Differential Equations",
-
       lessons: [
         eulerLesson
       ]
@@ -92,7 +88,6 @@ export const course = {
     {
       id: "m7",
       title: "Linear Algebraic Equations",
-
       lessons: [
         gaussEliminationLesson
       ]
