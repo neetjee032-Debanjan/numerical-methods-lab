@@ -60,17 +60,13 @@ export const course = {
       id: "m3",
       title: "Interpolation",
 
- {
-  id: "m3",
-  title: "Interpolation",
-
-  lessons: [
-    lagrangeLesson,
-    newtonForwardInterpolationLesson,
-    newtonBackwardInterpolationLesson,
-    newtonDividedDifferenceLesson
-  ]
-},
+      lessons: [
+        lagrangeLesson,
+        newtonForwardInterpolationLesson,
+        newtonBackwardInterpolationLesson,
+        newtonDividedDifferenceLesson
+      ]
+    },
 
     {
       id: "m4",
