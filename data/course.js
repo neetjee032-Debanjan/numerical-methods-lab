@@ -9,6 +9,7 @@ import { falsePositionLesson } from "./lessons/falsePosition.js";
 import { lagrangeLesson } from "./lessons/lagrange.js";
 
 import { trapezoidalLesson } from "./lessons/trapezoidal.js";
+import { simpson13Lesson } from "./lessons/simpson13.js";
 
 import { eulerLesson } from "./lessons/euler.js";
 
@@ -53,7 +54,8 @@ export const course = {
       title: "Numerical Integration",
 
       lessons: [
-        trapezoidalLesson
+        trapezoidalLesson,
+        simpson13Lesson
       ]
     },
 
