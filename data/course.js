@@ -5,6 +5,7 @@ import { bisectionLesson } from "./lessons/bisection.js";
 import { newtonLesson } from "./lessons/newton.js";
 import { secantLesson } from "./lessons/secant.js";
 import { falsePositionLesson } from "./lessons/falsePosition.js";
+import { fixedPointLesson } from "./lessons/fixedPoint.js";
 
 import { lagrangeLesson } from "./lessons/lagrange.js";
 
@@ -36,7 +37,8 @@ export const course = {
         bisectionLesson,
         newtonLesson,
         secantLesson,
-        falsePositionLesson
+        falsePositionLesson,
+        fixedPointLesson
       ]
     },
 
