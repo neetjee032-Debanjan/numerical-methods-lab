@@ -40,109 +40,123 @@ import { jacobiIterationLesson } from "./lessons/jacobiIteration.js";
 import { gaussSeidelLesson } from "./lessons/gaussSeidel.js";
 
 import { introductionToRegressionLesson } from "./lessons/introductionToRegression.js";
+import { leastSquaresLineLesson } from "./lessons/leastSquaresLine.js";
+import { polynomialRegressionLesson } from "./lessons/polynomialRegression.js";
+import { correlationLesson } from "./lessons/correlation.js";
+import { linearCorrelationCoefficientLesson } from "./lessons/linearCorrelationCoefficient.js";
+import { coefficientOfDeterminationLesson } from "./lessons/coefficientOfDetermination.js";
+import { residualAnalysisLesson } from "./lessons/residualAnalysis.js";
 
 export const course = {
-  title: "Numerical Methods",
+title: "Numerical Methods",
 
-  modules: [
+modules: [
 
-    {
-      id: "m1",
-      title: "Numbers, Precision & Errors",
+```
+{
+  id: "m1",
+  title: "Numbers, Precision & Errors",
 
-      lessons: [
-        floatingPointLesson,
-        numericalErrorsLesson,
-        binaryNumberSystemLesson,
-        decimalToBinaryLesson,
-        binaryArithmeticLesson,
-        fixedPointRepresentationLesson,
-        ieee754Lesson,
-        machineEpsilonLesson
-      ]
-    },
-
-    {
-      id: "m2",
-      title: "Root Finding Methods",
-
-      lessons: [
-        bisectionLesson,
-        newtonLesson,
-        secantLesson,
-        falsePositionLesson,
-        fixedPointLesson
-      ]
-    },
-
-    {
-      id: "m3",
-      title: "Interpolation",
-
-      lessons: [
-        lagrangeLesson,
-        newtonForwardInterpolationLesson,
-        newtonBackwardInterpolationLesson,
-        newtonDividedDifferenceLesson,
-        cubicSplineLesson
-      ]
-    },
-
-    {
-      id: "m4",
-      title: "Numerical Differentiation",
-
-      lessons: [
-        forwardDifferenceLesson,
-        backwardDifferenceLesson,
-        centralDifferenceLesson
-      ]
-    },
-
-    {
-      id: "m5",
-      title: "Numerical Integration",
-
-      lessons: [
-        trapezoidalLesson,
-        simpson13Lesson,
-        simpson38Lesson
-      ]
-    },
-
-    {
-      id: "m6",
-      title: "Differential Equations",
-
-      lessons: [
-        eulerLesson,
-        modifiedEulerLesson,
-        rungeKutta2Lesson,
-        rungeKutta4Lesson
-      ]
-    },
-
-    {
-      id: "m7",
-      title: "Linear Algebraic Equations",
-
-      lessons: [
-        gaussEliminationLesson,
-        gaussJordanLesson,
-        luDecompositionLesson,
-        jacobiIterationLesson,
-        gaussSeidelLesson
-      ]
-    },
-
-    {
-      id: "m8",
-      title: "Regression & Curve Fitting",
-
-      lessons: [
-        introductionToRegressionLesson
-      ]
-    }
-
+  lessons: [
+    floatingPointLesson,
+    numericalErrorsLesson,
+    binaryNumberSystemLesson,
+    decimalToBinaryLesson,
+    binaryArithmeticLesson,
+    fixedPointRepresentationLesson,
+    ieee754Lesson,
+    machineEpsilonLesson
   ]
+},
+
+{
+  id: "m2",
+  title: "Root Finding Methods",
+
+  lessons: [
+    bisectionLesson,
+    newtonLesson,
+    secantLesson,
+    falsePositionLesson,
+    fixedPointLesson
+  ]
+},
+
+{
+  id: "m3",
+  title: "Interpolation",
+
+  lessons: [
+    lagrangeLesson,
+    newtonForwardInterpolationLesson,
+    newtonBackwardInterpolationLesson,
+    newtonDividedDifferenceLesson,
+    cubicSplineLesson
+  ]
+},
+
+{
+  id: "m4",
+  title: "Numerical Differentiation",
+
+  lessons: [
+    forwardDifferenceLesson,
+    backwardDifferenceLesson,
+    centralDifferenceLesson
+  ]
+},
+
+{
+  id: "m5",
+  title: "Numerical Integration",
+
+  lessons: [
+    trapezoidalLesson,
+    simpson13Lesson,
+    simpson38Lesson
+  ]
+},
+
+{
+  id: "m6",
+  title: "Differential Equations",
+
+  lessons: [
+    eulerLesson,
+    modifiedEulerLesson,
+    rungeKutta2Lesson,
+    rungeKutta4Lesson
+  ]
+},
+
+{
+  id: "m7",
+  title: "Linear Algebraic Equations",
+
+  lessons: [
+    gaussEliminationLesson,
+    gaussJordanLesson,
+    luDecompositionLesson,
+    jacobiIterationLesson,
+    gaussSeidelLesson
+  ]
+},
+
+{
+  id: "m8",
+  title: "Regression & Curve Fitting",
+
+  lessons: [
+    introductionToRegressionLesson,
+    leastSquaresLineLesson,
+    polynomialRegressionLesson,
+    correlationLesson,
+    linearCorrelationCoefficientLesson,
+    coefficientOfDeterminationLesson,
+    residualAnalysisLesson
+  ]
+}
+```
+
+]
 };
