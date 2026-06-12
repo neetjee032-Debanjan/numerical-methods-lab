@@ -1,6 +1,13 @@
 import { floatingPointLesson } from "./lessons/floatingPoint.js";
 import { numericalErrorsLesson } from "./lessons/numericalErrors.js";
 
+import { binaryNumberSystemLesson } from "./lessons/binaryNumberSystem.js";
+import { decimalToBinaryLesson } from "./lessons/decimalToBinary.js";
+import { binaryArithmeticLesson } from "./lessons/binaryArithmetic.js";
+import { fixedPointRepresentationLesson } from "./lessons/fixedPointRepresentation.js";
+import { ieee754Lesson } from "./lessons/ieee754.js";
+import { machineEpsilonLesson } from "./lessons/machineEpsilon.js";
+
 import { bisectionLesson } from "./lessons/bisection.js";
 import { newtonLesson } from "./lessons/newton.js";
 import { secantLesson } from "./lessons/secant.js";
@@ -32,6 +39,8 @@ import { luDecompositionLesson } from "./lessons/luDecomposition.js";
 import { jacobiIterationLesson } from "./lessons/jacobiIteration.js";
 import { gaussSeidelLesson } from "./lessons/gaussSeidel.js";
 
+import { introductionToRegressionLesson } from "./lessons/introductionToRegression.js";
+
 export const course = {
   title: "Numerical Methods",
 
@@ -43,7 +52,13 @@ export const course = {
 
       lessons: [
         floatingPointLesson,
-        numericalErrorsLesson
+        numericalErrorsLesson,
+        binaryNumberSystemLesson,
+        decimalToBinaryLesson,
+        binaryArithmeticLesson,
+        fixedPointRepresentationLesson,
+        ieee754Lesson,
+        machineEpsilonLesson
       ]
     },
 
@@ -117,6 +132,15 @@ export const course = {
         luDecompositionLesson,
         jacobiIterationLesson,
         gaussSeidelLesson
+      ]
+    },
+
+    {
+      id: "m8",
+      title: "Regression & Curve Fitting",
+
+      lessons: [
+        introductionToRegressionLesson
       ]
     }
 
