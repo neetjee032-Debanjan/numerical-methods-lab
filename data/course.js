@@ -46,6 +46,8 @@ import { correlationLesson } from "./lessons/correlation.js";
 import { linearCorrelationCoefficientLesson } from "./lessons/linearCorrelationCoefficient.js";
 import { coefficientOfDeterminationLesson } from "./lessons/coefficientOfDetermination.js";
 import { residualAnalysisLesson } from "./lessons/residualAnalysis.js";
+import { goodnessOfFitLesson } from "./lessons/goodnessOfFit.js";
+import { multipleRegressionLesson } from "./lessons/multipleRegression.js";
 
 export const course = {
   title: "Numerical Methods",
@@ -152,7 +154,9 @@ export const course = {
         correlationLesson,
         linearCorrelationCoefficientLesson,
         coefficientOfDeterminationLesson,
-        residualAnalysisLesson
+        residualAnalysisLesson,
+        goodnessOfFitLesson,
+        multipleRegressionLesson
       ]
     }
 
