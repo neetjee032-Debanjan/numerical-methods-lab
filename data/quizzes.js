@@ -673,9 +673,7 @@ export const quizzes = {
       answer: 0
     }
 
-  ]
-
-},
+  ],
 
   l9: [
 
@@ -1135,4 +1133,6 @@ export const quizzes = {
       answer: 0
     }
 
-  ],
+  ]
+
+};
