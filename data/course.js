@@ -49,6 +49,7 @@ import { residualAnalysisLesson } from "./lessons/residualAnalysis.js";
 import { goodnessOfFitLesson } from "./lessons/goodnessOfFit.js";
 import { multipleRegressionLesson } from "./lessons/multipleRegression.js";
 import { nonlinearRegressionLesson } from "./lessons/nonlinearRegression.js";
+import { logisticRegressionLesson } from "./lessons/logisticRegression.js";
 
 export const course = {
   title: "Numerical Methods",
@@ -157,7 +158,8 @@ export const course = {
         residualAnalysisLesson,
         goodnessOfFitLesson,
         multipleRegressionLesson,
-        nonlinearRegressionLesson
+        nonlinearRegressionLesson,
+        logisticRegressionLesson
       ]
     }
   ]
