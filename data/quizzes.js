@@ -1133,6 +1133,466 @@ export const quizzes = {
       answer: 0
     }
 
+  ],
+
+  l5: [
+
+    {
+      question: "What is the primary goal of interpolation?",
+      options: [
+        "Find roots",
+        "Estimate values between known data points",
+        "Integrate functions",
+        "Differentiate functions"
+      ],
+      answer: 1
+    },
+
+    {
+      question: "Lagrange interpolation constructs:",
+      options: [
+        "A matrix",
+        "A polynomial through all given points",
+        "A derivative",
+        "A Fourier series"
+      ],
+      answer: 1
+    },
+
+    {
+      question: "Lagrange interpolation requires:",
+      options: [
+        "Equally spaced points",
+        "Distinct data points",
+        "Derivative values",
+        "Integrals"
+      ],
+      answer: 1
+    },
+
+    {
+      question: "The degree of the interpolating polynomial through n points is at most:",
+      options: [
+        "n",
+        "n+1",
+        "n−1",
+        "2n"
+      ],
+      answer: 2
+    },
+
+    {
+      question: "Lagrange interpolation passes:",
+      options: [
+        "Near data points",
+        "Exactly through data points",
+        "Only through first point",
+        "Only through last point"
+      ],
+      answer: 1
+    },
+
+    {
+      question: "Lagrange interpolation is most useful when:",
+      options: [
+        "Data points are known",
+        "Function is unknown but data is available",
+        "No data exists",
+        "Roots are needed"
+      ],
+      answer: 1
+    },
+
+    {
+      question: "Interpolation differs from regression because interpolation:",
+      options: [
+        "Approximates data",
+        "Passes exactly through points",
+        "Uses statistics",
+        "Requires probability"
+      ],
+      answer: 1
+    },
+
+    {
+      question: "Lagrange basis polynomials are usually denoted:",
+      options: [
+        "Li(x)",
+        "Fi(x)",
+        "Pi(x)",
+        "Ri(x)"
+      ],
+      answer: 0
+    }
+
+  ],
+
+  l15: [
+
+    {
+      question: "Newton Forward Interpolation is used when:",
+      options: [
+        "Points are equally spaced",
+        "Points are random",
+        "No data exists",
+        "Matrices are involved"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Newton Forward Interpolation is most accurate near:",
+      options: [
+        "Middle of table",
+        "Beginning of table",
+        "End of table",
+        "Anywhere equally"
+      ],
+      answer: 1
+    },
+
+    {
+      question: "The method uses:",
+      options: [
+        "Forward differences",
+        "Backward differences",
+        "Central differences",
+        "Partial derivatives"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Forward difference operator is denoted by:",
+      options: [
+        "Δ",
+        "∇",
+        "δ",
+        "∂"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Newton Forward formula assumes:",
+      options: [
+        "Unequal spacing",
+        "Equal spacing",
+        "Infinite spacing",
+        "No spacing"
+      ],
+      answer: 1
+    },
+
+    {
+      question: "The variable p is usually:",
+      options: [
+        "(x−x₀)/h",
+        "(x+x₀)/h",
+        "xh",
+        "x²"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Forward interpolation belongs to:",
+      options: [
+        "Interpolation methods",
+        "Integration methods",
+        "Regression methods",
+        "Optimization methods"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Difference tables help compute:",
+      options: [
+        "Roots",
+        "Interpolation coefficients",
+        "Integrals",
+        "Matrices"
+      ],
+      answer: 1
+    }
+
+  ],
+
+  l16: [
+
+    {
+      question: "Newton Backward Interpolation is best used near:",
+      options: [
+        "Beginning of table",
+        "Middle of table",
+        "End of table",
+        "Outside table"
+      ],
+      answer: 2
+    },
+
+    {
+      question: "Newton Backward uses:",
+      options: [
+        "Forward differences",
+        "Backward differences",
+        "Central differences",
+        "Gradients"
+      ],
+      answer: 1
+    },
+
+    {
+      question: "Backward difference operator is:",
+      options: [
+        "Δ",
+        "∇",
+        "δ",
+        "θ"
+      ],
+      answer: 1
+    },
+
+    {
+      question: "Backward interpolation requires:",
+      options: [
+        "Equal spacing",
+        "Random spacing",
+        "No spacing",
+        "Matrices"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Newton Backward is similar to:",
+      options: [
+        "Newton Forward",
+        "Euler Method",
+        "FFT",
+        "Regression"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "The interpolation polynomial is built from:",
+      options: [
+        "Differences",
+        "Integrals",
+        "Matrices",
+        "Eigenvalues"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Backward interpolation belongs to:",
+      options: [
+        "Interpolation",
+        "Integration",
+        "Optimization",
+        "Regression"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Main advantage of backward interpolation:",
+      options: [
+        "Useful near end of table",
+        "No data required",
+        "No calculations",
+        "Always exact"
+      ],
+      answer: 0
+    }
+
+  ],
+
+  l22: [
+
+    {
+      question: "Newton Divided Difference is useful for:",
+      options: [
+        "Equal spacing only",
+        "Unequal spacing data",
+        "Matrices",
+        "Integration"
+      ],
+      answer: 1
+    },
+
+    {
+      question: "Divided differences are used to build:",
+      options: [
+        "Interpolation polynomial",
+        "Integral",
+        "Derivative",
+        "Matrix inverse"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Newton Divided Difference requires:",
+      options: [
+        "Equally spaced points",
+        "Distinct points",
+        "Derivative values",
+        "Integrals"
+      ],
+      answer: 1
+    },
+
+    {
+      question: "The first divided difference approximates:",
+      options: [
+        "Slope",
+        "Area",
+        "Volume",
+        "Matrix rank"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Divided difference tables help compute:",
+      options: [
+        "Polynomial coefficients",
+        "Roots directly",
+        "Integrals",
+        "FFT"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Newton Divided Difference is advantageous because:",
+      options: [
+        "Handles unequal spacing",
+        "Needs no data",
+        "No arithmetic",
+        "No polynomial"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Adding a new point is easier in:",
+      options: [
+        "Newton form",
+        "Lagrange form",
+        "Euler form",
+        "FFT form"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Divided difference interpolation belongs to:",
+      options: [
+        "Interpolation",
+        "Regression",
+        "Integration",
+        "Optimization"
+      ],
+      answer: 0
+    }
+
+  ],
+
+  l23: [
+
+    {
+      question: "A spline is a:",
+      options: [
+        "Piecewise polynomial",
+        "Matrix",
+        "Derivative",
+        "Integral"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Cubic spline uses polynomials of degree:",
+      options: [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      answer: 2
+    },
+
+    {
+      question: "Cubic splines provide:",
+      options: [
+        "Smooth interpolation",
+        "No interpolation",
+        "Only linear fits",
+        "Random curves"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Spline segments join at:",
+      options: [
+        "Knots",
+        "Roots",
+        "Extrema",
+        "Poles"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "A cubic spline typically ensures continuity of:",
+      options: [
+        "Function only",
+        "Function and first derivative",
+        "Function, first and second derivatives",
+        "No continuity"
+      ],
+      answer: 2
+    },
+
+    {
+      question: "Cubic splines reduce:",
+      options: [
+        "Oscillations",
+        "Memory",
+        "CPU speed",
+        "Matrices"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Spline interpolation is often preferred over high-degree polynomial interpolation because:",
+      options: [
+        "More stable",
+        "Less accurate",
+        "Uses no data",
+        "Needs no calculations"
+      ],
+      answer: 0
+    },
+
+    {
+      question: "Cubic spline interpolation belongs to:",
+      options: [
+        "Interpolation methods",
+        "Integration methods",
+        "Regression methods",
+        "Optimization methods"
+      ],
+      answer: 0
+    }
+
   ]
 
 };
