@@ -13,6 +13,7 @@ import { runGauss } from "./gauss.js";
 import { runGaussJordan } from "./gaussJordan.js";
 import { runLU } from "./luDecomposition.js";
 import { runJacobi } from "./jacobi.js";
+import { runGaussSeidel } from "./gaussSeidel.js";
 
 import { runRK2 } from "./rk2.js";
 import { runRK4 } from "./rk4.js";
@@ -75,6 +76,9 @@ export const Simulations = {
   "lu-decomposition": runLU,
 
   "jacobi": runJacobi,
-  "jacobi-iteration": runJacobi
+  "jacobi-iteration": runJacobi,
+
+  "gaussseidel": runGaussSeidel,
+  "gauss-seidel": runGaussSeidel
 
 };
