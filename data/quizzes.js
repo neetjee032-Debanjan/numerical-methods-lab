@@ -512,6 +512,277 @@ export const quizzes = {
       explanation: "Numerical accuracy is limited by machine precision."
     }
 
-  ]
+  ],
+
+  /********************************************************
+MODULE 2 — ROOT FINDING METHODS
+l3,l4,l8,l10,l11
+********************************************************/
+
+quizzes.l3 = [
+  {
+    question: "What is the main idea behind the Bisection Method?",
+    options: [
+      "Differentiation",
+      "Repeated interval halving",
+      "Matrix inversion",
+      "Interpolation"
+    ],
+    answer: 1
+  },
+  {
+    question: "The Bisection Method requires:",
+    options: [
+      "f(a)f(b) < 0",
+      "f(a)=0",
+      "f(b)=0",
+      "Derivative exists"
+    ],
+    answer: 0
+  },
+  {
+    question: "Bisection Method is based on:",
+    options: [
+      "Taylor Series",
+      "Mean Value Theorem",
+      "Intermediate Value Theorem",
+      "Gauss Theorem"
+    ],
+    answer: 2
+  },
+  {
+    question: "Convergence of Bisection Method is:",
+    options: [
+      "Linear",
+      "Quadratic",
+      "Cubic",
+      "Exponential"
+    ],
+    answer: 0
+  },
+  {
+    question: "A major advantage of Bisection Method is:",
+    options: [
+      "Fastest convergence",
+      "Guaranteed convergence",
+      "No function evaluation",
+      "No interval required"
+    ],
+    answer: 1
+  }
+];
+
+quizzes.l4 = [
+  {
+    question: "Newton-Raphson Method uses:",
+    options: [
+      "Integration",
+      "Derivative information",
+      "Matrices",
+      "Fourier coefficients"
+    ],
+    answer: 1
+  },
+  {
+    question: "Newton-Raphson formula is:",
+    options: [
+      "x-f(x)",
+      "x+f(x)",
+      "x-f(x)/f'(x)",
+      "x/f(x)"
+    ],
+    answer: 2
+  },
+  {
+    question: "Newton Method generally converges:",
+    options: [
+      "Quadratically",
+      "Linearly",
+      "Very slowly",
+      "Never"
+    ],
+    answer: 0
+  },
+  {
+    question: "Newton Method may fail when:",
+    options: [
+      "f'(x)=0",
+      "f(x)>0",
+      "x<0",
+      "x>0"
+    ],
+    answer: 0
+  },
+  {
+    question: "Newton Method requires:",
+    options: [
+      "Derivative calculation",
+      "Matrix inversion",
+      "FFT",
+      "Interpolation table"
+    ],
+    answer: 0
+  }
+];
+
+quizzes.l8 = [
+  {
+    question: "False Position Method is also called:",
+    options: [
+      "Regula Falsi",
+      "Euler Method",
+      "Gauss Method",
+      "Jacobi Method"
+    ],
+    answer: 0
+  },
+  {
+    question: "False Position combines ideas of:",
+    options: [
+      "Newton and Euler",
+      "Bisection and Secant",
+      "LU and Jacobi",
+      "FFT and DFT"
+    ],
+    answer: 1
+  },
+  {
+    question: "False Position maintains:",
+    options: [
+      "Bracketing interval",
+      "Derivative table",
+      "Matrix form",
+      "Frequency domain"
+    ],
+    answer: 0
+  },
+  {
+    question: "The root estimate comes from:",
+    options: [
+      "Parabola",
+      "Spline",
+      "Straight-line interpolation",
+      "Circle fitting"
+    ],
+    answer: 2
+  },
+  {
+    question: "False Position is usually:",
+    options: [
+      "More reliable than Newton",
+      "Derivative-based",
+      "Matrix-based",
+      "Frequency-based"
+    ],
+    answer: 0
+  }
+];
+
+quizzes.l10 = [
+  {
+    question: "Fixed Point Method solves equations of form:",
+    options: [
+      "f(x)=0",
+      "g(x)=x",
+      "Ax=b",
+      "y=ax+b"
+    ],
+    answer: 1
+  },
+  {
+    question: "The iterative formula is:",
+    options: [
+      "x=g(x)",
+      "x=x-g(x)",
+      "x=g(x_n)",
+      "x_(n+1)=g(x_n)"
+    ],
+    answer: 3
+  },
+  {
+    question: "Convergence depends on:",
+    options: [
+      "|g'(x)|",
+      "|f(x)|",
+      "Matrix rank",
+      "Determinant"
+    ],
+    answer: 0
+  },
+  {
+    question: "A sufficient convergence condition is:",
+    options: [
+      "|g'(x)|<1",
+      "|g'(x)|>1",
+      "g'(x)=5",
+      "g(x)=0"
+    ],
+    answer: 0
+  },
+  {
+    question: "Fixed Point Iteration is also called:",
+    options: [
+      "Successive Approximation",
+      "Interpolation",
+      "Regression",
+      "Differentiation"
+    ],
+    answer: 0
+  }
+];
+
+quizzes.l11 = [
+  {
+    question: "Secant Method uses:",
+    options: [
+      "One initial guess",
+      "Two initial guesses",
+      "Three initial guesses",
+      "No guesses"
+    ],
+    answer: 1
+  },
+  {
+    question: "Secant Method approximates:",
+    options: [
+      "Integral",
+      "Derivative",
+      "Matrix inverse",
+      "Fourier transform"
+    ],
+    answer: 1
+  },
+  {
+    question: "Compared with Newton Method, Secant Method:",
+    options: [
+      "Needs derivative",
+      "Does not need derivative",
+      "Needs matrix",
+      "Needs interpolation table"
+    ],
+    answer: 1
+  },
+  {
+    question: "Convergence of Secant Method is:",
+    options: [
+      "Superlinear",
+      "Linear",
+      "Quadratic exactly",
+      "No convergence"
+    ],
+    answer: 0
+  },
+  {
+    question: "Secant Method replaces tangent line with:",
+    options: [
+      "Spline",
+      "Chord/Secant line",
+      "Circle",
+      "Parabola"
+    ],
+    answer: 1
+  }
+]
 
 };
+
