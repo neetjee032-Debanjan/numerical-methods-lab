@@ -10,6 +10,7 @@ import { runSimpson13 } from "./simpson13.js";
 import { runFixedPoint } from "./fixedPoint.js";
 
 import { runGauss } from "./gauss.js";
+import { runGaussJordan } from "./gaussJordan.js";
 
 import { runRK2 } from "./rk2.js";
 import { runRK4 } from "./rk4.js";
@@ -56,6 +57,10 @@ export const Simulations = {
 
   /* Linear Algebra */
   "gauss": runGauss,
-  "gauss-elimination": runGauss
+  "gauss-elimination": runGauss,
+
+  "gaussjordan": runGaussJordan,
+  "gauss-jordan": runGaussJordan,
+  "gauss-jordan-elimination": runGaussJordan
 
 };
