@@ -3,6 +3,8 @@ export const samplingTheoremAliasingLesson = {
 
   title: "Sampling Theorem & Aliasing",
 
+  simulation: "aliasing",
+
   pages: [
 
     {
