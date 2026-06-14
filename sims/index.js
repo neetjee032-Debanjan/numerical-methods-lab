@@ -19,6 +19,7 @@ import { runRK2 } from "./rk2.js";
 import { runRK4 } from "./rk4.js";
 
 import { runCorrelation } from "./correlation.js";
+import { runMultipleRegression } from "./multipleRegression.js";
 
 export const Simulations = {
 
@@ -85,6 +86,9 @@ export const Simulations = {
 
   /* Regression */
 
-  "correlation": runCorrelation
+  "correlation": runCorrelation,
+
+  "multiple-regression": runMultipleRegression,
+  "multipleregression": runMultipleRegression
 
 };
