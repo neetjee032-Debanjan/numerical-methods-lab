@@ -11,13 +11,13 @@ import { runFixedPoint } from "./fixedPoint.js";
 
 import { runGauss } from "./gauss.js";
 import { runGaussJordan } from "./gaussJordan.js";
+import { runLU } from "./luDecomposition.js";
 
 import { runRK2 } from "./rk2.js";
 import { runRK4 } from "./rk4.js";
 
 export const Simulations = {
 
-  /* Root Finding */
   "newton": runNewton,
   "newton-raphson": runNewton,
 
@@ -32,10 +32,8 @@ export const Simulations = {
   "fixedpoint": runFixedPoint,
   "fixed-point": runFixedPoint,
 
-  /* Interpolation */
   "lagrange": runLagrange,
 
-  /* Integration */
   "integration": runIntegration,
   "trapezoid": runIntegration,
 
@@ -43,7 +41,6 @@ export const Simulations = {
   "simpson-1-3": runSimpson13,
   "simpson": runSimpson13,
 
-  /* Differential Equations */
   "differential": runDE,
   "euler": runDE,
 
@@ -55,12 +52,14 @@ export const Simulations = {
   "rungekutta4": runRK4,
   "runge-kutta-4": runRK4,
 
-  /* Linear Algebra */
   "gauss": runGauss,
   "gauss-elimination": runGauss,
 
   "gaussjordan": runGaussJordan,
   "gauss-jordan": runGaussJordan,
-  "gauss-jordan-elimination": runGaussJordan
+
+  "lu": runLU,
+  "lu-decomposition": runLU,
+  "ludecomposition": runLU
 
 };
