@@ -3,6 +3,8 @@ export const spectralLeakageWindowFunctionsLesson = {
 
   title: "Spectral Leakage & Window Functions",
 
+  simulation: "spectralleakage",
+
   pages: [
 
     {
