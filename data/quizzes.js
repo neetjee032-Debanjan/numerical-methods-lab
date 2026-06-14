@@ -1,360 +1,343 @@
 export const quizzes = {
 
+  /* =========================
+     l1 - Floating Point
+  ========================= */
+
   l1: [
+
     {
-      question: "Why is 0.1 not represented exactly in IEEE-754 binary floating-point?",
+      question: "Why is 0.1 not represented exactly in binary floating-point?",
       options: [
         "Insufficient RAM",
-        "Decimal fractions may have infinite binary expansions",
-        "Processors round all numbers",
-        "IEEE-754 forbids decimal fractions"
+        "Infinite binary expansion",
+        "CPU limitation",
+        "Exponent overflow"
       ],
-      answer: 1
+      answer: 1,
+      explanation: "Many decimal fractions become repeating binary fractions."
+    },
+
+    {
+      question: "What is machine precision primarily determined by?",
+      options: [
+        "RAM size",
+        "Exponent bits",
+        "Mantissa length",
+        "CPU speed"
+      ],
+      answer: 2,
+      explanation: "Mantissa bits determine numerical precision."
+    },
+
+    {
+      question: "Floating-point arithmetic is:",
+      options: [
+        "Always exact",
+        "Always associative",
+        "Not always associative",
+        "Integer only"
+      ],
+      answer: 2,
+      explanation: "Rounding destroys associativity."
+    },
+
+    {
+      question: "Normalization improves:",
+      options: [
+        "Precision",
+        "RAM",
+        "CPU frequency",
+        "Cache"
+      ],
+      answer: 0,
+      explanation: "Normalization maximizes significant digits."
+    },
+
+    {
+      question: "Subtracting nearly equal numbers may cause:",
+      options: [
+        "Overflow",
+        "Cancellation",
+        "Normalization",
+        "Compression"
+      ],
+      answer: 1,
+      explanation: "This is called catastrophic cancellation."
     }
+
   ],
+
+  /* =========================
+     l2 - Numerical Errors
+  ========================= */
 
   l2: [
+
     {
-      question: "Absolute error is defined as:",
+      question: "Absolute error is:",
       options: [
-        "|True − Approximate|",
-        "True/Approximate",
-        "Approximate/True",
-        "Percentage error"
+        "|True - Approximate|",
+        "Approximate / True",
+        "Percentage error",
+        "Relative error"
       ],
-      answer: 0
+      answer: 0,
+      explanation: "Absolute error measures deviation magnitude."
+    },
+
+    {
+      question: "Relative error is:",
+      options: [
+        "Absolute error divided by true value",
+        "Absolute error multiplied by true value",
+        "Approximate value",
+        "Machine epsilon"
+      ],
+      answer: 0,
+      explanation: "Relative error scales error by the true value."
+    },
+
+    {
+      question: "Round-off error arises because:",
+      options: [
+        "Algorithms fail",
+        "Finite precision exists",
+        "RAM is low",
+        "Operating systems differ"
+      ],
+      answer: 1,
+      explanation: "Finite representation causes rounding."
+    },
+
+    {
+      question: "Truncation error occurs when:",
+      options: [
+        "Infinite process is approximated",
+        "CPU overheats",
+        "RAM is full",
+        "Compiler fails"
+      ],
+      answer: 0,
+      explanation: "Approximations introduce truncation error."
+    },
+
+    {
+      question: "An ill-conditioned problem:",
+      options: [
+        "Is always unstable",
+        "Produces large output changes from small input changes",
+        "Has no solution",
+        "Requires interpolation"
+      ],
+      answer: 1,
+      explanation: "Ill-conditioned problems amplify input errors."
     }
+
   ],
 
-  l3: [
+  /* =========================
+     l27 - Binary Number System
+  ========================= */
+
+  l27: [
 
     {
-      question: "The binary number system uses which base?",
-      options: ["2","8","10","16"],
-      answer: 0
+      question: "Binary uses which base?",
+      options: ["2", "8", "10", "16"],
+      answer: 0,
+      explanation: "Binary is base-2."
     },
 
     {
-      question: "Which binary digit is NOT valid?",
-      options: ["0","1","2","Both 0 and 1"],
-      answer: 2
+      question: "Which digit is invalid in binary?",
+      options: ["0", "1", "2", "Both 0 and 1"],
+      answer: 2,
+      explanation: "Binary contains only 0 and 1."
     },
 
     {
-      question: "The binary number 1011 equals:",
-      options: ["9","10","11","12"],
-      answer: 2
+      question: "1011₂ equals:",
+      options: ["9", "10", "11", "12"],
+      answer: 2,
+      explanation: "8 + 2 + 1 = 11."
     },
 
     {
-      question: "The decimal number 15 in binary is:",
-      options: ["1110","1111","1011","1001"],
-      answer: 1
-    },
-
-    {
-      question: "How many values can be represented with n bits?",
-      options: ["n","2n","2^n","n²"],
-      answer: 2
-    },
-
-    {
-      question: "MSB stands for:",
+      question: "MSB means:",
       options: [
         "Most Significant Bit",
         "Minimum Significant Bit",
-        "Main Storage Bit",
-        "Memory Status Bit"
+        "Memory Storage Bit",
+        "Main System Bit"
       ],
-      answer: 0
+      answer: 0,
+      explanation: "MSB is the leftmost significant bit."
     },
 
     {
-      question: "LSB stands for:",
-      options: [
-        "Least Significant Bit",
-        "Last Stored Bit",
-        "Lowest Storage Byte",
-        "Logical State Bit"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Binary place values are powers of:",
-      options: ["2","8","10","16"],
-      answer: 0
-    },
-
-    {
-      question: "101010₂ equals:",
-      options: ["40","41","42","43"],
-      answer: 2
-    },
-
-    {
-      question: "Digital circuits naturally operate using:",
-      options: [
-        "Decimal",
-        "Hexadecimal",
-        "Binary",
-        "Octal"
-      ],
-      answer: 2
+      question: "The place values in binary are powers of:",
+      options: ["2", "8", "10", "16"],
+      answer: 0,
+      explanation: "Binary is base 2."
     }
 
   ],
 
-  l4: [
+  /* =========================
+     l28 - Decimal To Binary
+  ========================= */
+
+  l28: [
 
     {
-      question: "Decimal-to-binary conversion uses:",
+      question: "Decimal to binary conversion uses:",
       options: [
         "Repeated division by 2",
         "Repeated multiplication by 10",
-        "Repeated addition",
-        "Repeated subtraction"
+        "Repeated subtraction",
+        "Repeated addition"
       ],
-      answer: 0
+      answer: 0,
+      explanation: "Successive division by 2 generates binary digits."
     },
 
     {
-      question: "Decimal 13 in binary is:",
+      question: "13 in binary is:",
       options: [
         "1011",
         "1101",
         "1110",
         "1001"
       ],
-      answer: 1
+      answer: 1,
+      explanation: "13 = 8 + 4 + 1."
     },
 
     {
-      question: "Decimal 25 in binary is:",
+      question: "25 in binary is:",
       options: [
         "11001",
-        "11100",
         "10110",
+        "11100",
         "10011"
       ],
-      answer: 0
+      answer: 0,
+      explanation: "16 + 8 + 1."
     },
 
     {
-      question: "Decimal 32 in binary is:",
-      options: [
-        "100000",
-        "11111",
-        "100001",
-        "10000"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Decimal 64 in binary is:",
-      options: [
-        "1000000",
-        "111111",
-        "100000",
-        "1000001"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Fractional decimal conversion uses:",
-      options: [
-        "Multiplication by 2",
-        "Division by 2",
-        "Multiplication by 10",
-        "Addition by 2"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "0.5 in binary is:",
+      question: "0.5 in binary equals:",
       options: [
         "0.1",
         "0.01",
         "0.11",
         "1.0"
       ],
-      answer: 0
+      answer: 0,
+      explanation: "0.5 = 1/2."
     },
 
     {
-      question: "0.25 in binary is:",
+      question: "Fractional decimal conversion uses:",
       options: [
-        "0.1",
-        "0.01",
-        "0.001",
-        "0.11"
+        "Multiply by 2",
+        "Divide by 2",
+        "Multiply by 10",
+        "Subtract 2"
       ],
-      answer: 1
-    },
-
-    {
-      question: "Which fraction has an exact binary representation?",
-      options: [
-        "0.1",
-        "0.2",
-        "0.3",
-        "0.5"
-      ],
-      answer: 3
-    },
-
-    {
-      question: "Some decimal fractions repeat forever in binary because:",
-      options: [
-        "Memory is insufficient",
-        "Base mismatch",
-        "Compiler limitations",
-        "Processor limitations"
-      ],
-      answer: 1
+      answer: 0,
+      explanation: "Repeated multiplication by 2."
     }
 
   ],
 
-  l5: [
+  /* =========================
+     l29 - Binary Arithmetic
+  ========================= */
+
+  l29: [
 
     {
-      question: "What is 1011₂ + 0101₂ ?",
-      options: [
-        "10000₂",
-        "11000₂",
-        "10001₂",
-        "11110₂"
-      ],
-      answer: 0
+      question: "1 + 1 in binary equals:",
+      options: ["0", "1", "10", "11"],
+      answer: 2,
+      explanation: "Sum 0, carry 1."
     },
 
     {
-      question: "What is 1101₂ − 0101₂ ?",
-      options: [
-        "1000₂",
-        "1110₂",
-        "1010₂",
-        "0111₂"
-      ],
-      answer: 0
+      question: "1 + 1 + 1 equals:",
+      options: ["10", "11", "100", "101"],
+      answer: 1,
+      explanation: "3 decimal = 11 binary."
     },
 
     {
-      question: "Binary 1 + 1 equals:",
-      options: [
-        "0",
-        "1",
-        "10",
-        "11"
-      ],
-      answer: 2
-    },
-
-    {
-      question: "Binary 1 + 1 + 1 equals:",
-      options: [
-        "10",
-        "11",
-        "100",
-        "101"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Binary multiplication resembles:",
-      options: [
-        "Repeated addition",
-        "Repeated subtraction",
-        "Division",
-        "Integration"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "101₂ × 10₂ =",
+      question: "101₂ × 10₂ equals:",
       options: [
         "111₂",
         "1000₂",
         "1010₂",
         "1100₂"
       ],
-      answer: 2
+      answer: 2,
+      explanation: "5 × 2 = 10 decimal."
     },
 
     {
-      question: "Multiplying by 2 equals:",
+      question: "Left shift by one bit is equivalent to:",
       options: [
-        "Left shift",
-        "Right shift",
+        "Divide by 2",
+        "Multiply by 2",
         "Complement",
-        "Division"
+        "Subtract 1"
       ],
-      answer: 0
+      answer: 1,
+      explanation: "Left shift multiplies by 2."
     },
 
     {
-      question: "Dividing by 2 equals:",
-      options: [
-        "Left shift",
-        "Right shift",
-        "Complement",
-        "Addition"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "2's complement of 0101₂ is:",
-      options: [
-        "1010₂",
-        "1011₂",
-        "1111₂",
-        "1001₂"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Modern computers use:",
+      question: "Most computers represent signed integers using:",
       options: [
         "BCD",
         "Sign magnitude",
         "1's complement",
         "2's complement"
       ],
-      answer: 3
+      answer: 3,
+      explanation: "Modern systems use 2's complement."
     }
 
   ],
 
-  l6: [
+  /* =========================
+     l30 - Fixed Point Representation
+  ========================= */
+
+  l30: [
 
     {
-      question: "In fixed-point representation, the binary point is:",
+      question: "In fixed-point representation the binary point is:",
       options: [
-        "Fixed",
         "Variable",
-        "Removed",
-        "Dynamic"
+        "Fixed",
+        "Hidden",
+        "Removed"
       ],
-      answer: 0
+      answer: 1,
+      explanation: "Its position remains fixed."
     },
 
     {
-      question: "Fixed-point arithmetic is usually:",
+      question: "Fixed-point arithmetic is generally:",
       options: [
         "Slower",
         "Faster",
         "Impossible",
-        "Theoretical"
+        "Random"
       ],
-      answer: 1
+      answer: 1,
+      explanation: "It is computationally simpler."
     },
 
     {
@@ -362,21 +345,11 @@ export const quizzes = {
       options: [
         "Infinite precision",
         "Limited dynamic range",
-        "Unlimited storage",
+        "Unlimited range",
         "No overflow"
       ],
-      answer: 1
-    },
-
-    {
-      question: "8 fractional bits give resolution:",
-      options: [
-        "1/8",
-        "1/16",
-        "1/256",
-        "1/512"
-      ],
-      answer: 2
+      answer: 1,
+      explanation: "Range is restricted."
     },
 
     {
@@ -384,70 +357,32 @@ export const quizzes = {
       options: [
         "Precision",
         "Range",
-        "Storage",
-        "Speed"
+        "Memory",
+        "Exponent"
       ],
-      answer: 0
+      answer: 0,
+      explanation: "More fractional bits increase precision."
     },
 
     {
-      question: "Increasing integer bits improves:",
+      question: "Q-format is associated with:",
       options: [
-        "Precision",
-        "Range",
-        "Normalization",
-        "Resolution"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Fixed-point is common in:",
-      options: [
-        "Embedded systems",
-        "Quantum computers",
-        "Databases",
-        "Compilers"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Overflow occurs when:",
-      options: [
-        "Value exceeds representable range",
-        "Precision increases",
-        "Division occurs",
-        "Binary point shifts"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Q-format belongs to:",
-      options: [
-        "Floating point",
-        "Fixed point",
+        "Floating-point",
+        "Fixed-point",
         "Complex numbers",
         "Hexadecimal"
       ],
-      answer: 1
-    },
-
-    {
-      question: "Q8.8 means:",
-      options: [
-        "8 integer bits + 8 fractional bits",
-        "16 integer bits",
-        "8 exponent bits",
-        "8 sign bits"
-      ],
-      answer: 0
+      answer: 1,
+      explanation: "Q-format is widely used for fixed-point numbers."
     }
 
   ],
 
-  l7: [
+  /* =========================
+     l31 - IEEE754
+  ========================= */
+
+  l31: [
 
     {
       question: "IEEE 754 defines:",
@@ -455,9 +390,10 @@ export const quizzes = {
         "Integer arithmetic",
         "Floating-point arithmetic",
         "Databases",
-        "Operating systems"
+        "Networking"
       ],
-      answer: 1
+      answer: 1,
+      explanation: "IEEE 754 is the floating-point standard."
     },
 
     {
@@ -468,7 +404,8 @@ export const quizzes = {
         "64 bits",
         "128 bits"
       ],
-      answer: 1
+      answer: 1,
+      explanation: "Single precision = 32 bits."
     },
 
     {
@@ -479,1118 +416,100 @@ export const quizzes = {
         "64 bits",
         "128 bits"
       ],
-      answer: 2
+      answer: 2,
+      explanation: "Double precision = 64 bits."
     },
 
     {
-      question: "Single precision exponent bits:",
-      options: [
-        "8",
-        "11",
-        "23",
-        "52"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Single precision mantissa bits:",
-      options: [
-        "8",
-        "11",
-        "23",
-        "52"
-      ],
-      answer: 2
-    },
-
-    {
-      question: "Double precision exponent bits:",
-      options: [
-        "8",
-        "11",
-        "23",
-        "52"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Double precision mantissa bits:",
-      options: [
-        "23",
-        "32",
-        "52",
-        "64"
-      ],
-      answer: 2
-    },
-
-    {
-      question: "Single precision exponent bias:",
+      question: "Exponent bias in single precision:",
       options: [
         "63",
         "127",
         "255",
         "1023"
       ],
-      answer: 1
+      answer: 1,
+      explanation: "Bias = 127."
     },
 
     {
-      question: "Double precision exponent bias:",
+      question: "Exponent all 1s and fraction non-zero represent:",
       options: [
-        "127",
-        "255",
-        "511",
-        "1023"
-      ],
-      answer: 3
-    },
-
-    {
-      question: "Exponent all ones and fraction all zeros represent:",
-      options: [
-        "Zero",
         "Infinity",
+        "Zero",
         "NaN",
-        "Machine epsilon"
+        "Overflow"
       ],
-      answer: 1
+      answer: 2,
+      explanation: "NaN = Not a Number."
     }
 
   ],
 
-  l8: [
+  /* =========================
+     l32 - Machine Epsilon
+  ========================= */
+
+  l32: [
 
     {
       question: "Machine epsilon is:",
       options: [
-        "Largest representable number",
-        "Smallest positive number",
-        "Smallest value that changes 1 when added",
-        "Maximum exponent"
+        "Largest number",
+        "Smallest value changing 1 when added",
+        "Maximum exponent",
+        "Overflow value"
       ],
-      answer: 2
+      answer: 1,
+      explanation: "It measures floating-point precision."
     },
 
     {
-      question: "Machine epsilon measures:",
+      question: "Machine epsilon primarily measures:",
       options: [
         "Range",
         "Precision",
-        "Speed",
-        "Memory"
+        "RAM",
+        "Speed"
       ],
-      answer: 1
+      answer: 1,
+      explanation: "It quantifies precision."
     },
 
     {
-      question: "Smaller machine epsilon means:",
+      question: "Smaller epsilon means:",
       options: [
         "Lower precision",
         "Higher precision",
-        "Less memory",
-        "More overflow"
+        "Smaller memory",
+        "Larger overflow"
       ],
-      answer: 1
+      answer: 1,
+      explanation: "Smaller epsilon means finer resolution."
     },
 
     {
-      question: "Machine epsilon depends mostly on:",
+      question: "Machine epsilon depends mainly on:",
       options: [
-        "Mantissa length",
-        "RAM",
+        "Mantissa bits",
         "CPU speed",
-        "Exponent size"
+        "RAM size",
+        "Cache"
       ],
-      answer: 0
+      answer: 0,
+      explanation: "Mantissa length controls precision."
     },
 
     {
-      question: "Single precision epsilon is roughly:",
+      question: "Machine epsilon is important because:",
       options: [
-        "10^-2",
-        "10^-4",
-        "10^-7",
-        "10^-12"
+        "It estimates achievable accuracy",
+        "It removes truncation error",
+        "It guarantees convergence",
+        "It increases speed"
       ],
-      answer: 2
-    },
-
-    {
-      question: "Double precision epsilon is roughly:",
-      options: [
-        "10^-7",
-        "10^-10",
-        "10^-16",
-        "10^-20"
-      ],
-      answer: 2
-    },
-
-    {
-      question: "Machine epsilon helps estimate:",
-      options: [
-        "Rounding error",
-        "CPU load",
-        "Storage",
-        "Bandwidth"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Standard computational definition:",
-      options: [
-        "Smallest ε such that 1+ε > 1",
-        "Largest integer",
-        "Largest exponent",
-        "Smallest RAM"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Machine epsilon approximates:",
-      options: [
-        "Relative rounding error",
-        "Absolute overflow",
-        "Execution time",
-        "Memory usage"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Machine epsilon is crucial in:",
-      options: [
-        "Numerical analysis",
-        "Networking",
-        "UI design",
-        "Graphics only"
-      ],
-      answer: 0
-    }
-
-  ],
-
-  l9: [
-
-    {
-      question: "The Bisection Method requires:",
-      options: [
-        "Derivative of the function",
-        "Two points with opposite signs",
-        "A matrix",
-        "Interpolation table"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "The condition f(a)f(b) < 0 implies:",
-      options: [
-        "No root exists",
-        "At least one root lies in [a,b]",
-        "Derivative is zero",
-        "Function is linear"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Bisection Method is based on:",
-      options: [
-        "Taylor Series",
-        "Intermediate Value Theorem",
-        "Lagrange Interpolation",
-        "Euler Method"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Convergence of Bisection Method is:",
-      options: [
-        "Quadratic",
-        "Linear",
-        "Cubic",
-        "Exponential"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "The interval length after one iteration becomes:",
-      options: [
-        "Double",
-        "Half",
-        "Same",
-        "Zero"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Main advantage of Bisection Method:",
-      options: [
-        "Guaranteed convergence",
-        "Fastest convergence",
-        "No function evaluation",
-        "Uses matrices"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Main disadvantage of Bisection Method:",
-      options: [
-        "May diverge",
-        "Slow convergence",
-        "Needs matrices",
-        "Requires interpolation"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Midpoint formula is:",
-      options: [
-        "(a+b)/2",
-        "(a-b)/2",
-        "ab",
-        "a+b"
-      ],
-      answer: 0
-    }
-
-  ],
-
-  l10: [
-
-    {
-      question: "Newton-Raphson Method uses:",
-      options: [
-        "Derivative information",
-        "Matrices only",
-        "Interpolation only",
-        "Integration"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Newton iteration formula is:",
-      options: [
-        "xₙ₊₁ = xₙ − f(xₙ)/f'(xₙ)",
-        "xₙ₊₁ = xₙ + f(xₙ)",
-        "xₙ₊₁ = xₙ²",
-        "xₙ₊₁ = xₙ/2"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Newton Method is derived from:",
-      options: [
-        "Taylor expansion",
-        "Fourier Series",
-        "DFT",
-        "Euler Integration"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Convergence near root is usually:",
-      options: [
-        "Linear",
-        "Quadratic",
-        "Constant",
-        "Cubic"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Newton Method may fail when:",
-      options: [
-        "Derivative is near zero",
-        "Function is continuous",
-        "Root exists",
-        "Initial guess is exact"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Newton Method generally converges:",
-      options: [
-        "Faster than Bisection",
-        "Slower than Bisection",
-        "Never",
-        "Only for polynomials"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "A poor initial guess may cause:",
-      options: [
-        "Divergence",
-        "Guaranteed convergence",
-        "No iterations",
-        "Matrix inversion"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Newton-Raphson primarily finds:",
-      options: [
-        "Roots",
-        "Integrals",
-        "Derivatives",
-        "Matrices"
-      ],
-      answer: 0
-    }
-
-  ],
-
-  l11: [
-
-    {
-      question: "Secant Method approximates:",
-      options: [
-        "Derivative",
-        "Integral",
-        "Matrix",
-        "Spline"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Secant Method requires:",
-      options: [
-        "One initial guess",
-        "Two initial guesses",
-        "Derivative",
-        "Matrix"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Secant Method is similar to:",
-      options: [
-        "Newton Method",
-        "Euler Method",
-        "Gauss Elimination",
-        "FFT"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Advantage over Newton Method:",
-      options: [
-        "No derivative required",
-        "Always faster",
-        "Uses matrices",
-        "Guaranteed convergence"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Convergence rate of Secant Method is:",
-      options: [
-        "Superlinear",
-        "Linear",
-        "Constant",
-        "Zero"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Secant Method uses:",
-      options: [
-        "Tangent line",
-        "Secant line",
-        "Spline",
-        "Circle"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Secant Method can:",
-      options: [
-        "Diverge",
-        "Never diverge",
-        "Find integrals",
-        "Compute matrices"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Secant Method is generally:",
-      options: [
-        "Faster than Bisection",
-        "Slower than Bisection",
-        "Identical to Bisection",
-        "Not iterative"
-      ],
-      answer: 0
-    }
-
-  ],
-
-  l12: [
-
-    {
-      question: "False Position Method is also called:",
-      options: [
-        "Regula Falsi",
-        "Euler Method",
-        "Newton Method",
-        "FFT"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "False Position combines ideas from:",
-      options: [
-        "Bisection and Secant",
-        "DFT and FFT",
-        "Euler and RK4",
-        "Spline and Regression"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "False Position requires:",
-      options: [
-        "Sign change interval",
-        "Derivative",
-        "Matrix",
-        "Interpolation table"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Advantage over Secant Method:",
-      options: [
-        "Maintains bracketing",
-        "Needs derivative",
-        "Uses matrices",
-        "Never evaluates function"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "False Position convergence is generally:",
-      options: [
-        "Faster than Bisection",
-        "Instant",
-        "Not iterative",
-        "Always quadratic"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Root estimate comes from:",
-      options: [
-        "Line joining endpoints",
-        "Midpoint only",
-        "Derivative",
-        "Matrix inversion"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "False Position preserves:",
-      options: [
-        "Sign-change interval",
-        "Derivative value",
-        "Matrix rank",
-        "Integral"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "False Position is mainly used for:",
-      options: [
-        "Root finding",
-        "Integration",
-        "Differentiation",
-        "Regression"
-      ],
-      answer: 0
-    }
-
-  ],
-
-  l13: [
-
-    {
-      question: "Fixed Point Iteration uses:",
-      options: [
-        "x = g(x)",
-        "f'(x)",
-        "Matrices",
-        "Interpolation"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Iteration formula is:",
-      options: [
-        "xₙ₊₁ = g(xₙ)",
-        "xₙ₊₁ = f(xₙ)",
-        "xₙ₊₁ = xₙ²",
-        "xₙ₊₁ = 0"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "A fixed point satisfies:",
-      options: [
-        "x = g(x)",
-        "x = 0",
-        "g(x)=0",
-        "x=1"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Convergence depends on:",
-      options: [
-        "|g'(x)|",
-        "Matrix rank",
-        "Integral value",
-        "FFT size"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Convergence is likely when:",
-      options: [
-        "|g'(x)| < 1",
-        "|g'(x)| > 1",
-        "g'(x)=10",
-        "g'(x)=100"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "If |g'(x)| > 1 near root:",
-      options: [
-        "May diverge",
-        "Guaranteed convergence",
-        "Instant root",
-        "No iterations"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Fixed Point Iteration is used for:",
-      options: [
-        "Root finding",
-        "Integration",
-        "Regression",
-        "DFT"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Main challenge in Fixed Point Iteration:",
-      options: [
-        "Choosing suitable g(x)",
-        "Finding matrices",
-        "Computing FFT",
-        "Interpolation"
-      ],
-      answer: 0
-    }
-
-  ],
-
-  l5: [
-
-    {
-      question: "What is the primary goal of interpolation?",
-      options: [
-        "Find roots",
-        "Estimate values between known data points",
-        "Integrate functions",
-        "Differentiate functions"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Lagrange interpolation constructs:",
-      options: [
-        "A matrix",
-        "A polynomial through all given points",
-        "A derivative",
-        "A Fourier series"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Lagrange interpolation requires:",
-      options: [
-        "Equally spaced points",
-        "Distinct data points",
-        "Derivative values",
-        "Integrals"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "The degree of the interpolating polynomial through n points is at most:",
-      options: [
-        "n",
-        "n+1",
-        "n−1",
-        "2n"
-      ],
-      answer: 2
-    },
-
-    {
-      question: "Lagrange interpolation passes:",
-      options: [
-        "Near data points",
-        "Exactly through data points",
-        "Only through first point",
-        "Only through last point"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Lagrange interpolation is most useful when:",
-      options: [
-        "Data points are known",
-        "Function is unknown but data is available",
-        "No data exists",
-        "Roots are needed"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Interpolation differs from regression because interpolation:",
-      options: [
-        "Approximates data",
-        "Passes exactly through points",
-        "Uses statistics",
-        "Requires probability"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Lagrange basis polynomials are usually denoted:",
-      options: [
-        "Li(x)",
-        "Fi(x)",
-        "Pi(x)",
-        "Ri(x)"
-      ],
-      answer: 0
-    }
-
-  ],
-
-  l15: [
-
-    {
-      question: "Newton Forward Interpolation is used when:",
-      options: [
-        "Points are equally spaced",
-        "Points are random",
-        "No data exists",
-        "Matrices are involved"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Newton Forward Interpolation is most accurate near:",
-      options: [
-        "Middle of table",
-        "Beginning of table",
-        "End of table",
-        "Anywhere equally"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "The method uses:",
-      options: [
-        "Forward differences",
-        "Backward differences",
-        "Central differences",
-        "Partial derivatives"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Forward difference operator is denoted by:",
-      options: [
-        "Δ",
-        "∇",
-        "δ",
-        "∂"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Newton Forward formula assumes:",
-      options: [
-        "Unequal spacing",
-        "Equal spacing",
-        "Infinite spacing",
-        "No spacing"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "The variable p is usually:",
-      options: [
-        "(x−x₀)/h",
-        "(x+x₀)/h",
-        "xh",
-        "x²"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Forward interpolation belongs to:",
-      options: [
-        "Interpolation methods",
-        "Integration methods",
-        "Regression methods",
-        "Optimization methods"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Difference tables help compute:",
-      options: [
-        "Roots",
-        "Interpolation coefficients",
-        "Integrals",
-        "Matrices"
-      ],
-      answer: 1
-    }
-
-  ],
-
-  l16: [
-
-    {
-      question: "Newton Backward Interpolation is best used near:",
-      options: [
-        "Beginning of table",
-        "Middle of table",
-        "End of table",
-        "Outside table"
-      ],
-      answer: 2
-    },
-
-    {
-      question: "Newton Backward uses:",
-      options: [
-        "Forward differences",
-        "Backward differences",
-        "Central differences",
-        "Gradients"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Backward difference operator is:",
-      options: [
-        "Δ",
-        "∇",
-        "δ",
-        "θ"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Backward interpolation requires:",
-      options: [
-        "Equal spacing",
-        "Random spacing",
-        "No spacing",
-        "Matrices"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Newton Backward is similar to:",
-      options: [
-        "Newton Forward",
-        "Euler Method",
-        "FFT",
-        "Regression"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "The interpolation polynomial is built from:",
-      options: [
-        "Differences",
-        "Integrals",
-        "Matrices",
-        "Eigenvalues"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Backward interpolation belongs to:",
-      options: [
-        "Interpolation",
-        "Integration",
-        "Optimization",
-        "Regression"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Main advantage of backward interpolation:",
-      options: [
-        "Useful near end of table",
-        "No data required",
-        "No calculations",
-        "Always exact"
-      ],
-      answer: 0
-    }
-
-  ],
-
-  l22: [
-
-    {
-      question: "Newton Divided Difference is useful for:",
-      options: [
-        "Equal spacing only",
-        "Unequal spacing data",
-        "Matrices",
-        "Integration"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "Divided differences are used to build:",
-      options: [
-        "Interpolation polynomial",
-        "Integral",
-        "Derivative",
-        "Matrix inverse"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Newton Divided Difference requires:",
-      options: [
-        "Equally spaced points",
-        "Distinct points",
-        "Derivative values",
-        "Integrals"
-      ],
-      answer: 1
-    },
-
-    {
-      question: "The first divided difference approximates:",
-      options: [
-        "Slope",
-        "Area",
-        "Volume",
-        "Matrix rank"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Divided difference tables help compute:",
-      options: [
-        "Polynomial coefficients",
-        "Roots directly",
-        "Integrals",
-        "FFT"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Newton Divided Difference is advantageous because:",
-      options: [
-        "Handles unequal spacing",
-        "Needs no data",
-        "No arithmetic",
-        "No polynomial"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Adding a new point is easier in:",
-      options: [
-        "Newton form",
-        "Lagrange form",
-        "Euler form",
-        "FFT form"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Divided difference interpolation belongs to:",
-      options: [
-        "Interpolation",
-        "Regression",
-        "Integration",
-        "Optimization"
-      ],
-      answer: 0
-    }
-
-  ],
-
-  l23: [
-
-    {
-      question: "A spline is a:",
-      options: [
-        "Piecewise polynomial",
-        "Matrix",
-        "Derivative",
-        "Integral"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Cubic spline uses polynomials of degree:",
-      options: [
-        "1",
-        "2",
-        "3",
-        "4"
-      ],
-      answer: 2
-    },
-
-    {
-      question: "Cubic splines provide:",
-      options: [
-        "Smooth interpolation",
-        "No interpolation",
-        "Only linear fits",
-        "Random curves"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Spline segments join at:",
-      options: [
-        "Knots",
-        "Roots",
-        "Extrema",
-        "Poles"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "A cubic spline typically ensures continuity of:",
-      options: [
-        "Function only",
-        "Function and first derivative",
-        "Function, first and second derivatives",
-        "No continuity"
-      ],
-      answer: 2
-    },
-
-    {
-      question: "Cubic splines reduce:",
-      options: [
-        "Oscillations",
-        "Memory",
-        "CPU speed",
-        "Matrices"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Spline interpolation is often preferred over high-degree polynomial interpolation because:",
-      options: [
-        "More stable",
-        "Less accurate",
-        "Uses no data",
-        "Needs no calculations"
-      ],
-      answer: 0
-    },
-
-    {
-      question: "Cubic spline interpolation belongs to:",
-      options: [
-        "Interpolation methods",
-        "Integration methods",
-        "Regression methods",
-        "Optimization methods"
-      ],
-      answer: 0
+      answer: 0,
+      explanation: "Numerical accuracy is limited by machine precision."
     }
 
   ]
