@@ -3,6 +3,8 @@ export const fourierSeriesLesson = {
 
   title: "Fourier Series",
 
+  simulation: "fourierseries",
+
   pages: [
 
     {
