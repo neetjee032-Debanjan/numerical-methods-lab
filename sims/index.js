@@ -11,6 +11,7 @@ import { runFixedPoint } from "./fixedPoint.js";
 
 import { runGauss } from "./gauss.js";
 
+import { runRK2 } from "./rk2.js";
 import { runRK4 } from "./rk4.js";
 
 export const Simulations = {
@@ -44,6 +45,10 @@ export const Simulations = {
   /* Differential Equations */
   "differential": runDE,
   "euler": runDE,
+
+  "rk2": runRK2,
+  "rungekutta2": runRK2,
+  "runge-kutta-2": runRK2,
 
   "rk4": runRK4,
   "rungekutta4": runRK4,
