@@ -1,28 +1,80 @@
 import { drawAxes, drawLegend } from "./graph-utils.js";
+import { evaluateFunction } from "../utils/evaluateFunction.js";
 
 export function runBisection(container) {
 
   container.innerHTML = `
-    <div style="color:white; padding:15px; font-family:Arial;">
+    <div style="color:white;padding:15px;font-family:Arial;">
 
       <h2>Bisection Method Simulator</h2>
 
+      <div
+        style="
+          margin-bottom:12px;
+          color:#94a3b8;
+          font-size:14px;
+        "
+      >
+        <b>Supported Functions:</b><br/>
+        sin(x), cos(x), tan(x), exp(x),
+        e^(-x), sqrt(x), sqrt(abs(x)),
+        log(x), pi, e
+        <br/><br/>
+
+        <b>Interval Examples:</b><br/>
+        a = 0, b = 3<br/>
+        a = pi/2, b = 4<br/>
+        a = sqrt(2), b = 5
+      </div>
+
       <label>f(x):</label>
-      <input id="fn" value="x*x - 4" />
+      <input
+        id="fn"
+        value="x^2 - 4"
+        style="
+          width:220px;
+          margin-right:10px;
+        "
+      />
 
       <label>a:</label>
-      <input id="a" type="number" value="0" />
+      <input
+        id="a"
+        type="text"
+        value="0"
+        style="
+          width:100px;
+          margin-right:10px;
+        "
+      />
 
       <label>b:</label>
-      <input id="b" type="number" value="3" />
+      <input
+        id="b"
+        type="text"
+        value="3"
+        style="
+          width:100px;
+          margin-right:10px;
+        "
+      />
 
-      <button id="run">Run</button>
+      <button id="run">
+        Run
+      </button>
 
-      <div id="status"
-           style="margin-top:10px;
-                  font-size:16px;
-                  color:#4cc9f0;">
-      </div>
+      <button id="reset">
+        Reset
+      </button>
+
+      <div
+        id="status"
+        style="
+          margin-top:10px;
+          font-size:16px;
+          color:#4cc9f0;
+        "
+      ></div>
 
       <canvas
         id="canvas"
@@ -32,8 +84,8 @@ export function runBisection(container) {
           background:#0b1220;
           margin-top:10px;
           border:1px solid #333;
-        ">
-      </canvas>
+        "
+      ></canvas>
 
       <table
         border="1"
@@ -41,7 +93,8 @@ export function runBisection(container) {
           width:100%;
           margin-top:10px;
           color:white;
-        ">
+        "
+      >
         <thead>
           <tr>
             <th>Step</th>
@@ -82,11 +135,12 @@ export function runBisection(container) {
   const W = canvas.width;
   const H = canvas.height;
 
-  function f(expr, x) {
-    return Function(
-      "x",
-      `return ${expr}`
-    )(x);
+  function f(expr,x){
+
+    return evaluateFunction(
+      expr,
+      x
+    );
   }
 
   const sx =
@@ -96,14 +150,14 @@ export function runBisection(container) {
     y => H/2 - y*40;
 
   let rows = [];
-
-  function draw(expr,a,b,m){
+    function draw(expr,a,b,m){
 
     ctx.clearRect(0,0,W,H);
 
     drawAxes(ctx,W,H);
 
     /* FUNCTION CURVE */
+
     ctx.strokeStyle = "#4cc9f0";
     ctx.lineWidth = 3;
 
@@ -111,25 +165,47 @@ export function runBisection(container) {
 
     let first = true;
 
-    for(let x=-5;x<=5;x+=0.05){
+    for(
+      let x=-5;
+      x<=5;
+      x+=0.05
+    ){
 
-      const px = sx(x);
-      const py = sy(f(expr,x));
+      try{
 
-      if(first){
-        ctx.moveTo(px,py);
-        first = false;
-      } else {
-        ctx.lineTo(px,py);
+        const y =
+          f(expr,x);
+
+        const px =
+          sx(x);
+
+        const py =
+          sy(y);
+
+        if(first){
+
+          ctx.moveTo(px,py);
+
+          first = false;
+
+        }else{
+
+          ctx.lineTo(px,py);
+        }
+
+      }catch{
+        continue;
       }
     }
 
     ctx.stroke();
 
-    /* INTERVAL START */
+    /* LEFT ENDPOINT */
+
     ctx.fillStyle = "red";
 
     ctx.beginPath();
+
     ctx.arc(
       sx(a),
       H/2,
@@ -137,12 +213,15 @@ export function runBisection(container) {
       0,
       Math.PI*2
     );
+
     ctx.fill();
 
-    /* INTERVAL END */
+    /* RIGHT ENDPOINT */
+
     ctx.fillStyle = "lime";
 
     ctx.beginPath();
+
     ctx.arc(
       sx(b),
       H/2,
@@ -150,12 +229,15 @@ export function runBisection(container) {
       0,
       Math.PI*2
     );
+
     ctx.fill();
 
     /* MIDPOINT */
+
     ctx.fillStyle = "yellow";
 
     ctx.beginPath();
+
     ctx.arc(
       sx(m),
       sy(f(expr,m)),
@@ -163,9 +245,11 @@ export function runBisection(container) {
       0,
       Math.PI*2
     );
+
     ctx.fill();
 
     /* LABELS */
+
     ctx.fillStyle = "white";
     ctx.font = "14px Arial";
 
@@ -187,7 +271,6 @@ export function runBisection(container) {
       sy(f(expr,m))
     );
 
-    /* LEGEND */
     drawLegend(ctx,[
       {
         color:"#4cc9f0",
@@ -195,11 +278,11 @@ export function runBisection(container) {
       },
       {
         color:"red",
-        label:"Left Interval Endpoint (a)"
+        label:"Left Interval Endpoint"
       },
       {
         color:"lime",
-        label:"Right Interval Endpoint (b)"
+        label:"Right Interval Endpoint"
       },
       {
         color:"yellow",
@@ -222,85 +305,253 @@ export function runBisection(container) {
       `).join("");
   }
 
-  container.querySelector("#run").onclick = () => {
+  container
+    .querySelector("#reset")
+    .onclick = () => {
 
-    let expr = fn.value;
+      rows = [];
 
-    let a = +aIn.value;
-    let b = +bIn.value;
+      table.innerHTML = "";
 
-    rows = [];
+      status.innerHTML = "";
 
-    let step = 0;
+      ctx.clearRect(
+        0,
+        0,
+        W,
+        H
+      );
 
-    function iterate(){
+      drawAxes(
+        ctx,
+        W,
+        H
+      );
+    };
 
-      let mid = (a+b)/2;
+  container
+    .querySelector("#run")
+    .onclick = () => {
 
-      let fmid =
-        f(expr,mid);
+      let expr =
+        fn.value;
 
-      rows.push({
+      let a;
+      let b;
 
-        step,
+      try{
 
-        a:a.toFixed(4),
+        a = evaluateFunction(
+          aIn.value,
+          0
+        );
 
-        b:b.toFixed(4),
+        b = evaluateFunction(
+          bIn.value,
+          0
+        );
 
-        mid:mid.toFixed(4),
+      }catch{
 
-        fmid:fmid.toFixed(6)
+        status.innerHTML =
+          "❌ Invalid interval values. Examples: pi, e, sqrt(2), 3";
 
-      });
-
-      draw(expr,a,b,mid);
-
-      renderTable();
-
-      status.innerHTML = `
-        Iteration ${step}
-        |
-        Current Root Estimate:
-        <b>${mid.toFixed(6)}</b>
-        |
-        f(mid)=
-        ${fmid.toFixed(6)}
-      `;
+        return;
+      }
 
       if(
-        Math.abs(fmid) > 0.0001 &&
-        step < 12
+        !isFinite(a) ||
+        !isFinite(b)
       ){
 
+        status.innerHTML =
+          "❌ Invalid interval.";
+
+        return;
+      }
+
+      rows = [];
+
+      let step = 0;
+
+      let fa;
+      let fb;
+
+      try{
+
+        fa = f(expr,a);
+        fb = f(expr,b);
+
+      }catch(err){
+
+        status.innerHTML =
+          "❌ Function Error: " +
+          err.message;
+
+        return;
+      }
+
+      if(
+        fa * fb > 0
+      ){
+
+        status.innerHTML = `
+          ❌ Invalid Interval
+
+          <br><br>
+
+          f(a) and f(b) must have opposite signs.
+
+          <br>
+
+          f(a) = ${fa.toFixed(6)}
+
+          <br>
+
+          f(b) = ${fb.toFixed(6)}
+        `;
+
+        return;
+      }
+            function iterate(){
+
+        let mid =
+          (a+b)/2;
+
+        let fmid;
+
+        try{
+
+          fmid =
+            f(expr,mid);
+
+        }catch(err){
+
+          status.innerHTML =
+            "❌ Function Error: " +
+            err.message;
+
+          return;
+        }
+
+        rows.push({
+
+          step,
+
+          a:a.toFixed(6),
+
+          b:b.toFixed(6),
+
+          mid:mid.toFixed(6),
+
+          fmid:fmid.toFixed(8)
+
+        });
+
+        draw(
+          expr,
+          a,
+          b,
+          mid
+        );
+
+        renderTable();
+
+        status.innerHTML = `
+
+          Iteration:
+          <b>${step}</b>
+
+          <br>
+
+          Current Root Estimate:
+          <b>${mid.toFixed(8)}</b>
+
+          <br>
+
+          f(mid):
+          ${fmid.toFixed(8)}
+
+          <br>
+
+          Interval:
+          [${a.toFixed(6)},
+          ${b.toFixed(6)}]
+
+        `;
+
         if(
-          f(expr,a) * fmid < 0
+
+          Math.abs(fmid)
+          <
+          0.000001
+
         ){
+
+          status.innerHTML = `
+
+            ✅ Converged
+
+            <br><br>
+
+            Approximate Root:
+
+            <b>
+            ${mid.toFixed(10)}
+            </b>
+
+            <br>
+
+            f(root) =
+            ${fmid.toExponential(3)}
+
+          `;
+
+          return;
+        }
+
+        if(
+          step >= 20
+        ){
+
+          status.innerHTML += `
+
+            <br><br>
+
+            ⚠ Maximum iterations reached.
+
+          `;
+
+          return;
+        }
+
+        if(
+          fa * fmid < 0
+        ){
+
           b = mid;
-        } else {
+          fb = fmid;
+
+        }else{
+
           a = mid;
+          fa = fmid;
         }
 
         step++;
 
         setTimeout(
           iterate,
-          800
+          700
         );
       }
-      else {
 
-        status.innerHTML = `
-          ✅ Converged
+      iterate();
+    };
 
-          <br>
-
-          Approximate Root:
-          <b>${mid.toFixed(8)}</b>
-        `;
-      }
-    }
-
-    iterate();
-  };
+  drawAxes(
+    ctx,
+    W,
+    H
+  );
 }
