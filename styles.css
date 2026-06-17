@@ -246,3 +246,75 @@ button:disabled {
   background: rgba(255,255,255,0.15);
   border-radius: 10px;
 }
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+  .navbar {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .content h1 {
+    font-size: 34px;
+    line-height: 1.2;
+  }
+
+  .content h2 {
+    font-size: 26px;
+  }
+
+  .content h3 {
+    font-size: 20px;
+  }
+
+  .grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+  .card {
+
+    padding: 18px;
+
+    border-radius: 18px;
+  }
+
+  button {
+
+    width: 100%;
+
+    margin-top: 8px;
+  }
+
+  .hero-buttons {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+}
