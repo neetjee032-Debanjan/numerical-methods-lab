@@ -990,6 +990,76 @@ function renderHome() {
 
     </section>
 
+    <!-- DEVELOPER -->
+
+<section
+  id="developer"
+  style="margin-bottom:60px;"
+>
+
+  <h2
+    style="
+      font-size:38px;
+      margin-bottom:25px;
+      color:#93c5fd;
+    "
+  >
+    Developer
+  </h2>
+
+  <div
+    class="card"
+    style="
+      max-width:900px;
+      margin:auto;
+      padding:30px;
+    "
+  >
+
+    <h3
+      style="
+        font-size:28px;
+        margin-bottom:20px;
+      "
+    >
+      Debanjan Banerjee
+    </h3>
+
+    <p style="margin-bottom:12px;">
+      📧 Email:
+      banerjeedebanjan22@gmail.com
+    </p>
+
+    <p style="margin-bottom:12px;">
+      📞 Contact:
+      +91 9674888941
+    </p>
+
+    <p style="margin-bottom:12px;">
+      📍 Address:
+      Kolkata, West Bengal, India
+    </p>
+
+    <p
+      style="
+        margin-top:20px;
+        color:#cbd5e1;
+        line-height:1.8;
+      "
+    >
+      Developer and creator of the
+      Numerical Methods Learning Lab.
+      Designed to provide an interactive,
+      modern and comprehensive learning
+      experience for students,
+      engineers, researchers and
+      data science enthusiasts.
+    </p>
+
+  </div>
+
+</section>
+
     
         <!-- FOOTER -->
 
