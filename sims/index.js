@@ -26,6 +26,8 @@ import { runFFT } from "./fft.js";
 import { runAliasing } from "./aliasing.js";
 import { runSpectralLeakage } from "./spectralLeakage.js";
 
+import { runBinaryNumberSystem } from "./binaryNumberSystem.js";
+
 export const Simulations = {
 
   /* Root Finding */
@@ -43,6 +45,12 @@ export const Simulations = {
 
   "fixedpoint": runFixedPoint,
   "fixed-point": runFixedPoint,
+
+  /* Binary Number System */
+
+  "binary": runBinaryNumberSystem,
+  "binary-number-system": runBinaryNumberSystem,
+  "binarynumbersystem": runBinaryNumberSystem,
 
   /* Interpolation */
 
