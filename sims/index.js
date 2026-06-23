@@ -7,6 +7,8 @@ import { runCubicSpline } from "./cubicSpline.js";
 import { runFloatingPoint } from "./floatingPoint.js";
 import { runIEEE754 } from "./ieee754.js";
 import { runIntegration } from "./integration.js";
+import { runForwardDifference }
+from "./forwardDifference.js";
 import { runLagrange } from "./lagrange.js";
 import { runNewtonForward } from "./newtonForwardInterpolation.js";
 import { runNewtonBackwardInterpolation } from "./newtonBackwardInterpolation.js";
@@ -102,6 +104,12 @@ export const Simulations = {
   "simpson13": runSimpson13,
   "simpson-1-3": runSimpson13,
   "simpson": runSimpson13,
+
+  /* Numerical Differentiation */
+
+  "forwarddifference": runForwardDifference,
+
+"forward-difference": runForwardDifference,
 
   /* Differential Equations */
 
