@@ -894,3 +894,4 @@ ${quality}
 };
 
 redraw();
+}
