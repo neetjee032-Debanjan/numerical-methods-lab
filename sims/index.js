@@ -2,6 +2,7 @@ import { runNewton } from "./newton-raphson.js";
 import { runBisection } from "./bisection.js";
 import { runDecimalToBinary } from "./decimalToBinary.js";
 import { runBinaryArithmetic } from "./binaryArithmetic.js";
+import { runIEEE754 } from "./ieee754.js";
 import { runIntegration } from "./integration.js";
 import { runLagrange } from "./lagrange.js";
 import { runDE } from "./differential.js";
@@ -44,6 +45,10 @@ export const Simulations = {
 
   "decimaltobinary": runDecimalToBinary,
 "decimal-to-binary": runDecimalToBinary,
+
+  "ieee754": runIEEE754,
+"floatingpoint": runIEEE754,
+"floating-point": runIEEE754,
 
   "falseposition": runFalsePosition,
   "false-position": runFalsePosition,
