@@ -1,6 +1,7 @@
 import { runNewton } from "./newton-raphson.js";
 import { runBisection } from "./bisection.js";
 import { runDecimalToBinary } from "./decimalToBinary.js";
+import { runBinaryArithmetic } from "./binaryArithmetic.js";
 import { runIntegration } from "./integration.js";
 import { runLagrange } from "./lagrange.js";
 import { runDE } from "./differential.js";
@@ -37,6 +38,9 @@ export const Simulations = {
   "newton-raphson": runNewton,
 
   "bisection": runBisection,
+
+  "binaryarithmetic": runBinaryArithmetic,
+"binary-arithmetic": runBinaryArithmetic,
 
   "decimaltobinary": runDecimalToBinary,
 "decimal-to-binary": runDecimalToBinary,
