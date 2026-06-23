@@ -3,6 +3,8 @@ export const binaryArithmeticLesson = {
 
   title: "Binary Arithmetic",
 
+  simulation: "binaryarithmetic",
+
   pages: [
 
     {
