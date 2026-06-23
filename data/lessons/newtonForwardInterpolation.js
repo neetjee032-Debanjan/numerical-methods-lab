@@ -3,7 +3,7 @@ export const newtonForwardInterpolationLesson = {
 
   title: "Newton Forward Interpolation",
 
-  simulation: "newton-forward",
+simulation: "newtonforward",
 
   pages: [
 
