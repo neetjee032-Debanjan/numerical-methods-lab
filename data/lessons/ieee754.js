@@ -3,6 +3,8 @@ export const ieee754Lesson = {
 
   title: "IEEE 754 Floating Point Standard",
 
+  simulation: "ieee754",
+
   pages: [
 
     {
