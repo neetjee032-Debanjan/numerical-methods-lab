@@ -4,6 +4,7 @@ import { runDecimalToBinary } from "./decimalToBinary.js";
 import { runBinaryArithmetic } from "./binaryArithmetic.js";
 import { runFixedPointRepresentation } from "./fixedPointRepresentation.js";
 import { runCubicSpline } from "./cubicSpline.js";
+import { runCentralDifference } from "./centralDifference.js";
 import { runFloatingPoint } from "./floatingPoint.js";
 import { runIEEE754 } from "./ieee754.js";
 import { runIntegration } from "./integration.js";
@@ -112,6 +113,9 @@ export const Simulations = {
 
   "backwarddifference": runBackwardDifference,
 "backward-difference": runBackwardDifference,
+
+  "centraldifference": runCentralDifference,
+"central-difference": runCentralDifference,
 
   /* Differential Equations */
 
