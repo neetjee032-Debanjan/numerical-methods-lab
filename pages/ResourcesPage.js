@@ -1,77 +1,152 @@
-export function renderResources(app){
+import { resources } from "../data/resources.js";
 
-app.innerHTML = `
+export function renderResources(app) {
 
-<div style="
-padding:30px;
-max-width:1200px;
-margin:auto;
-">
+  app.innerHTML = `
 
-<h1 style="
-color:#60a5fa;
-margin-bottom:20px;
-">
-📚 Resources Hub
-</h1>
+  <div style="
+    max-width:1300px;
+    margin:auto;
+    padding:40px;
+  ">
 
-<p style="
-color:#94a3b8;
-margin-bottom:30px;
-">
-Access notes, books, PDFs,
-practice sheets and video lectures.
-</p>
+    <h1 style="
+      color:#60a5fa;
+      font-size:42px;
+      margin-bottom:10px;
+    ">
+      📚 Resources Hub
+    </h1>
 
-<div style="
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-">
+    <p style="
+      color:#94a3b8;
+      margin-bottom:40px;
+      font-size:18px;
+    ">
+      All learning resources for Numerical Methods are organized module-wise.
+      Click any module to explore notes, videos, books, formulas,
+      practice sheets, codes and simulations.
+    </p>
 
-<div class="card">
-<h3>📘 Interpolation</h3>
-<ul>
-<li>Lagrange Notes</li>
-<li>Newton Forward</li>
-<li>Newton Backward</li>
-<li>Cubic Spline</li>
-</ul>
-</div>
+    <div id="resourceGrid"
+      style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+      gap:28px;
+      ">
+    </div>
 
-<div class="card">
-<h3>📗 Numerical Integration</h3>
-<ul>
-<li>Trapezoidal Rule</li>
-<li>Simpson 1/3</li>
-<li>Simpson 3/8</li>
-</ul>
-</div>
+  </div>
 
-<div class="card">
-<h3>📕 Differential Equations</h3>
-<ul>
-<li>Euler Method</li>
-<li>Modified Euler</li>
-<li>Runge Kutta</li>
-</ul>
-</div>
+  `;
 
-<div class="card">
-<h3>📙 Root Finding</h3>
-<ul>
-<li>Bisection</li>
-<li>False Position</li>
-<li>Newton Raphson</li>
-<li>Secant Method</li>
-</ul>
-</div>
+  const grid =
+    document.getElementById("resourceGrid");
 
-</div>
+  resources.forEach(module=>{
 
-</div>
+    const card =
+      document.createElement("div");
 
-`;
+    card.style.cssText=`
+
+      background:#111827;
+      border-radius:18px;
+      padding:28px;
+      cursor:pointer;
+      transition:.25s;
+      border:1px solid #1f2937;
+
+    `;
+
+    card.onmouseenter=()=>{
+
+      card.style.transform="translateY(-6px)";
+      card.style.borderColor="#60a5fa";
+      card.style.boxShadow=
+      "0 20px 40px rgba(0,0,0,.35)";
+
+    };
+
+    card.onmouseleave=()=>{
+
+      card.style.transform="";
+      card.style.borderColor="#1f2937";
+      card.style.boxShadow="";
+
+    };
+
+    card.innerHTML=`
+
+      <div style="
+      font-size:42px;
+      margin-bottom:18px;
+      ">
+      ${module.icon}
+      </div>
+
+      <div style="
+      color:#94a3b8;
+      font-size:14px;
+      margin-bottom:6px;
+      ">
+      ${module.module}
+      </div>
+
+      <h2 style="
+      color:white;
+      margin:0;
+      font-size:24px;
+      ">
+      ${module.title}
+      </h2>
+
+      <div style="
+      color:#94a3b8;
+      margin-top:18px;
+      line-height:1.8;
+      ">
+
+      ${module.topics.map(t=>`• ${t}`).join("<br>")}
+
+      </div>
+
+      <button
+      style="
+      margin-top:28px;
+      width:100%;
+      padding:14px;
+      border:none;
+      border-radius:10px;
+      background:#2563eb;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+      ">
+      Open Resources →
+      </button>
+
+    `;
+
+    card.onclick=()=>{
+
+      openModule(module);
+
+    };
+
+    grid.appendChild(card);
+
+  });
+
+}
+function openModule(module){
+
+alert(
+
+module.title +
+
+"\n\nDetailed resources page will be built in the next step."
+
+);
 
 }
