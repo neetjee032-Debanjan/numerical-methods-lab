@@ -91,7 +91,7 @@ function router() {
 
     return;
   }
-}
+  
   // fallback
   renderHome();
 
