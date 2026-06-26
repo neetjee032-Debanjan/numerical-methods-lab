@@ -28,24 +28,21 @@ notes: [
 title:"Complete Root Finding Notes",
 type:"pdf",
 url:"",
-description:
-"Detailed theory covering all root-finding algorithms."
+description:"Detailed notes covering all root-finding methods."
 },
 
 {
 title:"Quick Revision Notes",
 type:"pdf",
 url:"",
-description:
-"One-page summary for quick revision."
+description:"Concise revision notes."
 },
 
 {
-title:"Formula Sheet",
+title:"Class Notes",
 type:"pdf",
 url:"",
-description:
-"Important formulas and convergence conditions."
+description:"Lecture notes."
 }
 
 ],
@@ -53,19 +50,24 @@ description:
 videos: [
 
 {
-title:"NPTEL Numerical Methods Playlist",
+title:"NPTEL Numerical Methods",
 type:"video",
 url:"",
-description:
-"Official NPTEL lectures on numerical methods."
+description:"Official NPTEL lecture."
 },
 
 {
-title:"Root Finding Methods Explained",
+title:"Root Finding Explained",
 type:"video",
 url:"",
-description:
-"Conceptual explanation with examples."
+description:"Conceptual explanation."
+},
+
+{
+title:"Worked Examples",
+type:"video",
+url:"",
+description:"Solved numerical problems."
 }
 
 ],
@@ -76,16 +78,14 @@ books: [
 title:"Numerical Analysis — Burden & Faires",
 type:"book",
 url:"",
-description:
-"Reference textbook."
+description:"Reference textbook."
 },
 
 {
 title:"Applied Numerical Methods — Chapra",
 type:"book",
 url:"",
-description:
-"Engineering-oriented reference."
+description:"Engineering applications."
 }
 
 ],
@@ -96,24 +96,21 @@ practice: [
 title:"Practice Set 1",
 type:"practice",
 url:"",
-description:
-"Basic problems."
+description:"Basic questions."
 },
 
 {
 title:"Practice Set 2",
 type:"practice",
 url:"",
-description:
-"Intermediate problems."
+description:"Advanced problems."
 },
 
 {
 title:"University PYQs",
 type:"practice",
 url:"",
-description:
-"Previous year university questions."
+description:"Previous year questions."
 }
 
 ],
@@ -121,19 +118,35 @@ description:
 code: [
 
 {
-title:"Python Implementations",
+title:"Python Programs",
 type:"code",
 url:"",
-description:
-"Python programs for all methods."
+description:"Python implementations."
 },
 
 {
-title:"MATLAB Implementations",
+title:"MATLAB Programs",
 type:"code",
 url:"",
-description:
-"MATLAB implementations."
+description:"MATLAB implementations."
+}
+
+],
+
+formulas: [
+
+{
+title:"Formula Sheet",
+type:"formula",
+url:"",
+description:"Important equations."
+},
+
+{
+title:"Convergence Conditions",
+type:"formula",
+url:"",
+description:"Conditions for convergence."
 }
 
 ],
