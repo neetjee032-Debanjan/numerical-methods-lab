@@ -6,14 +6,14 @@ import { ode } from "./resources/ode.js";
 
 export const resources = [
 
-rootFinding,
+  rootFinding,
 
-interpolation,
+  interpolation,
 
-differentiation,
+  differentiation,
 
-integration,
+  integration,
 
-ode
+  ode
 
 ];
