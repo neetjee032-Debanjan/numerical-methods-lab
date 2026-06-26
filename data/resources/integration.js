@@ -24,24 +24,21 @@ notes: [
 title:"Complete Numerical Integration Notes",
 type:"pdf",
 url:"",
-description:
-"Comprehensive notes covering numerical integration techniques."
+description:"Comprehensive notes covering numerical integration techniques."
 },
 
 {
 title:"Integration Formula Sheet",
 type:"pdf",
 url:"",
-description:
-"Quick reference containing all integration formulas and error expressions."
+description:"Important integration formulas and error expressions."
 },
 
 {
 title:"Quick Revision Notes",
 type:"pdf",
 url:"",
-description:
-"Compact revision notes for examinations."
+description:"Compact revision notes."
 }
 
 ],
@@ -52,24 +49,21 @@ videos: [
 title:"Numerical Integration - NPTEL",
 type:"video",
 url:"",
-description:
-"Official NPTEL lectures covering numerical integration."
+description:"Official NPTEL lecture series."
 },
 
 {
 title:"Trapezoidal & Simpson Rules Explained",
 type:"video",
 url:"",
-description:
-"Visual explanation of trapezoidal and Simpson methods."
+description:"Visual explanation with derivations."
 },
 
 {
-title:"Worked Numerical Examples",
+title:"Solved Numerical Examples",
 type:"video",
 url:"",
-description:
-"Step-by-step numerical integration problems."
+description:"Worked numerical integration problems."
 }
 
 ],
@@ -80,16 +74,14 @@ books: [
 title:"Numerical Analysis — Burden & Faires",
 type:"book",
 url:"",
-description:
-"Reference chapter on numerical integration."
+description:"Reference chapter."
 },
 
 {
 title:"Applied Numerical Methods — Chapra",
 type:"book",
 url:"",
-description:
-"Engineering applications of numerical integration."
+description:"Engineering integration techniques."
 }
 
 ],
@@ -100,24 +92,21 @@ practice: [
 title:"Practice Set 1",
 type:"practice",
 url:"",
-description:
-"Fundamental numerical integration problems."
+description:"Basic numerical integration problems."
 },
 
 {
 title:"Practice Set 2",
 type:"practice",
 url:"",
-description:
-"Advanced integration exercises."
+description:"Advanced numerical integration problems."
 },
 
 {
 title:"University PYQs",
 type:"practice",
 url:"",
-description:
-"Previous year university questions."
+description:"Previous year university questions."
 }
 
 ],
@@ -128,16 +117,32 @@ code: [
 title:"Python Programs",
 type:"code",
 url:"",
-description:
-"Python implementation of integration algorithms."
+description:"Python implementation of numerical integration."
 },
 
 {
 title:"MATLAB Programs",
 type:"code",
 url:"",
-description:
-"MATLAB implementation of integration algorithms."
+description:"MATLAB implementation of numerical integration."
+}
+
+],
+
+formulas: [
+
+{
+title:"Numerical Integration Formula Sheet",
+type:"formula",
+url:"",
+description:"Trapezoidal and Simpson's formulas."
+},
+
+{
+title:"Error Formula Summary",
+type:"formula",
+url:"",
+description:"Error terms and accuracy formulas."
 }
 
 ],
