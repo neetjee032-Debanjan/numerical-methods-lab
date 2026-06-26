@@ -1,4 +1,5 @@
 import { resources } from "../data/resources.js";
+import { renderModuleResources } from "./ModuleResourcesPage.js";
 
 export function renderResources(app) {
 
