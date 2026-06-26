@@ -142,12 +142,12 @@ export function renderResources(app) {
 }
 function openModule(module){
 
-alert(
+const app =
+document.getElementById("app");
 
-module.title +
-
-"\n\nDetailed resources page will be built in the next step."
-
+renderModuleResources(
+app,
+module
 );
 
 }
