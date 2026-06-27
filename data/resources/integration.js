@@ -152,7 +152,7 @@ simulators: [
 {
 title:"Trapezoidal Rule Laboratory",
 type:"simulation",
-hash:"#lesson-module4-trapezoidal-0"
+hash:"#lesson-module4-l6-0"
 },
 
 {
