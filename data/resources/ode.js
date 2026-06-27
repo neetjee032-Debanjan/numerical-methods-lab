@@ -21,24 +21,24 @@ resources: {
 notes: [
 
 {
-title:"Complete ODE Notes",
+title:"NPTEL Numerical Solution of ODEs Notes",
 type:"pdf",
-url:"",
-description:"Comprehensive notes covering numerical methods for solving ODEs."
+url:"https://archive.nptel.ac.in/content/storage2/courses/122104019/numerical-analysis/kadalbajoo/lec1/node8.html",
+description:"Official NPTEL notes covering Euler, Modified Euler and Runge-Kutta methods."
 },
 
 {
-title:"ODE Formula Sheet",
+title:"Python Numerical Methods - ODE Chapter",
 type:"pdf",
-url:"",
-description:"Important formulas for Euler, Modified Euler and Runge-Kutta methods."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter22.00-ODE-Initial-Value-Problems.html",
+description:"Berkeley Numerical Methods chapter explaining Euler and Runge-Kutta methods with illustrations."
 },
 
 {
-title:"Quick Revision Notes",
+title:"INFLIBNET Numerical Solution of ODEs",
 type:"pdf",
-url:"",
-description:"Compact notes for examination revision."
+url:"https://ebooks.inflibnet.ac.in/itp15/chapter/numerical-solution-of-ordinary-differential-equations/",
+description:"University learning module covering initial value problems."
 }
 
 ],
@@ -46,24 +46,24 @@ description:"Compact notes for examination revision."
 videos: [
 
 {
-title:"Numerical Solution of ODEs - NPTEL",
+title:"NPTEL Numerical Analysis (IIT Madras)",
 type:"video",
-url:"",
-description:"Official NPTEL lecture series."
+url:"https://nptel.ac.in/courses/111106101",
+description:"Official Numerical Analysis course covering numerical solution of ODEs."
 },
 
 {
-title:"Euler & Runge-Kutta Explained",
+title:"NPTEL Numerical Methods (IIT Roorkee)",
 type:"video",
-url:"",
-description:"Conceptual explanation with solved examples."
+url:"https://onlinecourses-archive.nptel.ac.in/noc18_ma11/course",
+description:"Official Numerical Methods course including Euler and Runge-Kutta methods."
 },
 
 {
-title:"Worked Numerical Examples",
+title:"NPTEL Engineering Mathematics",
 type:"video",
-url:"",
-description:"Step-by-step numerical problems."
+url:"https://onlinecourses.nptel.ac.in/",
+description:"Additional lectures on solving differential equations numerically."
 }
 
 ],
@@ -73,15 +73,15 @@ books: [
 {
 title:"Numerical Analysis — Burden & Faires",
 type:"book",
-url:"",
-description:"Reference chapter."
+url:"https://www.cengage.com/",
+description:"Reference textbook."
 },
 
 {
-title:"Applied Numerical Methods — Chapra",
+title:"Applied Numerical Methods — Steven Chapra",
 type:"book",
-url:"",
-description:"Engineering applications."
+url:"https://www.mheducation.com/",
+description:"Engineering applications of numerical ODE methods."
 }
 
 ],
@@ -89,24 +89,24 @@ description:"Engineering applications."
 practice: [
 
 {
-title:"Practice Set 1",
+title:"Berkeley Practice Problems",
 type:"practice",
-url:"",
-description:"Basic ODE problems."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter22.00-ODE-Initial-Value-Problems.html",
+description:"Exercises with detailed solutions."
 },
 
 {
-title:"Practice Set 2",
+title:"NPTEL Numerical Methods Assignments",
 type:"practice",
-url:"",
-description:"Advanced ODE exercises."
+url:"https://onlinecourses-archive.nptel.ac.in/noc18_ma11/course",
+description:"Assignments and worked examples."
 },
 
 {
-title:"University PYQs",
+title:"Open Numerical Analysis Exercises",
 type:"practice",
-url:"",
-description:"Previous year university questions."
+url:"https://open.umn.edu/opentextbooks/textbooks/925",
+description:"Additional university-level exercises."
 }
 
 ],
@@ -114,17 +114,17 @@ description:"Previous year university questions."
 code: [
 
 {
-title:"Python Programs",
+title:"Python ODE Programs",
 type:"code",
-url:"",
-description:"Python implementation of Euler and Runge-Kutta methods."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter22.00-ODE-Initial-Value-Problems.html",
+description:"Python implementation of Euler, Modified Euler and Runge-Kutta methods."
 },
 
 {
-title:"MATLAB Programs",
+title:"SciPy ODE Solver Documentation",
 type:"code",
-url:"",
-description:"MATLAB implementation of ODE methods."
+url:"https://docs.scipy.org/doc/scipy/reference/integrate.html",
+description:"Official SciPy documentation for solving ordinary differential equations."
 }
 
 ],
@@ -134,15 +134,15 @@ formulas: [
 {
 title:"ODE Formula Sheet",
 type:"formula",
-url:"",
+url:"https://archive.nptel.ac.in/content/storage2/courses/122104019/numerical-analysis/kadalbajoo/lec1/node8.html",
 description:"Euler, Modified Euler and Runge-Kutta formulas."
 },
 
 {
 title:"Error Formula Summary",
 type:"formula",
-url:"",
-description:"Local and global truncation error formulas."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter22.00-ODE-Initial-Value-Problems.html",
+description:"Local truncation error and global truncation error formulas."
 }
 
 ],
