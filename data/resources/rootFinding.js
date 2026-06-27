@@ -25,24 +25,24 @@ resources: {
 notes: [
 
 {
-title:"Complete Root Finding Notes",
+title:"NPTEL Root Finding Lecture Notes",
 type:"pdf",
-url:"",
-description:"Detailed notes covering all root-finding methods."
+url:"https://archive.nptel.ac.in/content/storage2/courses/112103022/module5/lec1/4.html",
+description:"Official NPTEL notes covering Bisection, False Position, Newton-Raphson and Secant methods."
 },
 
 {
-title:"Quick Revision Notes",
+title:"NPTEL Numerical Analysis Course Notes",
 type:"pdf",
-url:"",
-description:"Concise revision notes."
+url:"https://archive.nptel.ac.in/content/storage2/courses/122104019/numerical-analysis/Rathish-kumar/ratish-1/node1.html",
+description:"Introduction to nonlinear equations and root-finding methods."
 },
 
 {
-title:"Class Notes",
+title:"Open Numerical Analysis Textbook",
 type:"pdf",
-url:"",
-description:"Lecture notes."
+url:"https://open.umn.edu/opentextbooks/textbooks/925",
+description:"Free open textbook covering root finding and numerical analysis."
 }
 
 ],
@@ -50,24 +50,24 @@ description:"Lecture notes."
 videos: [
 
 {
-title:"NPTEL Numerical Methods",
+title:"NPTEL Numerical Analysis (IIT Madras)",
 type:"video",
-url:"",
-description:"Official NPTEL lecture."
+url:"https://nptel.ac.in/courses/111106101",
+description:"Complete lecture series covering Bisection, Newton-Raphson, Secant, False Position and Fixed Point methods."
 },
 
 {
-title:"Root Finding Explained",
+title:"NPTEL Numerical Methods & Programming",
 type:"video",
-url:"",
-description:"Conceptual explanation."
+url:"https://archive.nptel.ac.in/content/syllabus_pdf/122106033.pdf",
+description:"Official syllabus covering all root-finding algorithms."
 },
 
 {
-title:"Worked Examples",
+title:"NPTEL Numerical Analysis Course",
 type:"video",
-url:"",
-description:"Solved numerical problems."
+url:"https://nptel.ac.in/courses/127106019",
+description:"Dedicated lectures on nonlinear equations and root-finding."
 }
 
 ],
@@ -77,15 +77,15 @@ books: [
 {
 title:"Numerical Analysis — Burden & Faires",
 type:"book",
-url:"",
-description:"Reference textbook."
+url:"https://www.cengage.com/",
+description:"Standard reference textbook."
 },
 
 {
-title:"Applied Numerical Methods — Chapra",
+title:"Applied Numerical Methods — Steven Chapra",
 type:"book",
-url:"",
-description:"Engineering applications."
+url:"https://www.mheducation.com/",
+description:"Engineering-oriented numerical methods textbook."
 }
 
 ],
@@ -93,24 +93,24 @@ description:"Engineering applications."
 practice: [
 
 {
-title:"Practice Set 1",
+title:"NPTEL Practice Problems",
 type:"practice",
-url:"",
-description:"Basic questions."
+url:"https://nptel.ac.in/courses/111106101",
+description:"Official practice problems and assignments."
 },
 
 {
-title:"Practice Set 2",
+title:"Python Numerical Methods Exercises",
 type:"practice",
-url:"",
-description:"Advanced problems."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter19.00-Root-Finding.html",
+description:"Exercises with worked numerical examples."
 },
 
 {
-title:"University PYQs",
+title:"Course Reference Problems",
 type:"practice",
-url:"",
-description:"Previous year questions."
+url:"https://archive.nptel.ac.in/content/storage2/courses/122104019/numerical-analysis/Rathish-kumar/ratish-1/node1.html",
+description:"Example problems from NPTEL."
 }
 
 ],
@@ -118,17 +118,17 @@ description:"Previous year questions."
 code: [
 
 {
-title:"Python Programs",
+title:"Python Root Finding Programs",
 type:"code",
-url:"",
-description:"Python implementations."
+url:"https://python.ju.se/AppliedMaths/root_finding.html",
+description:"Python implementation of Bisection, Newton-Raphson, Secant and Fixed Point methods."
 },
 
 {
-title:"MATLAB Programs",
+title:"Python Numerical Methods Book (Root Finding)",
 type:"code",
-url:"",
-description:"MATLAB implementations."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter19.00-Root-Finding.html",
+description:"Complete Python implementations."
 }
 
 ],
@@ -136,17 +136,17 @@ description:"MATLAB implementations."
 formulas: [
 
 {
-title:"Formula Sheet",
+title:"Root Finding Formula Summary",
 type:"formula",
-url:"",
-description:"Important equations."
+url:"https://archive.nptel.ac.in/content/storage2/courses/112103022/module5/lec1/4.html",
+description:"Iteration formulas for all major methods."
 },
 
 {
-title:"Convergence Conditions",
+title:"Convergence Criteria",
 type:"formula",
-url:"",
-description:"Conditions for convergence."
+url:"https://archive.nptel.ac.in/content/storage2/courses/122104019/numerical-analysis/Rathish-kumar/ratish-1/node1.html",
+description:"Conditions for convergence and stopping criteria."
 }
 
 ],
