@@ -152,19 +152,19 @@ simulators: [
 {
 title:"Euler Method Laboratory",
 type:"simulation",
-hash:"#lesson-module5-euler-0"
+hash:"#lesson-m6-l7-0"
 },
 
 {
 title:"Modified Euler Laboratory",
 type:"simulation",
-hash:"#lesson-module5-modifiedeuler-0"
+hash:"#lesson-m6-l25-0"
 },
 
 {
 title:"Runge-Kutta Laboratory",
 type:"simulation",
-hash:"#lesson-module5-rungekutta-0"
+hash:"#lesson-m6-l24-0"
 }
 
 ]
