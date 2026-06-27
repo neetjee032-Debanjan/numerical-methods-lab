@@ -21,24 +21,24 @@ resources: {
 notes: [
 
 {
-title:"Complete Numerical Differentiation Notes",
+title:"NPTEL Numerical Differentiation Notes",
 type:"pdf",
-url:"",
-description:"Comprehensive notes covering numerical differentiation."
+url:"https://archive.nptel.ac.in/content/storage2/courses/122104019/numerical-analysis/kadalbajoo/lec1/node6.html",
+description:"Official NPTEL notes covering Forward, Backward and Central Difference methods."
 },
 
 {
-title:"Differentiation Formula Sheet",
+title:"Python Numerical Methods - Numerical Differentiation",
 type:"pdf",
-url:"",
-description:"Forward, backward and central difference formulas."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter20.00-Numerical-Differentiation.html",
+description:"Excellent illustrated notes from Berkeley covering finite difference approximations and higher-order derivatives."
 },
 
 {
-title:"Quick Revision Notes",
+title:"INFLIBNET Numerical Differentiation Module",
 type:"pdf",
-url:"",
-description:"Short revision notes."
+url:"https://ebooks.inflibnet.ac.in/itp15/chapter/numerical-differentiation-i/",
+description:"University e-learning module with detailed explanations and examples."
 }
 
 ],
@@ -46,24 +46,24 @@ description:"Short revision notes."
 videos: [
 
 {
-title:"Numerical Differentiation - NPTEL",
+title:"NPTEL Numerical Methods (IIT Roorkee)",
 type:"video",
-url:"",
-description:"Official NPTEL lectures."
+url:"https://onlinecourses-archive.nptel.ac.in/noc18_ma11/course",
+description:"Official Numerical Methods course including numerical differentiation."
 },
 
 {
-title:"Finite Difference Methods Explained",
+title:"NPTEL Numerical Analysis (IIT Madras)",
 type:"video",
-url:"",
-description:"Visual explanation of finite differences."
+url:"https://nptel.ac.in/courses/111106101",
+description:"Official Numerical Analysis course covering numerical differentiation and finite differences."
 },
 
 {
-title:"Solved Numerical Examples",
+title:"NPTEL Numerical Methods",
 type:"video",
-url:"",
-description:"Worked numerical differentiation examples."
+url:"https://onlinecourses-archive.nptel.ac.in/noc17_ma14/preview",
+description:"Complete undergraduate Numerical Methods course."
 }
 
 ],
@@ -73,15 +73,15 @@ books: [
 {
 title:"Numerical Analysis — Burden & Faires",
 type:"book",
-url:"",
-description:"Reference chapter."
+url:"https://www.cengage.com/",
+description:"Standard textbook reference."
 },
 
 {
-title:"Applied Numerical Methods — Chapra",
+title:"Applied Numerical Methods — Steven Chapra",
 type:"book",
-url:"",
-description:"Engineering differentiation techniques."
+url:"https://www.mheducation.com/",
+description:"Engineering-oriented numerical methods textbook."
 }
 
 ],
@@ -89,24 +89,24 @@ description:"Engineering differentiation techniques."
 practice: [
 
 {
-title:"Practice Set 1",
+title:"Berkeley Practice Problems",
 type:"practice",
-url:"",
-description:"Basic numerical differentiation problems."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter20.00-Numerical-Differentiation.html",
+description:"Practice exercises with solutions."
 },
 
 {
-title:"Practice Set 2",
+title:"NPTEL Numerical Methods Assignments",
 type:"practice",
-url:"",
-description:"Advanced numerical differentiation problems."
+url:"https://onlinecourses-archive.nptel.ac.in/noc18_ma11/course",
+description:"Assignments and examples from the official course."
 },
 
 {
-title:"University PYQs",
+title:"Open Numerical Analysis Exercises",
 type:"practice",
-url:"",
-description:"Previous year university questions."
+url:"https://open.umn.edu/opentextbooks/textbooks/925",
+description:"Additional practice problems."
 }
 
 ],
@@ -114,17 +114,17 @@ description:"Previous year university questions."
 code: [
 
 {
-title:"Python Programs",
+title:"Python Numerical Differentiation Programs",
 type:"code",
-url:"",
-description:"Python implementation of numerical differentiation."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter20.00-Numerical-Differentiation.html",
+description:"Python implementation of Forward, Backward and Central Difference methods."
 },
 
 {
-title:"MATLAB Programs",
+title:"NumPy Gradient Documentation",
 type:"code",
-url:"",
-description:"MATLAB implementation of numerical differentiation."
+url:"https://numpy.org/doc/stable/reference/generated/numpy.gradient.html",
+description:"Official NumPy documentation for numerical differentiation."
 }
 
 ],
@@ -132,17 +132,17 @@ description:"MATLAB implementation of numerical differentiation."
 formulas: [
 
 {
-title:"Numerical Differentiation Formula Sheet",
+title:"Finite Difference Formula Sheet",
 type:"formula",
-url:"",
-description:"Forward, backward and central difference formulas."
+url:"https://archive.nptel.ac.in/content/storage2/courses/122104019/numerical-analysis/kadalbajoo/lec1/node6.html",
+description:"Forward, Backward and Central Difference formulas."
 },
 
 {
-title:"Error Formula Summary",
+title:"Numerical Differentiation Error Formulae",
 type:"formula",
-url:"",
-description:"Truncation error and accuracy formulas."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter20.00-Numerical-Differentiation.html",
+description:"Truncation error derivations and order of accuracy."
 }
 
 ],
