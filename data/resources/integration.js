@@ -21,24 +21,24 @@ resources: {
 notes: [
 
 {
-title:"Complete Numerical Integration Notes",
+title:"NPTEL Numerical Integration Notes",
 type:"pdf",
-url:"",
-description:"Comprehensive notes covering numerical integration techniques."
+url:"https://archive.nptel.ac.in/content/storage2/courses/122104019/numerical-analysis/kadalbajoo/lec1/node7.html",
+description:"Official NPTEL notes covering Trapezoidal Rule, Simpson's Rules and error analysis."
 },
 
 {
-title:"Integration Formula Sheet",
+title:"Python Numerical Methods - Numerical Integration",
 type:"pdf",
-url:"",
-description:"Important integration formulas and error expressions."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter21.00-Numerical-Integration.html",
+description:"Excellent Berkeley notes explaining Trapezoidal and Simpson's methods with graphical illustrations."
 },
 
 {
-title:"Quick Revision Notes",
+title:"INFLIBNET Numerical Integration Module",
 type:"pdf",
-url:"",
-description:"Compact revision notes."
+url:"https://ebooks.inflibnet.ac.in/itp15/chapter/numerical-integration/",
+description:"University e-learning module explaining numerical integration techniques."
 }
 
 ],
@@ -46,24 +46,24 @@ description:"Compact revision notes."
 videos: [
 
 {
-title:"Numerical Integration - NPTEL",
+title:"NPTEL Numerical Analysis (IIT Madras)",
 type:"video",
-url:"",
-description:"Official NPTEL lecture series."
+url:"https://nptel.ac.in/courses/111106101",
+description:"Official Numerical Analysis course covering numerical integration."
 },
 
 {
-title:"Trapezoidal & Simpson Rules Explained",
+title:"NPTEL Numerical Methods (IIT Roorkee)",
 type:"video",
-url:"",
-description:"Visual explanation with derivations."
+url:"https://onlinecourses-archive.nptel.ac.in/noc18_ma11/course",
+description:"Complete Numerical Methods course including Trapezoidal and Simpson's Rules."
 },
 
 {
-title:"Solved Numerical Examples",
+title:"NPTEL Engineering Mathematics",
 type:"video",
-url:"",
-description:"Worked numerical integration problems."
+url:"https://onlinecourses.nptel.ac.in/",
+description:"Additional lectures on numerical integration."
 }
 
 ],
@@ -73,15 +73,15 @@ books: [
 {
 title:"Numerical Analysis — Burden & Faires",
 type:"book",
-url:"",
-description:"Reference chapter."
+url:"https://www.cengage.com/",
+description:"Standard textbook reference."
 },
 
 {
-title:"Applied Numerical Methods — Chapra",
+title:"Applied Numerical Methods — Steven Chapra",
 type:"book",
-url:"",
-description:"Engineering integration techniques."
+url:"https://www.mheducation.com/",
+description:"Engineering applications of numerical integration."
 }
 
 ],
@@ -89,24 +89,24 @@ description:"Engineering integration techniques."
 practice: [
 
 {
-title:"Practice Set 1",
+title:"Berkeley Practice Problems",
 type:"practice",
-url:"",
-description:"Basic numerical integration problems."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter21.00-Numerical-Integration.html",
+description:"Practice exercises with worked solutions."
 },
 
 {
-title:"Practice Set 2",
+title:"NPTEL Numerical Integration Assignments",
 type:"practice",
-url:"",
-description:"Advanced numerical integration problems."
+url:"https://onlinecourses-archive.nptel.ac.in/noc18_ma11/course",
+description:"Assignments and numerical problems."
 },
 
 {
-title:"University PYQs",
+title:"Open Numerical Analysis Exercises",
 type:"practice",
-url:"",
-description:"Previous year university questions."
+url:"https://open.umn.edu/opentextbooks/textbooks/925",
+description:"Additional university-level exercises."
 }
 
 ],
@@ -114,17 +114,17 @@ description:"Previous year university questions."
 code: [
 
 {
-title:"Python Programs",
+title:"Python Numerical Integration Programs",
 type:"code",
-url:"",
-description:"Python implementation of numerical integration."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter21.00-Numerical-Integration.html",
+description:"Python implementation of Trapezoidal Rule and Simpson's Rules."
 },
 
 {
-title:"MATLAB Programs",
+title:"SciPy Numerical Integration Documentation",
 type:"code",
-url:"",
-description:"MATLAB implementation of numerical integration."
+url:"https://docs.scipy.org/doc/scipy/reference/integrate.html",
+description:"Official SciPy integration library documentation."
 }
 
 ],
@@ -134,15 +134,15 @@ formulas: [
 {
 title:"Numerical Integration Formula Sheet",
 type:"formula",
-url:"",
-description:"Trapezoidal and Simpson's formulas."
+url:"https://archive.nptel.ac.in/content/storage2/courses/122104019/numerical-analysis/kadalbajoo/lec1/node7.html",
+description:"Trapezoidal Rule, Simpson's 1/3 Rule and Simpson's 3/8 Rule formulas."
 },
 
 {
 title:"Error Formula Summary",
 type:"formula",
-url:"",
-description:"Error terms and accuracy formulas."
+url:"https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter21.00-Numerical-Integration.html",
+description:"Error derivations and order of accuracy."
 }
 
 ],
